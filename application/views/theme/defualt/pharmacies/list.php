@@ -9,7 +9,7 @@
 
 	<!-- Main content -->
 	<section class="content">
-		
+
 	    <div class="row" id="pharm_row">
 		<div class="box-body">
 		    <div class="box-group" id="accordion">
@@ -51,7 +51,7 @@
 		    </div>
 		</div>
 	    </div>
-	    
+
 	    <div class="row" id="form_row">
 		<div class="box-body">
 		    <div class="box-group" id="accordion">
@@ -82,7 +82,7 @@
 					<input type="text" name="discount_amount" id="discount_amount" value="0" class="form-control" onkeyup="totalCal();">
 				    </div>
 				</div>
-                                
+
                                 <!-----Payment Amoount------->
 				<div class="form-group">
 				    <div class="input-group">
@@ -124,7 +124,7 @@
 		      </div>
 		    </div>
 		</div>
-	    
+
 		<div class="box-body">
 		    <div class="box-group" id="accordion">
 		      <div class="panel box box-default">
@@ -153,7 +153,7 @@
 		      </div>
 		    </div>
 		</div>
-		
+
 		<div class="box-body">
 		    <div class="box-group" id="accordion">
 		      <div class="panel box box-default">
@@ -183,7 +183,7 @@
 		      </div>
 		    </div>
 		</div>
-		
+
 		<div class="box-body">
 		    <div class="box-group" id="accordion">
 		      <div class="panel box box-default">
@@ -214,7 +214,7 @@
 		    </div>
 		</div>
 	    </div>
-	    
+
 	    <div class="row" id="form_table">
 		    <div class="col-xs-12">
 			    <div class="box">
@@ -260,7 +260,7 @@
 				    </div><!-- /.box-body -->
 			    </div><!-- /.box -->
 
-		    </div><!-- /.col -->			
+		    </div><!-- /.col -->
 
 	    </div><!-- /.row -->
 	</section><!-- /.content -->
@@ -289,18 +289,18 @@
     .fright{
 	float: right !important;
     }
-    
+
     body{
 	font-family: 'Kantumruy' !important;
 	color: black !important;
     }
     .handOver {
-	cursor: pointer; 
+	cursor: pointer;
 	cursor: hand;
     }
-    
+
 </style>
-	
+
 <script src="<?php echo $resources;?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script src="<?php echo $resources;?>plugins/jslibs/table.js"></script>
 <script src="<?php echo $resources;?>jquery-ui/jquery-ui.js" ></script>
@@ -318,12 +318,12 @@
 	$('#form_row').css('display','none');
 	$('#form_table').css('display','block');
         getVisitorList();
-        
+
         $('#inButtonPrint').click(function() {
             printInvoice(visitId);
         });
     });
-    
+
      function getSearch(){
         var e = event.keyCode;
         if(e == 13){
@@ -332,7 +332,7 @@
             addPatient(vals.split("=")[0]);
         }
     }
-    
+
     $("#btn_create").click(function(){
 	    $('#pharm_row').css('display','block');
 	    $('#form_row').css('display','none');
@@ -351,7 +351,7 @@
 	    $( '#mPrice' ).val(res[3]);
 	}
     }
-    
+
     function autoPatient(){
 	var dinput = $( 'input:focus' ).val();
 	var url = <?php echo '"'.$base_url.'index.php/patients/patient_auto_complete/"';?>;
@@ -375,7 +375,7 @@
 	    });
 	}
     }
-    
+
     function addPatient(code){
 	$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_id_by_patient_json/" + code,function (data){
 	    visitId = data.toString();
@@ -418,7 +418,7 @@
 
 	    $('#pharm_his').append(htmlView);
     }
-    
+
     function saveData(){
 	    var v1 = $('#m_medicine').val();
 	    var v2 = $('#mQty').val();
@@ -443,7 +443,7 @@
     }
 
     function getVisitorList(mySearch){
-        
+
         $(document).ajaxStart(function(){
             $("#wait").css("display", "block");
         });
@@ -475,22 +475,22 @@
 			htmlView += '</td>';
 		    htmlView += '</tr>';
 		});
-    
+
 		$("#icd10List").html(htmlView);
-		
+
 		$(document).ajaxComplete(function(){
                 $("#wait").css("display", "none");
             });
 
         });
     }
-    
+
     //visitor Leave
     function visitorLeave(ids){
-	$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){getVisitorList();}); 
-		             
+	$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){getVisitorList();});
+
     }
-    
+
     function loadPayHis(){
 	var htmlView = '';
 	var i = 0;
@@ -501,9 +501,9 @@
                     if(!isNaN(value.payments_amount)){
                         paidAmount = value.payments_amount;
                     }
-                    
+
                     discount = parseFloat(discount) + parseFloat(value.payments_discount);
-                    
+
 		    hpaid = parseFloat(hpaid) + (parseFloat(paidAmount)- parseFloat(value.payments_discount));
 		    i = i + 1;
 		    htmlView += '<tr>';
@@ -514,18 +514,18 @@
 			htmlView += '<td>' + value.payments_note + '</td>';
 		    htmlView += '</tr>';
 		});
-    
+
 		mainPaid = hpaid;
 		$("#pay_his").html(htmlView);
         });
     }
-    
+
     function printInvoice(vid){
 	$.post("<?php echo $base_url;?>index.php/prescriptions/view_form/10_"+vid,function (data){
 	    viewWindow(data);
 	});
     }
-    
+
     function editMedicine(ids){
         var hts1 = '';
         $.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_info_by_id/"+ids,function (data,status){
@@ -543,7 +543,7 @@
             $('#m_med').html(hts1);
         });
     }
-    
+
     function saveMedicine(ids){
             var v2 = $('#pQty').val();
             var v3 = $('#pPrice').val();
@@ -559,16 +559,16 @@
             });
 
     }
-    
+
     function frm_data(vid){
-	
+
 	loadPayHis();
-	
+
 	$('#totalAmount').val("");
 	$('#payment_amount').val("");
 	$('#remain_amount').val("");
 	$('#payment_desc').val("");
-	
+
 	var total = 0;
 	var discounts = 0;
 	var hts1 = '';
@@ -576,10 +576,10 @@
 	var i = 0;
 	var j = 0;
 	visitId = vid;
-	
+
 	$('#visitor_id').val(vid);
-	
-	
+
+
 	$.post("<?php echo $base_url;?>index.php/prescriptions/get_form_pay_data/10_"+vid,function (data){
 	    $.each(data, function(key,value) {
 		total += (parseFloat(value.items_qty) * parseFloat(value.items_prices));
@@ -608,85 +608,83 @@
 			hts2 += '<td class="myLeft">'+(parseFloat(value.items_qty) * parseFloat(value.items_prices))+'$</td>';
 		    hts2 += '</tr>';
 		}
-		
+
 	    });
-            
+
 	    hts2 += '<tr class="myTopBorder">';
 		hts2 += '<td colspan="5" class="myRight myBold">សរុប: </td>';
 		hts2 += '<td class="myLeft myBold">'+(parseFloat(total)).toFixed(2)+'$</td>';
 	    hts2 += '</tr>';
-	    
+
 	    hts2 += '<tr>';
 		hts2 += '<td colspan="5" class="myRight myBold">បញ្ចុះតម្លៃ: </td>';
 		hts2 += '<td class="myLeft myBold">'+(parseFloat(discounts) + parseFloat(discount)).toFixed(2)+'$</td>';
 	    hts2 += '</tr>';
-	    
+
 	    hts2 += '<tr>';
 		hts2 += '<td colspan="5" class="myRight myBold">សរុប: </td>';
 		hts2 += '<td class="myLeft myBold">'+(parseFloat(total) - (parseFloat(discounts) + parseFloat(discount))).toFixed(2)+'$</td>';
 	    hts2 += '</tr>';
-	    
+
 	    mainTotal = parseFloat(total) - (parseFloat(mainPaid) + (parseFloat(discounts) + parseFloat(discount)));
-	    
+
 	    $('#m_med').html(hts1);
 	    $('#m_ser').html(hts2);
 	    $('#totalAmount').val(mainTotal.toFixed(2)+'$');
 	});
     }
-    
+
     function payInvoice(ids){
 	$('#pharm_row').css('display','none');
 	$('#form_row').css('display','block');
 	$('#form_table').css('display','none');
-	
+
         visitId = ids;
 	frm_data(ids);
     }
-    
+
     function deleteItem(ids){
 	$.post("<?php echo $base_url;?>index.php/diagnostics/cancel_medicine/"+ids,function(data) {
 	    frm_data(visitId);
 	});
     }
-    
+
     function viewWindow(htms){
-	var myWindow = window.open("", "MsgWindow", "width=9000, height=7000");
-	myWindow.document.open("text/html", "replace");
-	myWindow.document.write(htms);
-	myWindow.document.close();
+				var myWindow = window.open("", "MsgWindow", "width=9000, height=7000");
+				myWindow.document.open("text/html", "replace");
+				myWindow.document.write(htms);
+				myWindow.document.close();
     }
 
-	
-    function totalCal(){
-	var total = $('#totalAmount').val();
-        var discount = $('#discount_amount').val();
-	var paids = $('#payment_amount').val();
-	
-	var remain = (parseFloat(paids) + parseFloat(discount)) - parseFloat(total);
 
-	$('#remain_amount').val(remain.toFixed(2));
+    function totalCal(){
+				var total = $('#totalAmount').val();
+		  	var discount = $('#discount_amount').val();
+				var paids = $('#payment_amount').val();
+				var remain = (parseFloat(paids) + parseFloat(discount)) - parseFloat(total);
+				$('#remain_amount').val(remain.toFixed(2));
     }
 
     function paid(){
-	var paidAmount = $('#payment_amount').val();
-        var discountAmount = $('#discount_amount').val();
-	var paidDesc = $('#payment_desc').val();
+					var paidAmount = $('#payment_amount').val();
+					var discountAmount = $('#discount_amount').val();
+					var paidDesc = $('#payment_desc').val();
 
-	/*alert(paidAmount+":"+paidDesc+":"+visitId);*/
-	$.post("<?php echo $base_url;?>index.php/pharmacies/paid_service/"+visitId,{amount: paidAmount, discount: discountAmount, desc: paidDesc},function(data) {
-	    if(mainTotal == 0){
-		$('#form_row').css('display','block');
-		$('#pharm_row').css('display','none');
-		$('#form_table').css('display','none');
-	    }else{
-		$('#form_row').css('display','none');
-		$('#pharm_row').css('display','none');
-		$('#form_table').css('display','block');
-	    }
-	    
-	    /*getVisitorList();*/
-            payInvoice(visitId);
-	});
+						/*alert(paidAmount+":"+paidDesc+":"+visitId);*/
+						$.post("<?php echo $base_url;?>index.php/pharmacies/paid_service/"+visitId,{amount: paidAmount, discount: discountAmount, desc: paidDesc},function(data) {
+						    if(mainTotal == 0){
+							$('#form_row').css('display','block');
+							$('#pharm_row').css('display','none');
+							$('#form_table').css('display','none');
+						    }else{
+							$('#form_row').css('display','none');
+							$('#pharm_row').css('display','none');
+							$('#form_table').css('display','block');
+						    }
+
+						    /*getVisitorList();*/
+					            payInvoice(visitId);
+						});
     }
-    
+
 </script>

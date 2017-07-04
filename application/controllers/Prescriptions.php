@@ -6,19 +6,19 @@ require_once ('Securities.php');
 
 // Definds Ipd
 class Prescriptions extends Securities {
-    
-/* 
+
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
 
     public function view_form(){
-	
+
 			// Check Session
 			$this->checkSession();
 			$numOrdernant = '';
-			    
+
 			$rtype = explode('_', $this->getUrlSegment3());
 			$this->WardModel->setPrintType($rtype[0]);
 			$this->DiagnosticModel->setVisitorId($rtype[1]);
@@ -37,24 +37,24 @@ class Prescriptions extends Securities {
 			// 	$numOrdernant = 4
 			// }
 			$data['frmData'] = $this->getPrintFrm($numOrdernant);
-			
+
 			/*if($rtype[0] == 10){
-			   $data['diaData'] = $this->getDiagnostic(); 
+			   $data['diaData'] = $this->getDiagnostic();
 			}*/
 
-		        $data['diaData'] = $this->getDiagnostic(); 
-		        $data['appData'] = $this->getAppoinment(); 
+		        $data['diaData'] = $this->getDiagnostic();
+		        $data['appData'] = $this->getAppoinment();
 			$data['frmId'] = $rtype[0];
 			$data['baseUrl'] = $this->getBaseUrl();
 			$data['resources'] = $this->getResources();
 			$this->LoadView('diagnostics/frm',$data);
     }
-    
+
     public function receipt_form(){
-	
+
 	// Check Session
 	$this->checkSession();
-	    
+
 	$rtype = explode('_', $this->getUrlSegment3());
 	$this->WardModel->setPrintType($rtype[0]);
 	$this->DiagnosticModel->setVisitorId($rtype[1]);
@@ -63,18 +63,18 @@ class Prescriptions extends Securities {
         $data['uphones'] = $this->getSession('phone');
 	$data['frm'] = $this->rc_type();
 	$data['frmData'] = $this->getPrintFrm();
-        $data['diaData'] = $this->getDiagnostic(); 
-        $data['appData'] = $this->getAppoinment(); 
+        $data['diaData'] = $this->getDiagnostic();
+        $data['appData'] = $this->getAppoinment();
 	$data['frmId'] = $rtype[0];
 	$data['baseUrl'] = $this->getBaseUrl();
 	$data['resources'] = $this->getResources();
 	$this->LoadView('diagnostics/frm_rc',$data);
     }
-    
+
     public function get_form_data(){
 	// Check Session
 	$this->checkSession();
-	    
+
 	$rtype = explode('_', $this->getUrlSegment3());
 	$this->WardModel->setPrintType($rtype[0]);
 	$this->DiagnosticModel->setVisitorId($rtype[1]);
@@ -83,19 +83,19 @@ class Prescriptions extends Securities {
         $data['uphones'] = $this->getSession('phone');
 	$data['frm'] = $this->rc_type();
 	$datas = $this->getPrintFrm();
-        $data['diaData'] = $this->getDiagnostic(); 
-        $data['appData'] = $this->getAppoinment(); 
+        $data['diaData'] = $this->getDiagnostic();
+        $data['appData'] = $this->getAppoinment();
 	$data['frmId'] = $rtype[0];
 	$data['baseUrl'] = $this->getBaseUrl();
 	$data['resources'] = $this->getResources();
-	
+
 	$this->restData($datas);
     }
-    
+
     public function get_form_pay_data(){
 	// Check Session
 	$this->checkSession();
-	    
+
 	$rtype = explode('_', $this->getUrlSegment3());
 	$this->WardModel->setPrintType($rtype[0]);
 	$this->DiagnosticModel->setVisitorId($rtype[1]);
@@ -105,20 +105,20 @@ class Prescriptions extends Securities {
         $data['uphones'] = $this->getSession('phone');
 	$data['frm'] = $this->rc_type();
 	$datas = $this->getPrintFrm();
-        $data['diaData'] = $this->getDiagnostic(); 
-        $data['appData'] = $this->getAppoinment(); 
+        $data['diaData'] = $this->getDiagnostic();
+        $data['appData'] = $this->getAppoinment();
 	$data['frmId'] = $rtype[0];
 	$data['baseUrl'] = $this->getBaseUrl();
 	$data['resources'] = $this->getResources();
-	
+
 	$this->restData($datas);
     }
 
 
     private function form_type(){
-	
+
 	$set_fm = '';
-	
+
 	if($this->WardModel->getPrintType() == '1'){
 	    $set_fm = 'Medicine and Cerom';
 	    $this->DiagnosticModel->setPrintType('13');
@@ -154,22 +154,22 @@ class Prescriptions extends Securities {
 	    $this->DiagnosticModel->setPrintType('0');
 	}elseif ($this->WardModel->getPrintType() == '10') {
 	    $set_fm = 'Invoice';
-	    $this->DiagnosticModel->setPrintType('0');    
+	    $this->DiagnosticModel->setPrintType('0');
 	}elseif ($this->WardModel->getPrintType() == '14') {
 	    $set_fm = 'Service';
-	    $this->DiagnosticModel->setPrintType('0');    
+	    $this->DiagnosticModel->setPrintType('0');
 	}else{
 	    $set_fm = 'Not In List';
 	}
-	
+
 	return $set_fm;
-	
+
     }
-    
+
     private function rc_type(){
-	
+
 	$set_fm = '';
-	
+
 	if($this->WardModel->getPrintType() == '1'){
 	    $set_fm = 'Medicine';
 	    $this->DiagnosticModel->setPrintType('5');
@@ -191,19 +191,19 @@ class Prescriptions extends Securities {
 	}else{
 	    $set_fm = 'Not In List';
 	}
-	
+
 	return $set_fm;
-	
+
     }
-    
-    function getPrintFrm($numOrdernant = ''){    	
+
+    function getPrintFrm($numOrdernant = ''){
 	return $this->DiagnosticModel->getFormPrint($numOrdernant);
     }
 
     function getDiagnostic(){
 	return $this->DiagnosticModel->getDiagnosticListByVisitorId();
     }
-    
+
     function getAppoinment(){
 	return $this->AppoinmentModel->getAppoinmentByVisitorId();
     }

@@ -6,22 +6,22 @@ require_once ('Securities.php');
 
 // Definds Pharmacy
 class Pharmacies extends Securities {
-	
+
 	// Define Index of Unit Fucntion
 	public function index() {
-	    
+
 	    // Check Session
 	    $this->checkSession();
-             
+
             $data = array();
-            
-            // Get Item Per Page 
+
+            // Get Item Per Page
 	    $data['item_per_page'] = $this->getSysConfig();
 
 	    // Get Count All Visitor
 	    $data['totals'] = $this->VisitorModel->getCountVisitor();
-            
-            // Get Translate Word to View 
+
+            // Get Translate Word to View
             $data = $this->getTranslate($data);
 
             // Load View
@@ -31,49 +31,50 @@ class Pharmacies extends Securities {
             $this->LoadView('pharmacies/list');
             $this->LoadView('template/footer');
         }
-	
+
 	function paid_service(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PaymentModel->setVisitorId($this->getUrlSegment3());
 	    $this->PaymentModel->setAmount($this->getPost('amount'));
             $this->PaymentModel->setDiscount($this->getPost('discount'));
 	    $this->PaymentModel->setDesc($this->getPost('desc'));
-	    
-	    $this->PaymentModel->add();	
-	    
+
+	    $this->PaymentModel->add();
+
 	}
-	
+
         // #################### JSON DATA ####################### //
 	function get_visitor_list_by_patient_id(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->VisitorModel->setPatientId($this->getUrlSegment3());
 	    $datas = $this->VisitorModel->getPatientVisit();
 	    $this->restData($datas);
 	}
-	
+
 	function get_visitor_payment_history(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PaymentModel->setVisitorId($this->getUrlSegment3());
 	    $datas = $this->PaymentModel->getVisitorPayHistory();
+			$this->logs('3','--- 99 -'.$this->db->last_query());
 	    $this->restData($datas);
 	}
-	
+
         // #################### Translate ####################### //
         // Translate to View
         function getTranslate($data = null){
-            
+
             // Define Default Language from Security to view
             @$data = $this->defTranslation($data);
-            
+
             // Translate
             $data['edit'] = $this->Lang('update');
             $data['delete'] = $this->Lang('delete');
@@ -92,7 +93,7 @@ class Pharmacies extends Securities {
             $data['c_total'] = $this->Lang('total');
             $data['leave'] = $this->Lang('b_leave');
             $data['view'] = $this->Lang('view');
-            
+
             $data['date'] = $this->Lang('date');
             $data['gender'] = $this->Lang('gender');
             $data['phone'] = $this->Lang('phone');
@@ -126,14 +127,14 @@ class Pharmacies extends Securities {
             $data['b_opd'] = $this->Lang('b_opd');
             $data['ipd'] = $this->Lang('ipd');
             $data['opd'] = $this->Lang('opd');
-            
-            
+
+
             // Menu Active
             $data['ac_payments'] = 'active';
-            
+
             return $data;
         }
-        
-        
+
+
 }
 ?>

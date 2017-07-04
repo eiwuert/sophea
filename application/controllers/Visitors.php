@@ -6,22 +6,22 @@ require_once ('Securities.php');
 
 // Definds Visitor
 class Visitors extends Securities {
-	
+
 	// Define Index of Unit Fucntion
 	public function index() {
-	    
+
 	    // Check Session
 	    $this->checkSession();
-             
+
             $data = array();
-            
-            // Get Item Per Page 
+
+            // Get Item Per Page
 	    $data['item_per_page'] = $this->getSysConfig();
 
 	    // Get Count All Visitor
 	    $data['totals'] = $this->VisitorModel->getCountVisitor();
-            
-            // Get Translate Word to View 
+
+            // Get Translate Word to View
             $data = $this->getTranslate($data);
 
             // Load View
@@ -31,12 +31,12 @@ class Visitors extends Securities {
             $this->LoadView('visitors/list');
             $this->LoadView('template/footer');
         }
-        
+
         function save_product(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-			
+
 	    $this->ProductModel->setId($this->getPost('product_id'));
 	    $this->ProductModel->setProductCode($this->getPost('product_code'));
 	    $this->ProductModel->setName($this->getPost('product_name'));
@@ -46,7 +46,7 @@ class Visitors extends Securities {
 	    $this->ProductModel->setUnitId($this->getPost('unit_id'));
 	    $this->ProductModel->setCategoryId($this->getPost('category_id'));
 	    $this->ProductModel->setDesc($this->getPost('product_desc'));
-            
+
             if($this->getPost('product_id') == NULL || $this->getPost('product_id') == ""){
 		    $this->ProductModel->add();
 	    }else{
@@ -54,9 +54,9 @@ class Visitors extends Securities {
 	    }
             // Write Log
             //$this->logs('3', 'Try to access application with user: '.$this->getPost('unit_name').' / '.$this->getPost('unit_desc'));
-            
+
 	}
-	
+
 	// Set Visitor Status For Leave
 	function visitor_leave_status(){
 	    // Status 0= Not Yet, 1= Cure, 2= Not Cure, 3= Refer Out, 4= Death
@@ -69,10 +69,10 @@ class Visitors extends Securities {
 
 	// Set Visitor Leave
 	function visitor_leave(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    // $leaveCode = $this->getUrlSegment3();	    
+	    // $leaveCode = $this->getUrlSegment3();
 	    // $this->VisitorModel->setId($leaveStatement);
 	    $this->VisitorModel->setCode($this->getUrlSegment3());
 	    $this->VisitorModel->setVisitorLeave();
@@ -82,37 +82,37 @@ class Visitors extends Securities {
 	    $this->PatientModel->setId($this->getPost('patient_id'));
 		$this->PatientModel->updatePatientReady();
 	}
-		
-	// Delete Product 
+
+	// Delete Product
         function delete_product(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-            
+
             $this->ProductModel->setId($this->getUrlSegment3());
             $this->ProductModel->delete();
-            
+
             // Write Log in to log file
             $this->logs('3', 'Delete '.$this->getUrlSegment1().' Product From List');
             $this->logs('4', 'Delete '.$this->getUrlSegment1().' Product From List');
         }
-	
+
         // #################### JSON DATA ####################### //
 	function get_visitor_list_by_patient_id(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->VisitorModel->setPatientId($this->getUrlSegment3());
 	    $datas = $this->VisitorModel->getPatientVisit();
 	    $this->restData($datas);
 	}
-	
-	function get_visitor_list(){  
-	    
+
+	function get_visitor_list(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    /*$this->VisitorModel->setStart($this->getPost('page_start'));
 	    $this->VisitorModel->setLimit($this->getPost('page_limit'));*/
@@ -122,73 +122,73 @@ class Visitors extends Securities {
             $this->restData($datas);
 	}
 
-	function get_count_patient_opd(){  
-	    
+	function get_count_patient_opd(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->VisitorModel->setVisitorEnrol();
             $datas = $this->VisitorModel->getCountAllVisitor();
             $this->restData($datas);
 	}
-	
-	function get_count_patient_ipd(){  
-	    
+
+	function get_count_patient_ipd(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->VisitorModel->setVisitorStay();
             $datas = $this->VisitorModel->getCountAllVisitor();
             $this->restData($datas);
 	}
-	
-	function pharmacy_get_visitor_list(){  
-	    
+
+	function pharmacy_get_visitor_list(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
-            $datas = $this->VisitorModel->getAllVisitorPay();
-            $this->restData($datas);
+      $datas = $this->VisitorModel->getAllVisitorPay();
+			$this->logs('3','==========>'.$this->db->last_query());
+      $this->restData($datas);
 	}
 
-	function get_visitor_id_by_patient_json(){ 
-	    
+	function get_visitor_id_by_patient_json(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
             $this->VisitorModel->setPatientId($this->getUrlSegment3());
             $datas = $this->VisitorModel->getVisitorByPatient();
             $this->restData($datas);
-	}	
-	
-	function get_visitor_info_by_id_json(){ 
-	    
+	}
+
+	function get_visitor_info_by_id_json(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
             $this->PatientModel->setId($this->getUrlSegment3());
             $datas = $this->PatientModel->getPatientById();
             $this->restData($datas);
 	}
-        
-        function get_visitor_history_by_id_json(){ 
-	    
+
+        function get_visitor_history_by_id_json(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
             $this->PatientModel->setId($this->getUrlSegment3());
             $datas = $this->PatientModel->getPatientHistoryById();
             $this->restData($datas);
 	}
-	
+
         // #################### Translate ####################### //
         // Translate to View
         function getTranslate($data = null){
-            
+
             // Define Default Language from Security to view
             @$data = $this->defTranslation($data);
-            
+
             // Translate
             $data['edit'] = $this->Lang('update');
             $data['delete'] = $this->Lang('delete');
@@ -207,7 +207,7 @@ class Visitors extends Securities {
             $data['c_total'] = $this->Lang('total');
             $data['leave'] = $this->Lang('b_leave');
             $data['view'] = $this->Lang('view');
-            
+
             $data['date'] = $this->Lang('date');
             $data['gender'] = $this->Lang('gender');
             $data['phone'] = $this->Lang('phone');
@@ -241,14 +241,14 @@ class Visitors extends Securities {
             $data['b_opd'] = $this->Lang('b_opd');
             $data['ipd'] = $this->Lang('ipd');
             $data['opd'] = $this->Lang('opd');
-            
-            
+
+
             // Menu Active
             $data['ac_visitors'] = 'active';
-            
+
             return $data;
         }
-        
-        
+
+
 }
 ?>

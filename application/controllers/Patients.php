@@ -930,7 +930,6 @@ class Patients extends Securities {
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
             $this->VisitorModel->setVisitorStatusSearch($this->getPost('ipd').','.$this->getPost('opd').','.$this->getPost('pharm'));
             $datas = $this->VisitorModel->getAllVisited();
-            $this->logs('3','-------MM-----------------> '.$this->db->last_query());
             $this->restData($datas);
 	}
 
@@ -972,6 +971,13 @@ class Patients extends Securities {
         $this->PatientModel->setId($this->getUrlSegment3());
         $datas = $this->PatientModel->getEditPatientById();
         $this->restData($datas);
+	}
+
+	function get_patient_visited(){
+			$this->checkSession();
+			$this->PatientModel->setId($this->getUrlSegment3());
+			$data = $this->PatientModel->getPatientVisitedByPid();
+			$this->restData($data);
 	}
 
 	function get_patient_watting_byid(){
