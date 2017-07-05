@@ -55,14 +55,13 @@ class Neonatals extends Securities {
             $this->NeonatalModel->setDob(date('Y-m-d',strtotime($this->getPost('neonatalDob'))));
             $this->NeonatalModel->setTime($this->getPost('neonatalTime'));
 
-            $chCode = $this->NeonatalModel->getNeoById();
-            $this->logs('3','---------'.$chCode->result());
-            foreach($chCode as $key=>$val){
-                $getChCode = $val->neonatal_code;
-                // $code_neo = $this->NeonatalModel->update($val->neonatal_code);
-                $this->logs('3','---------'.$getChCode);
+            $ccode = $this->NeonatalModel->getNeoById();
+            foreach ($ccode as $row){
+                $getCheckCodeNeo = $row->neonatal_id;
             }
-
+            $this->NeonatalModel->setCode($getCheckCodeNeo);
+            $code_neo = $this->NeonatalModel->update();
+            // do update service
             $this->VisitorModel->setCode($code_neo);
             $this->getInsertIntoVisitor($this->getPost('neonatalPatientId'),$this->getPost('neonatalId'), $code_neo);
            	// Write Log
@@ -98,12 +97,10 @@ class Neonatals extends Securities {
         function delete_neonatal(){
             // Check Session
             $this->checkSession();
-            $this->logs('3','ppppppppppppppppppppppppp'.$this->getPost('neonatal_code'));
-            exit();
                 $this->NeonatalModel->setCode($this->getPost('neonatal_code'));
                 $this->NeonatalModel->setId($this->getUrlSegment3());
-                $this->NeonatalModel->delete();
-
+                $p = $this->NeonatalModel->delete();
+                $this->logs('3','000--->'.$p);
                 // Write Log in to log file
                 $this->logs('3', 'Delete '.$this->getUrlSegment1().' Neonatal From List');
                 $this->logs('4', 'Delete '.$this->getUrlSegment1().' Neonatal From List');

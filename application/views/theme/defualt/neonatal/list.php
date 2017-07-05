@@ -14,7 +14,7 @@
 			    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 			    <h4><i class="icon fa fa-check"></i> Save Sucessfull!</h4>
 			</div>
-	    </div>           
+	    </div>
 		<div class="row" id="form_row" style="display: none;">
 			<div class="col-md-6">
 				<div class="box box-danger">
@@ -32,7 +32,7 @@
 								      <?php echo @$parents;?>
 								</div>
 								<input type="text" id="neonatal_patient" style="text-align:center;padding: 0px !important;" class="form-control" placeholder="Family">
-								
+
 							</div>
 						</div> -->
 						<!--Neonatal Kh Name-->
@@ -64,7 +64,7 @@
 								</div>
 								<input type="text" name="neonatal_weight" id="neonatal_weight" class="form-control">
 							</div>
-						</div>					
+						</div>
 						<!--Neonatal DOB-->
 						<div class="form-group">
 							<div class="input-group">
@@ -73,7 +73,7 @@
 								</div>
 								<input type="text" name="neonatal_dob" id="neonatal_dob" class="form-control">
 							</div>
-						</div>				
+						</div>
 						<!--Neonatal Time-->
 						<div class="form-group">
 							<div class="input-group">
@@ -82,7 +82,7 @@
 								</div>
 								<input type="text" name="neonatal_time" id="neonatal_time" class="form-control">
 							</div>
-						</div>	
+						</div>
 
 						<!-- Submit -->
 					    <div class="form-group">
@@ -90,8 +90,8 @@
 						    <input type="submit" class="form-control btn-primary" id="submit_edit" value="<?php echo @$create;?>">
 						  </div>
 					    </div>
-													
-			    		
+
+
 			    	</div>
 			   	</div>
 			</div>
@@ -215,7 +215,7 @@
 	    pagination();
 	    $( "#neonatal_dob" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
     });
-    
+
     function getSearch(){
         var e = event.keyCode;
         if(e == 13){
@@ -230,7 +230,7 @@
 	    $('#form_table').css('display','none');
 	    $('#title_name').html('/ Create');
     });
-	
+
 	//insert Data
     $("#submit_edit").click(function(){
 	    saveEdit();
@@ -274,7 +274,7 @@
                         htmlView +=' <span title="<?php echo @$delete;?>"><i class="fa fa-trash-o action-btn danger" onclick="deleteNeonatal(' + value.neonatal_id + ',\'' + value.neonatal_code + '\');"></i></span>';
                     htmlView += '</td>';
                 	htmlView += '</tr>';
-            		
+
             	});
 
             	$("#neonatalList").html(htmlView);
@@ -290,12 +290,12 @@
 		var totalRecord = <?php echo @$totals;?>;
 		var pageLimit = <?php echo @$item_per_page;?>;
 		var mySearch = $(':focus').val();;
-		
+
 		$('#total_record').html(totalRecord);
-		
+
 		pageStartTop = parseInt(pageStartTop) + 1;
 		var pageStart = pageStartTop;
-		
+
 		getNeoList(mySearch,pageStart,pageLimit);
 	}
 
@@ -319,10 +319,10 @@
 	// 	}
 	// });
 
-	// view edit   
+	// view edit
     function editNeonatal(ids){
 		 $('#msgs').css('display','none');
-		 
+
 		 $('#form_row').css('display','block');
 		 $('#form_table').css('display','none');
 		 $('#submit_edit').val('Update');
@@ -341,75 +341,75 @@
 					}
 					$('#neonatal_weight').val(value.neonatal_weight);
 					$('#neonatal_dob').val($.datepicker.formatDate('dd-mm-yy', new Date(value.neonatal_dob)));
-					$('#neonatal_time').val(value.neonatal_time);				
+					$('#neonatal_time').val(value.neonatal_time);
 			});
-			
+
 		 });
     }
     function saveEdit(){
-		var baseUrl = <?php echo "'".$base_url."'"?>;
-		var redirects = "";
-        var red = '';
-		var neonatalId = $('#neonatal_id').val();
-		var neonatalPatientCode = $('#neonatal_patient_code').val();
-		var neonatalPatientId = $('#neonatal_patient_id').val();
-		var neonatalName = $('#neonatal_name').val();
-		var neonatalGender = $('#neonatal_gender').val();
-		var neonatalWeight = $('#neonatal_weight').val();
-		var neonatalDob = $('#neonatal_dob').val();		
-		var neonatalTime = $('#neonatal_time').val();
+				var baseUrl = <?php echo "'".$base_url."'"?>;
+				var redirects = "";
+		    var red = '';
+				var neonatalId = $('#neonatal_id').val();
+				var neonatalPatientCode = $('#neonatal_patient_code').val();
+				var neonatalPatientId = $('#neonatal_patient_id').val();
+				var neonatalName = $('#neonatal_name').val();
+				var neonatalGender = $('#neonatal_gender').val();
+				var neonatalWeight = $('#neonatal_weight').val();
+				var neonatalDob = $('#neonatal_dob').val();
+				var neonatalTime = $('#neonatal_time').val();
 
-		var opd = $('#chNeoOpd:checked').val();
-		var neoSimpleIcu = $('#chNeoSimpleIcu:checked').val();
-		var neoComplicatedIcu = $('#chNeoComplicatedIcu:checked').val();
+				var opd = $('#chNeoOpd:checked').val();
+				var neoSimpleIcu = $('#chNeoSimpleIcu:checked').val();
+				var neoComplicatedIcu = $('#chNeoComplicatedIcu:checked').val();
 
-		// if(ipds == '1'){
-		// 	redirects = "ipd";
-		//     red = baseUrl+"index.php/ipds";
-		// }else if(opds == '1'){
-		// 	redirects = "opd";
-		//     red = baseUrl+"index.php/diagnostics";
-		// }else{
-		// 	redirects = "no";
-		// }
+				// if(ipds == '1'){
+				// 	redirects = "ipd";
+				//     red = baseUrl+"index.php/ipds";
+				// }else if(opds == '1'){
+				// 	redirects = "opd";
+				//     red = baseUrl+"index.php/diagnostics";
+				// }else{
+				// 	redirects = "no";
+				// }
 
-		$.post("<?php echo $base_url;?>index.php/neonatals/save_neonatal",{
-		    neonatalId: neonatalId,
-		    neonatalPatientId: neonatalPatientId,
-		    neonatalPatientCode: neonatalPatientCode,
-		    neonatalName: neonatalName,
-		    neonatalGender: neonatalGender,
-		    neonatalWeight: neonatalWeight,
-		    neonatalDob: neonatalDob,
-		    neonatalTime :neonatalTime,
+				$.post("<?php echo $base_url;?>index.php/neonatals/save_neonatal",{
+				    neonatalId: neonatalId,
+				    neonatalPatientId: neonatalPatientId,
+				    neonatalPatientCode: neonatalPatientCode,
+				    neonatalName: neonatalName,
+				    neonatalGender: neonatalGender,
+				    neonatalWeight: neonatalWeight,
+				    neonatalDob: neonatalDob,
+				    neonatalTime :neonatalTime,
 
-		    opd: opd,
-			neoSimpleIcu: neoSimpleIcu,
-			neoComplicatedIcu: neoComplicatedIcu,
+				    opd: opd,
+					neoSimpleIcu: neoSimpleIcu,
+					neoComplicatedIcu: neoComplicatedIcu,
 
-		},function(data){
-			
-			$('#neonatal_patient_id').val('');
-		    $("#neonatalList").html('');
-		    pageStartTop = '0';
-		    $('#msgs').css('display','block');
-		    /*pagination();*/
-		});		
-		$('#form_row').css('display','none');
-		$('#form_table').css('display','block');
+				},function(data){
+
+					$('#neonatal_patient_id').val('');
+				    $("#neonatalList").html('');
+				    pageStartTop = '0';
+				    $('#msgs').css('display','block');
+				    /*pagination();*/
+				});
+				$('#form_row').css('display','none');
+				$('#form_table').css('display','block');
         window.location = red;
 	}
 	function deleteNeonatal(ids, codes){
-	     $.post("<?php echo $base_url;?>index.php/neonatals/delete_neonatal/"+ids,{neonatal_id: ids, neonatal_code: neonatal_code},function(data,status){}); 
-	     pagination();            
+	     $.post("<?php echo $base_url;?>index.php/neonatals/delete_neonatal/"+ids,{neonatal_id: ids, neonatal_code: codes},function(data,status){});
+	     pagination();
 	}
-    function viewOptEcho(){
-        // alert('ECHO');
-    }
-    function viewOptVaccination(){
-        // alert('viewOptVaccination');
-    }
-    function viewOptIcu(){
-        // alert('icu');
-    }
+  function viewOptEcho(){
+      // alert('ECHO');
+  }
+  function viewOptVaccination(){
+      // alert('viewOptVaccination');
+  }
+  function viewOptIcu(){
+      // alert('icu');
+  }
 </script>

@@ -421,10 +421,10 @@
 									echo '<a href="'.$base_url.'index.php/diagnostics/p_chNeoOpd"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoOpd.' </a>';
 								echo '</li>';
 								echo '<li class="'.@$ac_p_chNeoSimpleIcu.'">';
-									echo '<a href="'.$base_url.'index.php/diagnostics/p_chNeoSimpleIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoSimpleIcu.' </a>';
+									echo '<a href="'.$base_url.'index.php/ipds/p_chNeoSimpleIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoSimpleIcu.' </a>';
 								echo '</li>';
 								echo '<li class="'.@$ac_p_chNeoComplicatedIcu.'">';
-									echo '<a href="'.$base_url.'index.php/diagnostics/p_chNeoComplicatedIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoComplicatedIcu.' </a>';
+									echo '<a href="'.$base_url.'index.php/ipds/p_chNeoComplicatedIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoComplicatedIcu.' </a>';
 								echo '</li>';
 							echo '</ul>';
 						//}
@@ -474,10 +474,10 @@
 									echo '<a href="'.$base_url.'index.php/diagnostics/n_chNeoOpd"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoOpd.' </a>';
 								echo '</li>';
 								echo '<li class="'.@$ac_p_chNeoSimpleIcu.'">';
-									echo '<a href="'.$base_url.'index.php/diagnostics/n_chNeoSimpleIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoSimpleIcu.' </a>';
+									echo '<a href="'.$base_url.'index.php/ipds/n_chNeoSimpleIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoSimpleIcu.' </a>';
 								echo '</li>';
 								echo '<li class="'.@$ac_p_chNeoComplicatedIcu.'">';
-									echo '<a href="'.$base_url.'index.php/diagnostics/n_chNeoComplicatedIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoComplicatedIcu.' </a>';
+									echo '<a href="'.$base_url.'index.php/ipds/n_chNeoComplicatedIcu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_p_chNeoComplicatedIcu.' </a>';
 								echo '</li>';
 							echo '</ul>';
 						//}

@@ -11,21 +11,21 @@ class Dao extends CI_Model{
  * @modified: 19/01/2016 @
  * @@@@@@@@@@@@@@@@@@@@@@@
  * */
- 
+
 	function __construct(){
 		parent::__construct();
-                
+
 			// Load Database Configure and Connection
 			$this->load->database();
-			
+
 			// Load File Helper to use file read or write
 			$this->load->helper ( "file" );
 			$this->load->helper ( "date" );
-			
+
 			// Load Library
 			$this->load->library ( "session" );
 		}
-	
+
         // ########################## Log #################################
         // Define Log
         private $writeLog = "true";
@@ -43,7 +43,7 @@ class Dao extends CI_Model{
         private function disWriteLog(){
             $this->writeLog = "false";
         }
-        
+
         // Query Log
         private function getQueryLog(){
             return $this->queyrLog;
@@ -54,7 +54,7 @@ class Dao extends CI_Model{
         private function disQueryLog(){
             $this->queyrLog = "false";
         }
-        
+
         // Custom Query Log
         private function getCustomQueryLog(){
             return $this->customQueryLog;
@@ -72,7 +72,7 @@ class Dao extends CI_Model{
 	function getTblPre($prefix,$table_name){
 		return $prefix.$table_name;
 	}
-        
+
 	// Get Company ID
 	function getCompanyId(){
 		$com_id = $this->getSession('company_id');
@@ -93,7 +93,7 @@ class Dao extends CI_Model{
 			return "false";
 		}
 	}
-	
+
 	// Check if Null
 	function testNull($data){
 		if($data == null){
@@ -102,20 +102,20 @@ class Dao extends CI_Model{
 			return "false";
 		}
 	}
-	
+
 	// ########################### Query Action #################################
 	// Get All Data From a Table
 	function getAll($table_name){
                 $this->db->cache_on();
 		$query = $this->db->get($table_name);
                 $this->db->cache_off();
-                
+
                 // Write Query Log
 		$this->queryLog();
-                
+
 		return $query->result();
 	}
-	
+
 	// Get All Data From a Table Where
 	function getAllWhere($table_name,$select,$where_con){
 		if($select == '' || $select == null){
@@ -124,10 +124,10 @@ class Dao extends CI_Model{
 		$this->db->select($select);
 		$this->db->where($where_con);
 		$query = $this->db->get($table_name);
-                
+
                 // Write Query Log
 		$this->queryLog();
-		
+
                 return $query->result();
 	}
 
@@ -135,10 +135,10 @@ class Dao extends CI_Model{
 	function getById($table_name,$key,$value){
 		$this->db->where($key,$value);
 		$query = $this->db->get($table_name);
-		
+
                 // Write Query Log
 		$this->queryLog();
-                
+
 		return $query->result();
 	}
 
@@ -147,10 +147,10 @@ class Dao extends CI_Model{
 		$this->db->select($key);
 		$this->db->where($param,$value);
 		$query = $this->db->get($table_name);
-		
+
                 // Write Query Log
 		$this->queryLog();
-                
+
 		return $query->result();
 	}
 
@@ -172,16 +172,16 @@ class Dao extends CI_Model{
 	function updateData($table_name,$arr_data,$key,$value){
 		$this->db->where($key,$value);
 		$this->db->update($table_name, $arr_data);
-		
+
                 // Write Query Log
 		$this->queryLog();
 	}
-        
+
         // Update Data to Table
 	function updateDataWhere($table_name,$arr_data,$where){
 		$this->db->where($where);
 		$this->db->update($table_name, $arr_data);
-		
+
                 // Write Query Log
 		$this->queryLog();
 	}
@@ -190,15 +190,14 @@ class Dao extends CI_Model{
 	function deleteData($table_name,$key,$value){
 		$this->db->where($key, $value);
 		$this->db->delete($table_name);
-		
+
                 // Write Query Log
 		$this->queryLog();
 	}
-        function deleteDataWhere($table_name,$where){
+  function deleteDataWhere($table_name,$where){
 		$query = " DELETE FROM ".$table_name." WHERE ".$where;
-                $this->executeScalar($query);
-		
-                // Write Query Log
+    $this->executeScalar($query);
+    // Write Query Log
 		$this->queryLog();
 	}
 
@@ -208,10 +207,10 @@ class Dao extends CI_Model{
 			$this->db->where($where_con);
 		}
 		$count = $this->db->count_all_results($table_name);
-		
+
                 // Write Query Log
 		$this->queryLog();
-                
+
 		return $count;
 	}
 	// Get Join Count All Data From a Table
@@ -222,7 +221,7 @@ class Dao extends CI_Model{
                     if($select == '' || $select == null){
                             $qr .= " *";
                     }else{
-                            $qr .= $select; 
+                            $qr .= $select;
                     }
                     $qr .= " FROM ".$from;
                     if($where == '' || $where == null){
@@ -235,23 +234,23 @@ class Dao extends CI_Model{
                 }
 
 		$query = $this->db->query($qr);
-		
+
                 // Write Query Log
 		$this->queryLog();
-                
+
 		return $query->num_rows();
 	}
 
 	// Manual Select Query
 	function executeQuery($select = "",$from = "",$where = ""){
-                
+
             $qr = "";
             if(($from <> '' || $from <> NULL) && ($where <> '' || $where <> NULL)){
                     $qr = " SELECT ";
                     if($select == '' || $select == null){
                             $qr .= " *";
                     }else{
-                            $qr .= $select; 
+                            $qr .= $select;
                     }
                     $qr .= " FROM ".$from;
                     if($where == '' || $where == null){
@@ -264,29 +263,29 @@ class Dao extends CI_Model{
                 }
 
 		$query = $this->db->query($qr);
-		
+
                 // Write Query Log
 		$this->queryLog();
-                
+
 		return $query->result();
 	}
 
 		// Manual Select Last Query ID
 	function executeLastQueryId($from = "",$order= "",$by=""){
-                
-            $qr = " SELECT * ";            
+
+            $qr = " SELECT * ";
             $qr .= " FROM ".$from;
-            $qr .= " order by ".$order." ".$by;            
-                
-		$query = $this->db->query($qr);                
+            $qr .= " order by ".$order." ".$by;
+
+		$query = $this->db->query($qr);
 		return $query;
 	}
-        
+
         // Manual Insert Update
         function executeScalar($query = ''){
             if($this->testNothing($query) == 'false'){
                 $this->db->query($query);
-                
+
                 $log_data = $this->getSession('user_id').':'.$this->getSession('username').' ====> Execute Query ====> '.$query;
 		$this->writeLog($log_data);
             }
@@ -324,7 +323,7 @@ class Dao extends CI_Model{
                     }
                 }
 	}
-        
+
         // Get Current Date and DateTime
 	function getCurrentDate(){
 		$datestring = '%Y-%m-%d';
@@ -350,7 +349,7 @@ class Dao extends CI_Model{
 	function setSession($key,$value){
 		$this->session->set_userdata($key,$value);
 	}
-        
+
         // Check if have session
         function checkSession(){
             $companies_id = $this->getSession('companies_id');
@@ -361,7 +360,7 @@ class Dao extends CI_Model{
                 redirect($prev_url);
             }
         }
-        
+
         // ################### Setter & Getter Array ###################### //
         // Set Array
         function setArrayData($key,$value){
@@ -369,9 +368,9 @@ class Dao extends CI_Model{
             if($value <> '' || $value <> null || $value <> '-'){
                 $this->data[$key] = $value;
             }
-            
+
             //$this->customQueryLog($key.':'.$value);
-            
+
         }
         function getArrayData(){
             return $this->data;
@@ -379,7 +378,7 @@ class Dao extends CI_Model{
         function setArrayDataNothing(){
             $this->data = array();
         }
- 
+
 }
 
 /* End of file dao.php */

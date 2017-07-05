@@ -857,8 +857,7 @@ class Patients extends Securities {
 				// 	$this->VisitorModel->add();
 				// }
 	}
-
-		// Set Neo
+	// Set Neo
 	function patient_neo(){
 	    // Check Session
 	    $this->checkSession();
@@ -866,7 +865,7 @@ class Patients extends Securities {
 	    $this->NeonatalModel->setPatientId($this->getUrlSegment3());
 	    $this->NeonatalModel->add();
 	}
-        // Set Visitor Opd
+  // Set Visitor Opd
 	function patient_pharm(){
 
 	    // Check Session
@@ -877,7 +876,6 @@ class Patients extends Securities {
 	    $this->VisitorModel->getVisitorStayDate($this->getCurrentDatetime());
 	    $this->VisitorModel->add();
 	}
-
 	// Set Visitor Opd
 	function patient_opd(){
 	    // Check Session

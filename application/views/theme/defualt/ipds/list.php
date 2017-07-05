@@ -17,7 +17,7 @@
 			<div class="col-xs-12">
 				<div class="box" style="padding:10px !important;">
 					<div class="box-body" id="dia_form">
-						
+
 					</div>
 				</div>
 			</div>
@@ -28,7 +28,7 @@
 					<div class="box-body">
 						<div class="col-sm-12" style="text-align:center;"><h4><b> <?php echo @$h_visitor;?> : (<span id="p_code"></span>) </b></h4></div>
 					</div>
-					
+
 					<div class="box box-primary" style="padding:10px !important;">
 						<div class="box-body">
 							<div class="col-sm-4">
@@ -45,7 +45,7 @@
 								<p> <?php echo @$emergencyPhone;?> : <span id="v_emergencyPhone"></span></p>
 								<p> <?php echo @$address;?> : <span id="v_address"></span></p>
 							</div>
-							
+
 							<div class="col-sm-6" style="padding-left:70px;">
 								<div class="box-header">
 									<h3 class="box-title"><?php echo @$contact;?></h3>
@@ -59,7 +59,7 @@
 								<p> <?php echo @$bankCard2;?> : <span id="v_bankCard2"></span></p>
 								<p> <?php echo @$studentCard;?> : <span id="v_studentCard"></span></p>
 							</div>
-							
+
 							<div class="col-sm-2">
 								<div class="box-header">
 									<h3 class="box-title"><?php echo @$disease;?></h3>
@@ -72,21 +72,21 @@
 								<p><?php echo @$endocrine;?> : <span id="v_endocrine"></span></p>
 								<p><?php echo @$neuro_sys;?> : <span id="v_neuro_sys"></span></p>
 							</div>
-							
+
 						</div>
 					</div>
-                                    
-                                        <div class="box box-primary" style="padding:10px !important;">
-						<div class="box-body" id="bhistory">
-                                                    
-                                                </div>
-                                        </div>
-					
+
+		        <div class="box box-primary" style="padding:10px !important;">
+									<div class="box-body" id="bhistory">
+
+		              </div>
+		        </div>
+
 				</div>
 			</div>
 		</div>
-		
-		
+
+
 		<div class="row" id="form_table">
 			<div class="col-xs-12">
 				<div class="box">
@@ -142,15 +142,15 @@
 					</div><!-- /.box-body -->
 				</div><!-- /.box -->
 
-			</div><!-- /.col -->			
-			
+			</div><!-- /.col -->
+
 		</div><!-- /.row -->
 	</section><!-- /.content -->
 </div>
 
 <style>
     .handOver {
-	cursor: pointer; 
+	cursor: pointer;
 	cursor: hand;
     }
 </style>
@@ -160,7 +160,7 @@
     $(document).ready(function(){
         pagination();
     });
-    
+
      function getSearch(){
         var e = event.keyCode;
         if(e == 13){
@@ -170,20 +170,20 @@
             pagination(ids);
         }
     }
-    
+
     $("#btn_create").click(function(){
 		$('#form_row').css('display','block');
 		$('#form_table').css('display','none');
 		$('#title_name').html('/ Create');
 	});
-	
+
 	//insert Data
     $("#submit_edit").click(function(){
 		saveEdit();
 	});
-    
+
     function getIpdList(mySearch,pageStart,pageLimit){
-        
+
         $(document).ajaxStart(function(){
             $("#wait").css("display", "block");
         });
@@ -205,7 +205,7 @@
             	 }else{
             	 	v_name = value.patient_kh_name;
             		v_code = value.patient_code;
-            	 }            	
+            	 }
 
                 	htmlView += '<tr ' + stRow + '>';
                     htmlView += '<td>' + v_code + '</td>';
@@ -225,18 +225,18 @@
                     htmlView += '</td>';
                 htmlView += '</tr>';
             });
-    
+
             $("#ipdList").html(htmlView);
-            
+
             $(document).ajaxComplete(function(){
                 $("#wait").css("display", "none");
             });
 
         });
     }
-    
-    
-    
+
+
+
     function viewVisitor(ids){
 		 $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
 		 function(data,status){
@@ -254,7 +254,7 @@
 				$('#v_assuranceCompany').html(value.patient_assurance_company);
 				$('#v_motorCard').html(value.patient_motor_card);
 				$('#v_carCard').html(value.patient_car_card);
-				
+
 				$('#v_bankCard1').html(value.patient_bank_card1);
 				$('#v_bankCard2').html(value.patient_bank_card2);
 				$('#v_studentCard').html(value.patient_student_card);
@@ -264,7 +264,7 @@
 				}else{
 					$('#v_gender').html('Female');
 				}
-				
+
 				if(value.patient_status == '1'){
 					$('#v_status').html('Single');
 				}else{
@@ -305,23 +305,23 @@
 				}else{
 					$('#v_neuro_sys').html('Yes');
 				}
-				
+
 			});
 		 });
 		 $('#visitor_view_form').css('display','block');
 		 $('#form_table').css('display','none');
     }
-    
+
     function saveEdit(){
 		var icd10Id = $('#icd10_id').val();
 		var icd10Code = $('#icd10_code').val();
-		var icd10Desc = $('#icd10_desc').val();		
+		var icd10Desc = $('#icd10_desc').val();
 		$.post("<?php echo $base_url;?>index.php/icd10s/save_icd10",{
 				icd10_id: icd10Id,
 				icd10_code: icd10Code,
 				icd10_desc: icd10Desc
 			},function(data,status){
-		
+
 		});
 		pagination();
 		$('#form_row').css('display','none');
@@ -329,28 +329,28 @@
     }
     //visitor Leave
     function visitorLeave(ids){
-		$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){}); 
-		pagination();            
+		$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){});
+		pagination();
     }
-    
-    
+
+
     function viewWindow(htms){
             var myWindow = window.open("", "MsgWindow", "width=9000, height=7000");
             myWindow.document.open("text/html", "replace");
             myWindow.document.write(htms);
             myWindow.document.close();
     }
-    
-      
+
+
     /* Jquery Pagination */
     function pagination(ids){
-		
+
 		/* Past Variable from Controller [totalRecord, Item Per Page] */
 		var totalRecord = <?php echo $totals;?>;
 		var pageLimit = <?php echo $item_per_page;?>;
-		
+
 		var totalPage = Math.ceil(parseInt(totalRecord)/parseInt(pageLimit));
-		
+
 		//alert(totalPage);
 		if(parseInt(totalRecord) > parseInt(pageLimit)){
 			var atId = '';
@@ -368,7 +368,7 @@
 				$('#pg3').text(parseInt(atId)+3);
 			}else{
 				atId = $("#"+ids+"").text();
-				
+
 				if((parseInt(totalPage) - parseInt(atId)) <= 2){
 					if((parseInt(totalPage) - parseInt(atId)) == 2){
 						$('#pg2').removeClass('pg-active');
@@ -381,11 +381,11 @@
 					}else if((parseInt(totalPage) - parseInt(atId)) == 0){
 						$('#pg1').removeClass('pg-active');
 						$('#pg2').removeClass('pg-active');
-						$('#pg3').addClass('pg-active');				
+						$('#pg3').addClass('pg-active');
 					}else{
 						atId = $("#"+ids+"").text();
 					}
-					
+
 					$('#pg1').text(parseInt(totalPage) - 2);
 					$('#pg2').text(parseInt(totalPage) - 1);
 					$('#pg3').text(totalPage);
@@ -395,15 +395,15 @@
 					$('#pg3').text(parseInt(atId)+2);
 				}
 			}
-			
+
 			var pdno = $('.pg-active').text();
 			if(parseInt(pdno) == 1){
 				$('#pg0').css('display','none');
 			}else if(parseInt(pdno) > 1){
 				$('#pg0').css('display','block');
-				
+
 				if((parseInt(totalPage) - parseInt(pdno)) <= 2){
-					$('#pg4').css('display','none');			
+					$('#pg4').css('display','none');
 				}else{
 					$('#pg4').css('display','block');
 				}
@@ -414,7 +414,7 @@
 				var pageStart = (parseInt(pdno) - 1) * parseInt(pageLimit);
 				pageStartTop = pageStart;
 			}
-			
+
 		}else{
 			$('#pg0').css('display','none');
 			$('#pg1').css('display','none');
@@ -426,49 +426,49 @@
 		/*  Post 3 parameter [ strSearch, Start, Limit]*/
 		getIpdList(mySearch,pageStart,pageLimit);
 	}
-	
+
 	function addPrescription(ids){
 		$.post("<?php echo $base_url;?>index.php/diagnostics/add/"+ids,function(data,status){
 			$("#dia_form").html(data);
 		});
 		$("#form_table").css('display','none');
 		$("#diagnostic_form").css('display','block');
-		 
+
 	}
-        
+
         function getFormateDate(date) {
             var dt = date.split("-")
             var day = dt[2];
             var month = dt[1];
             var year = dt[0];
-            
-            
+
+
             var ages = ageCals(year);
             return day + '/' + month + '/' + year + '   (' + ages + ')';
         }
-        
+
         function ageCals(age){
 	    var today = new Date();
 	    var yyyy = today.getFullYear() - parseInt(age);
-            
+
             return yyyy;
 	}
-        
+
         function getFormateDateNoAge(date) {
             var dt = date.split("-")
             var day = dt[2].split(" ")[0];
             var month = dt[1];
             var year = dt[0];
-            
+
             return day + '/' + month + '/' + year;
         }
-        
+
         /* *********************   Function History *********************** */
         function viewVisitor(ids){
 		 $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
 		 function(data,status){
 			$.each(data, function(key,value) {
-                                
+
 				$('#p_code').html(value.patient_code);
 				$('#kh_name').html(value.patient_kh_name);
 				$('#en_name').html(value.patient_en_name);
@@ -482,7 +482,7 @@
 				$('#v_assuranceCompany').html(value.patient_assurance_company);
 				$('#v_motorCard').html(value.patient_motor_card);
 				$('#v_carCard').html(value.patient_car_card);
-				
+
 				$('#v_bankCard1').html(value.patient_bank_card1);
 				$('#v_bankCard2').html(value.patient_bank_card2);
 				$('#v_studentCard').html(value.patient_student_card);
@@ -492,7 +492,7 @@
 				}else{
 					$('#v_gender').html('Female');
 				}
-				
+
 				if(value.patient_status == '1'){
 					$('#v_status').html('Single');
 				}else{
@@ -533,7 +533,7 @@
 				}else{
 					$('#v_neuro_sys').html('Yes');
 				}
-                                
+
                                 var inDate = getFormateDateNoAge(value.visitors_in_date);
                                 $('#bhistory').append(inDate+'<hr/>');
                                 getDia(value.visitors_id);
@@ -545,10 +545,10 @@
 		 $('#visitor_view_form').css('display','block');
 		 $('#form_table').css('display','none');
                  $('#form_row').css('display','none');
-                 
+
         }
-        
-        
+
+
         function getDia(ids){
 	    var i = 0;
             var htms = '<table id="tbl4" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="4" style="background: yellow;"> Diagnostic </td></tr><tr style="background: #b9b9b5;"><td>Type</td><td>Diagnostic</td><td>Level</td><td>Description</td></tr>';
@@ -573,27 +573,27 @@
                         htms += '</tr>';
                     }
 		});
-                
+
                 htms += '</table>';
                 $('#bhistory').append(htms);
 	    });
 	}
-        
+
         function getMedicine(ids){
 	    var i = 0;
             var htmlView = '<table id="tbl5" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="8" style="background: yellow;"> Medicine </td></tr><tr style="background: #b9b9b5;"><td>កាលបរិច្ឆេទ</td><td>ឈ្មោះថ្នាំ</td><td>ចំនួន</td><td>តំលៃ</td><td>ព្រឹក</td><td>ថ្ងៃ</td><td>ល្ងាច</td><td>យប់</td></tr>';
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_list/"+ids,function (data,status){
 		$.each(data, function(key,value) {
-		    
+
 		    i = i + 1;
-                    
+
                     htmlView += '<tr class="bloom-row-2">';
                         htmlView += '<td  colspan="2" style="text-align:center !important;">Assign By</td>';
                         htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_from+'</td>';
                         htmlView += '<td  colspan="2" style="text-align:center !important;">Assign To</td>';
                         htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_to+'</td>';
                     htmlView += '</tr>';
-                    
+
 		    htmlView += '<tr>';
 			htmlView += '<td  style="text-align:center !important;">'+$.datepicker.formatDate('dd-mm-yy', new Date(value.items_modified))+'</td>';
 			if(value.forms_name == null || value.forms_name == ''){
@@ -601,7 +601,7 @@
 			}else{
 			    htmlView += '<td  style="text-align:center !important;">'+value.products_name+'('+value.products_code+')-['+value.forms_name+']</td>';
 			}
-			
+
 			htmlView += '<td  style="text-align:center !important;">'+value.items_qty+' '+ value.units_name+'</td>';
 			htmlView += '<td  style="text-align:center !important;">$'+value.items_prices+'</td>';
 			htmlView += '<td  style="text-align:center !important;">'+value.mediacines_am+'</td>';
@@ -609,7 +609,7 @@
 			htmlView += '<td  style="text-align:center !important;">'+value.mediacines_pm+'</td>';
 			htmlView += '<td  style="text-align:center !important;">'+value.mediacines_nt+'</td>';
 		    htmlView += '</tr>';
-		    
+
 		    if(value.items_time != '' || value.items_detail != ''){
 			htmlView += '<tr>';
 			    htmlView += '<td  colspan="2" style="text-align:center !important;">ពេល៖</td>';
@@ -620,7 +620,7 @@
 			    htmlView += '<td  colspan="6" style="text-align:center;">'+value.items_detail+'</td>';
 			htmlView += '</tr>';
 		    }
-                    
+
                     if(value.forms_name == 'Erbium Yag Laser'){
 			htmlView += "<tr class='bloom-row'>";
 			    htmlView += '<td colspan="4">Pulse With Us</td>';
@@ -631,20 +631,20 @@
 			    htmlView += '<td colspan="4">' + value.energy_mj + '</td>';
 			htmlView += "</tr>";
 		    }
-		    
+
 		});
-		
+
                 htmlView += "</table>";
 		$('#bhistory').append(htmlView);
 	    });
 	}
-        
+
         function getService(ids){
 	    var i = 0;
             var htmlView = '<table id="tbl6" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="13" style="background: yellow;"> Service </td></tr><tr style="background: #b9b9b5;"><td colspan="2">កាលបរិច្ឆេទ</td><td colspan="3">ឈ្មោះសេវាកម្ម</td><td colspan="2">តំលៃ</td><td colspan="2">បញ្ចុះ</td><td colspan="2">ចំនួន</td><td colspan="2">សរុប</td></tr>';
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_service_list/"+ids,function (data,status){
 		$.each(data, function(key,value) {
-		    
+
 		    i = i + 1;
 
 		    htmlView += '<tr class="bloom-row-2">';
@@ -653,7 +653,7 @@
                         htmlView += '<td  colspan="3" style="text-align:center !important;">Assign To</td>';
                         htmlView += '<td  colspan="4" style="text-align:center;">'+value.assign_to+'</td>';
                     htmlView += '</tr>';
-                    
+
 		    htmlView += "<tr>";
 			htmlView += '<td colspan="2">'+ $.datepicker.formatDate('dd-mm-yy', new Date(value.items_modified)) +'</td>';
 			if(value.forms_name == null || value.forms_name == ''){
@@ -667,9 +667,9 @@
                         var amountPrice = (parseFloat(value.items_qty) * parseFloat(value.items_prices)) - parseFloat(value.items_discount);
 			htmlView += '<td colspan="2">$'+ amountPrice.toFixed(2) +'</td>';
 		    htmlView += "</tr>";
-		    
+
 		    htmlView += "<tr><td colspan='5'>Descrition</td><td colspan='9'>"+ value.items_detail +"</td></tr>";
-		    
+
 		    if(value.forms_name == 'Q-Switch Laser'){
 			htmlView += "<tr class='bloom-row'>";
 			    htmlView += '<td colspan="2">Lens</td>';
@@ -742,12 +742,12 @@
 			htmlView += "</tr>";
 		    }
 		});
-                
+
                 htmlView += "</table>";
                 $('#bhistory').append(htmlView);
 	    });
 	}
-        
+
         function getNote(ids){
 	    var i = 0;
 	    var htmlView = '<table id="tbl7" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="2" style="background: yellow;"> Note </td></tr>';
@@ -758,10 +758,10 @@
 				htmlView += '<td  style="text-align:center !important;">'+value.notes_detail+'</td>';
 		    htmlView += '</tr>';
 		});
-		
+
                 htmlView += "</table>";
                 $('#bhistory').append(htmlView);
 	    });
 	}
-    
+
 </script>

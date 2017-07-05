@@ -31,7 +31,7 @@
                           <div class="input-group-addon">
                                 <?php echo @$enName;?>
                           </div>
-                          <input type="text" name="patient_kh_name" id="patient_kh_name" class="form-control">
+                          <input type="text" name="patient_kh_name" id="patient_kh_name" cla	ss="form-control">
                           <input type="text" name="patient_id" id="patient_id" style="display:none;">
                           <input type="text" name="patient_code" id="patient_code" style="display:none;">
                         </div>
@@ -1647,19 +1647,19 @@ function patientNeo(ids, codes){
     $.post("<?php echo $base_url;?>index.php/patients/patient_neo/"+ids,{patients_id: ids, patients_code: codes},function(data,status){
       window.location = "<?php echo $base_url;?>index.php/neonatals";
     });
-        //window.location = "<?php echo $base_url;?>index.php/neonatals/index/"+ids;
-  }
-  function patientOpd(ids, codes){
-    $.post("<?php echo $base_url;?>index.php/patients/patient_opd/"+ids,{patients_id: ids, patients_code:codes},function(data,status){
-      window.location = "<?php echo $base_url;?>index.php/diagnostics";
-    });
-  }
+    //window.location = "<?php echo $base_url;?>index.php/neonatals/index/"+ids;
+}
+function patientOpd(ids, codes){
+  $.post("<?php echo $base_url;?>index.php/patients/patient_opd/"+ids,{patients_id: ids, patients_code:codes},function(data,status){
+    window.location = "<?php echo $base_url;?>index.php/diagnostics";
+  });
+}
 
-  function patientIpd(ids, codes){
-    $.post("<?php echo $base_url;?>index.php/patients/patient_ipd/"+ids,{patients_id: ids, patients_code:codes},function(data,status){
-      window.location = "<?php echo $base_url;?>index.php/ipds";
-    });
-  }
+function patientIpd(ids, codes){
+  $.post("<?php echo $base_url;?>index.php/patients/patient_ipd/"+ids,{patients_id: ids, patients_code:codes},function(data,status){
+    window.location = "<?php echo $base_url;?>index.php/ipds";
+  });
+}
 
 function editPatient(ids){
     $('.disPatientNew').css("display","block");
@@ -1836,6 +1836,7 @@ function editPatient(ids){
 										}else if(osVal.visitors_status == 109){
 												$('#chNeoComplicatedIcu').prop('checked', true);
 										}else if(osVal.visitors_status == 1){
+		// OPD SELECTED
 												$('#opd').prop('checked', true);
 										    $('#openOptOpd').css('display','block');
 										}else if(osVal.visitors_status == 10){
@@ -1901,7 +1902,161 @@ function editPatient(ids){
 										}else if(osVal.visitors_status == 30){
 												$('#o_icu').prop('checked', true);
 										    $('#openOptOpd').css('display','block');
-										}else{ $('#o_icu').prop('checked', false); }
+										}else if(osVal.visitors_status == 2){
+	// IPD SELECTED
+												$('#ipd').prop('checked', true);
+									    	$('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 36){
+												$('#i_delivery_normal').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 37){
+												$('#i_c_section').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 38){
+												$('#i_delivery_complication').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 51){
+												$('#i_general_med').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 52){
+												$('#i_general_surgery').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 53){
+												$('#i_eye').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 54){
+												$('#i_trauma').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 55){
+												$('#i_pulmonaire').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 56){
+												$('#i_renal').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 57){
+												$('#i_icu').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 58){
+												$('#i_icu_ob').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 39){
+												$('#i_maternity').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 40){
+												$('#i_medicine').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 41){
+												$('#i_gyn').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 42){
+												$('#i_surgery').prop('checked', true);
+										    $('#openOptIpd').css('display','block');
+										}else if(osVal.visitors_status == 43){
+												$('#i_infertility').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 44){
+												$('#i_orl').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 45){
+												$('#i_ent').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 46){
+												$('#i_dermatology').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 47){
+												$('#i_bone').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 48){
+												$('#i_digestive').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 49){
+												$('#i_cardiaque').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 50){
+												$('#i_ipd_others').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 69){
+	// Start support service
+												$('#labo').prop('checked', true);
+										}else if(osVal.visitors_status == 70){
+												$('#xray').prop('checked', true);
+										}else if(osVal.visitors_status == 71){
+												$('#ctscan').prop('checked', true);
+										}else if(osVal.visitors_status == 72){
+												$('#anapat').prop('checked', true);
+										}else if(osVal.visitors_status == 73){
+												$('#hpv').prop('checked', true);
+										}else if(osVal.visitors_status == 74){
+												$('#colpo').prop('checked', true);
+										}else if(osVal.visitors_status == 75){
+												$('#thinprep').prop('checked', true);
+										}else if(osVal.visitors_status == 76){
+												$('#papsmear').prop('checked', true);
+										}else if(osVal.visitors_status == 77){
+												$('#x_ray_overay').prop('checked', true);
+										}else if(osVal.visitors_status == 78){
+												$('#dna').prop('checked', true);
+										}else if(osVal.visitors_status == 79){
+												$('#ecg').prop('checked', true);
+										}else if(osVal.visitors_status == 80){
+												$('#gastro_endoscopy').prop('checked', true);
+										}else if(osVal.visitors_status == 81){
+												$('#other_support_service').prop('checked', true);
+										}else if(osVal.visitors_status == 82){
+	// Start Echo
+												$('#echo_anc').prop('checked', true);
+										}else if(osVal.visitors_status == 83){
+												$('#echo_neo_cardio').prop('checked', true);
+										}else if(osVal.visitors_status == 84){
+												$('#other_adult_echo').prop('checked', true);
+										}else if(osVal.visitors_status == 86){
+	// Start service
+												$('#s_examen').prop('checked', true);
+										}else if(osVal.visitors_status == 87){
+												$('#s_perine').prop('checked', true);
+										}else if(osVal.visitors_status == 88){
+												$('#s_ivg_igm').prop('checked', true);
+										}else if(osVal.visitors_status == 89){
+												$('#s_anc_cpn').prop('checked', true);
+										}else if(osVal.visitors_status == 90){
+												$('#s_miscarrage').prop('checked', true);
+										}else if(osVal.visitors_status == 91){
+												$('#s_medicine_abortion').prop('checked', true);
+										}else if(osVal.visitors_status == 92){
+												$('#s_vpi_vaccination').prop('checked', true);
+										}else if(osVal.visitors_status == 93){
+												$('#s_neo_labo').prop('checked', true);
+										}else if(osVal.visitors_status == 94){
+												$('#s_bone_test').prop('checked', true);
+										}else if(osVal.visitors_status == 96){
+	// Pharmacy
+												$('#p_pharmacy').prop('checked', true);
+										}else if(osVal.visitors_status == 98){
+	// Pediatric
+												$('#pe_opd_ped').prop('checked', true);
+										}else if(osVal.visitors_status == 99){
+												$('#pe_ped_ipd').prop('checked', true);
+										}else if(osVal.visitors_status == 100){
+												$('#pe_ped_frencectomy').prop('checked', true);
+										}else if(osVal.visitors_status == 101){
+												$('#pe_ped_circumcision').prop('checked', true);
+										}else if(osVal.visitors_status == 104){
+	// booking
+												$('#b_opd_booking').prop('checked', true);
+												$('#roomBooking').css('display','block');
+										}else if(osVal.visitors_status == 105){
+												$('#b_ipd_booking').prop('checked', true);
+												$('#roomBooking').css('display','block');
+										}else if(osVal.visitors_status == 106){
+	// Neo and Children
+												$('#checkNeo').prop('checked', true);
+										}else if(osVal.visitors_status == 107){
+												$('#chNeoOpd').prop('checked', true);
+										}else if(osVal.visitors_status == 108){
+												$('#chNeoSimpleIcu').prop('checked', true);
+										}else if(osVal.visitors_status == 109){
+												$('#chNeoComplicatedIcu').prop('checked', true);
+										}
 							});
 					});
 

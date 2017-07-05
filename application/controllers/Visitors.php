@@ -133,10 +133,8 @@ class Visitors extends Securities {
 	}
 
 	function get_count_patient_ipd(){
-
 	    // Check Session
 	    $this->checkSession();
-
 	    $this->VisitorModel->setVisitorStay();
             $datas = $this->VisitorModel->getCountAllVisitor();
             $this->restData($datas);

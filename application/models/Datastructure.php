@@ -5,7 +5,7 @@ if (! defined ( 'BASEPATH' )) exit ( 'No direct script access allowed' );
 require_once ('Dao.php');
 
 class Datastructure extends Dao{
-		
+
 	// ################## Variable ##################################//
 	// =============== Table Name ===================
 	private $tbl_pre = "emedirec_";
@@ -37,7 +37,7 @@ class Datastructure extends Dao{
 	private $tbl_patient_room = "patient_room";
 	private $tbl_ipd_virtual_sign = "ipd_virtual_sign";
 	private $tbl_neonatal = "neonatal";
-	// *************** View Name ******************** 
+	// *************** View Name ********************
 	// *************** Table Column *****************
 	// =============== Unit =========================
 	private $unitId = '';
@@ -51,15 +51,15 @@ class Datastructure extends Dao{
 	private $productQty = '';
 	private $productCost = '';
 	private $productPrice = '';
-	
+
 	// =============== ward =========================
 	private $wardId = '';
 	private $wardCode = '';
-	
+
 	// =============== Icd10 =========================
 	private $icd10Id = '';
 	private $icd10Code = '';
-	
+
 	// =============== User =========================
 	private $uId = '';
 	private $username = '';
@@ -75,7 +75,7 @@ class Datastructure extends Dao{
 	private $dob = '';
 	private $time = '';
         private $permissionSection = '';
-	
+
 	// ============= Hospital============
 	private $hospitalId = '';
 	private $hospitalCode = '';
@@ -91,7 +91,7 @@ class Datastructure extends Dao{
 	private $hospitalStatus = '';
 	private $doctor = '';
 	private $doctorId = '';
-	
+
 	// =============== Patient =========================
 	private $patientId = '';
 	private $roomId = '';
@@ -153,7 +153,7 @@ class Datastructure extends Dao{
 	private $visitorLeaveDate = '';
 	private $visitorStatus = '';
         private $visitorStatusSearch = '';
-	
+
 	// =============== Diagnostic =========================
 	private $diagnosticId = '';
 	private $diagnosticDetail = '';
@@ -170,7 +170,7 @@ class Datastructure extends Dao{
 	private $outWard = '';
 	private $outDate = '';
 	private $average = '';
-	
+
 	private $fitzpatrik = '';
 	private $fluence = '';
 	private $pulseLength = '';
@@ -184,7 +184,7 @@ class Datastructure extends Dao{
 	private $pauseLength = '';
 	private $pulseWithUs = '';
 	private $energyMj = '';
-        
+
         private $assignPer = '0';
         private $acceptPer = '0';
         private $assignUid = '';
@@ -196,7 +196,7 @@ class Datastructure extends Dao{
 	// --------------- General Key ------------------
 	private $keyId = '';
 	private $keyName = '';
-	private $keyEmail = ''; 
+	private $keyEmail = '';
 	private $keyPhone = '';
 	private $keyDesc = '';
 	private $keyDateIn = '';
@@ -230,11 +230,11 @@ class Datastructure extends Dao{
 	// --------------- Product Table ----------------
 	// --------------- User Table -------------------
 	private $userId = '';
-	
-	
+
+
 	// ################## Function ##################################//
 	// *************** Table Name *******************
-	
+
 	// Define Table Unit
 	function getTblUnit(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_unit);
@@ -280,17 +280,17 @@ class Datastructure extends Dao{
 	function getTblWard(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_ward);
 	}
-	
+
 	// Define Table ICD10
 	function getTblIcd10(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_icd10);
 	}
-	
+
 	// Define Table Patient
 	function getTblPatient(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_patient);
 	}
-	
+
 	// Define Table Visitor
 	function getTblVisitor(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_visitor);
@@ -300,7 +300,7 @@ class Datastructure extends Dao{
 	function getTblVisitorOpt(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_visitorOpt);
 	}
-	
+
 	// Define Table Diagnostic
 	function getTblDiagnostic(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_diagnostic);
@@ -309,47 +309,47 @@ class Datastructure extends Dao{
 	function getTblIpdVirtualSign(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_ipd_virtual_sign);
 	}
-	
+
 	// Define Table Form
 	function getTblForm(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_form);
 	}
-	
+
 	// Define Table Diagnostic
 	function getTblServiceItem(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_service_item);
 	}
-	
+
 	// Define Table Payment
 	function getTblServicePayment(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_service_payment);
 	}
-	
+
 	// Define Table District
 	function getTblDisctrict(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_district);
 	}
-	
+
 	// Define Table Province
 	function getTblProvince(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_province);
 	}
-	
+
 	// Define Table Diagnostic
 	function getTblSession(){
 		return $this->getTblPre($this->tbl_pre, $this->tbl_session);
 	}
-        
+
         // Define Table Clinical Table
 	function getTblClinicalNote(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_clinical_notes);
 	}
-        
+
         // Define Table Appoinment Table
 	function getTblAppoinment(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_appoinment);
 	}
-        
+
         // Define Table Waitting Table
 	function getTblWaitting(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_waitting);
@@ -362,9 +362,9 @@ class Datastructure extends Dao{
 	function getTblNeonatal(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_neonatal);
 	}
-	
-	
-	// =============== View Name ==================== 
+
+
+	// =============== View Name ====================
 	// =============== Table Column =================
 	// --------------- General Key ------------------
 	public function setId($value){
@@ -373,35 +373,35 @@ class Datastructure extends Dao{
 	public function getId(){
 		return $this->keyId;
 	}
-	
+
 	public function setName($value){
 		$this->keyName = $value;
 	}
 	public function getName(){
 		return $this->keyName;
 	}
-	
+
 	public function setEmail($value){
 		$this->keyEmail = $value;
 	}
 	public function getEmail(){
 		return $this->keyEmail;
 	}
-	
+
 	public function setPhone($value){
 		$this->keyPhone = $value;
 	}
 	public function getPhone(){
 		return $this->keyPhone;
 	}
-	
+
 	public function setDesc($value){
 		$this->keyDesc = $value;
 	}
 	public function getDesc(){
 		return $this->keyDesc;
 	}
-	
+
 	public function setDateIn($value){
 		$this->keyDateIn = $value;
 	}
@@ -435,21 +435,21 @@ class Datastructure extends Dao{
 	public function getNssfCode(){
 		return $this->keyNssfCode;
 	}
-	
+
 	public function setTitle($value){
 		$this->keyTitle = $value;
 	}
 	public function getTitle(){
 		return $this->keyTitle;
 	}
-	
+
 	public function setSubject($value){
 		$this->keySubject = $value;
 	}
 	public function getSubject(){
 		return $this->keySubject;
 	}
-	
+
 	public function setDeleted(){
 		$this->keyDeleted = '1';
 	}
@@ -459,7 +459,7 @@ class Datastructure extends Dao{
 	public function getDelete(){
 		return $this->keyDeleted;
 	}
-	
+
 	public function setActive(){
 		$this->keyActive = '1';
 	}
@@ -469,21 +469,21 @@ class Datastructure extends Dao{
 	public function getActive(){
 		return $this->keyActive;
 	}
-	
+
 	public function setAddress($value){
 		$this->keyAddress = $value;
 	}
 	public function getAddress(){
 		return $this->keyAddress;
 	}
-	
+
 	public function setSearch($value){
 		$this->keySearch = $value;
 	}
 	public function getSearch(){
 		return $this->keySearch;
 	}
-	
+
 	public function setDate($value){
 		$this->keyDate = $value;
 	}
@@ -497,77 +497,77 @@ class Datastructure extends Dao{
 	public function getDate1(){
 		return $this->keyDate1;
 	}
-	
+
 	public function setDate2($value){
 		$this->keyDate2 = $value;
 	}
 	public function getDate2(){
 		return $this->keyDate2;
 	}
-	
+
 	public function setStart($value){
 		$this->keyStart = $value;
 	}
 	public function getStart(){
 		return $this->keyStart;
 	}
-	
+
 	public function setLimit($value){
 		$this->keyLimit = $value;
 	}
 	public function getLimit(){
 		return $this->keyLimit;
 	}
-	
+
 	public function setGroup($value){
 		$this->keyGroup = $value;
 	}
 	public function getGroup(){
 		return $this->keyGroup;
 	}
-	
+
 	public function setPrintType($value){
 		$this->printType = $value;
 	}
 	public function getPrintType(){
 		return $this->printType;
 	}
-	
+
 	public function setAmount($value){
 		$this->amount = $value;
 	}
 	public function getAmount(){
 		return $this->amount;
 	}
-        
+
         public function setKey01($value){
 		$this->key01 = $value;
 	}
 	public function getKey01(){
 		return $this->key01;
 	}
-        
+
         public function setKey02($value){
 		$this->key02 = $value;
 	}
 	public function getKey02(){
 		return $this->key02;
 	}
-        
+
         public function setKey03($value){
 		$this->key03 = $value;
 	}
 	public function getKey03(){
 		return $this->key03;
 	}
-        
+
         public function setKey04($value){
 		$this->key04 = $value;
 	}
 	public function getKey04(){
 		return $this->key04;
 	}
-	
+
 	//=========== Hospital=========
 	public function setHospitalId($value){
 		$this->hospitalId = $value;
@@ -575,24 +575,24 @@ class Datastructure extends Dao{
 	public function getHospitalId(){
 		return $this->hospitalId;
 	}
-	
+
 	public function setPatientNo($value){
 		$this->patientNo = $value;
 	}
 	public function getPatientNo(){
 		return $this->patientNo;
 	}
-	
+
 	public function setAutoNo($value){
 		$this->autoNo = $value;
 	}
 	public function getAutoNo(){
 		return $this->autoNo;
 	}
-	
-	
+
+
 	//========== Unit ===========
-	
+
 	// Unit Id
 	public function setUnitId($value){
 		$this->unitId = $value;
@@ -601,7 +601,7 @@ class Datastructure extends Dao{
 		return $this->unitId;
 	}
 	//========== Type ===========
-	
+
 	// Type Id
 	public function setTypeId($value){
 		$this->typeId = $value;
@@ -609,9 +609,9 @@ class Datastructure extends Dao{
 	public function getTypeId(){
 		return $this->typeId;
 	}
-	
+
 	//========== Category ===========
-	
+
 	// Category Id
 	public function setCategoryId($value){
 		$this->categoryId = $value;
@@ -619,9 +619,9 @@ class Datastructure extends Dao{
 	public function getCategoryId(){
 		return $this->categoryId;
 	}
-	
+
 	//========== Product ===========
-	
+
 	// product Id
 	public function setProductId($value){
 		$this->productId = $value;
@@ -657,9 +657,9 @@ class Datastructure extends Dao{
 	public function getProductPrice(){
 		return $this->productPrice;
 	}
-	
+
 	//========== Ward ===========
-	
+
 	// ward Id
 	public function setWardId($value){
 		$this->wardId = $value;
@@ -674,9 +674,9 @@ class Datastructure extends Dao{
 	public function getWardCode(){
 		return $this->wardCode;
 	}
-	
+
 	//========== Icd 10 ===========
-	
+
 	// icd10 Id
 	public function setIcd10Id($value){
 		$this->icd10Id = $value;
@@ -691,9 +691,9 @@ class Datastructure extends Dao{
 	public function getIcd10Code(){
 		return $this->icd10Code;
 	}
-	
+
 	//========== Patient ===========
-	
+
 	// Patient Id
 	public function setPatientId($value){
 		$this->patientId = $value;
@@ -708,7 +708,7 @@ class Datastructure extends Dao{
 	public function getRoomId(){
 		return $this->roomId;
 	}
-	
+
 	// Patient Code
 	public function setPatientCode($value){
 		$this->patientCode = $value;
@@ -716,7 +716,7 @@ class Datastructure extends Dao{
 	public function getPatientCode(){
 		return $this->patientCode;
 	}
-	
+
 	// Patient Kh Code
 	public function setPatientKhName($value){
 		$this->patientKhName = $value;
@@ -724,7 +724,7 @@ class Datastructure extends Dao{
 	public function getPatientKhName(){
 		return $this->patientKhName;
 	}
-	
+
 	// Patient En Code
 	public function setPatientEnName($value){
 		$this->patientEnName = $value;
@@ -732,7 +732,7 @@ class Datastructure extends Dao{
 	public function getPatientEnName(){
 		return $this->patientEnName;
 	}
-	
+
 	// Patient Gender
 	public function setPatientGender($value){
 		$this->patientGender = $value;
@@ -740,7 +740,7 @@ class Datastructure extends Dao{
 	public function getPatientGender(){
 		return $this->patientGender;
 	}
-	
+
 	// Patient Emergecy Phone
 	public function setEmergencyPhone($value){
 		$this->emergencyPhone = $value;
@@ -748,7 +748,7 @@ class Datastructure extends Dao{
 	public function getEmergencyPhone(){
 		return $this->emergencyPhone;
 	}
-	
+
 	// Patient Dob
 	public function setPatientDob($value){
 		$this->patientDob = $value;
@@ -756,7 +756,7 @@ class Datastructure extends Dao{
 	public function getPatientDob(){
 		return $this->patientDob;
 	}
-	
+
 	// Patient Occupation
 	public function setPatientOccupation($value){
 		$this->patientOccupation = $value;
@@ -764,7 +764,7 @@ class Datastructure extends Dao{
 	public function getPatientOccupation(){
 		return $this->patientOccupation;
 	}
-	
+
 	// Patient Is Heart
 	public function setIsHeart($value){
 		$this->isHeart = $value;
@@ -772,7 +772,7 @@ class Datastructure extends Dao{
 	public function getIsHeart(){
 		return $this->isHeart;
 	}
-	
+
 	// Patient Is Respiratory
 	public function setIsRespiratory($value){
 		$this->isRespiratory = $value;
@@ -780,7 +780,7 @@ class Datastructure extends Dao{
 	public function getIsRespiratory(){
 		return $this->isRespiratory;
 	}
-	
+
 	// Patient Is Diabetes
 	public function setIsDiabetes($value){
 		$this->isDiabetes = $value;
@@ -788,15 +788,15 @@ class Datastructure extends Dao{
 	public function getIsDiabetes(){
 		return $this->isDiabetes;
 	}
-	
+
 	// Patient Is Disgestive
 	public function setIsDisgestive($value){
 		$this->isDigestive = $value;
 	}
 	public function getIsDisgestive(){
 		return $this->isDigestive;
-	}	
-	
+	}
+
 	// Patient Is Kidney
 	public function setIsKidney($value){
 		$this->isKidney = $value;
@@ -804,7 +804,7 @@ class Datastructure extends Dao{
 	public function getIsKidney(){
 		return $this->isKidney;
 	}
-	
+
 	// Patient Is Endocrine
 	public function setIsEndocrine($value){
 		$this->isEndocrine = $value;
@@ -812,7 +812,7 @@ class Datastructure extends Dao{
 	public function getIsEndocrine(){
 		return $this->isEndocrine;
 	}
-	
+
 	// Patient Is Neuro Sys
 	public function setIsNeuroSys($value){
 		$this->isNeuroSys = $value;
@@ -820,7 +820,7 @@ class Datastructure extends Dao{
 	public function getIsNeuroSys(){
 		return $this->isNeuroSys;
 	}
-	
+
 	// Patient Is Lung
 	public function setIsLung($value){
 		$this->isLung = $value;
@@ -828,7 +828,7 @@ class Datastructure extends Dao{
 	public function getIsLung(){
 		return $this->isLung;
 	}
-	
+
 	// Patient Is Allergy
 	public function setIsAllergy($value){
 		$this->isAllergy = $value;
@@ -836,7 +836,7 @@ class Datastructure extends Dao{
 	public function getIsAllergy(){
 		return $this->isAllergy;
 	}
-	
+
 	// Patient Id Card
 	public function setIdCard($value){
 		$this->idCard = $value;
@@ -844,7 +844,7 @@ class Datastructure extends Dao{
 	public function getIdCard(){
 		return $this->idCard;
 	}
-	
+
 	// Patient assurance Card
 	public function setAssuranceCard($value){
 		$this->assuranceCard = $value;
@@ -852,7 +852,7 @@ class Datastructure extends Dao{
 	public function getAssuranceCard(){
 		return $this->assuranceCard;
 	}
-	
+
 	// Patient assurance Company
 	public function setAssuranceCompany($value){
 		$this->assuranceCompany = $value;
@@ -868,7 +868,7 @@ class Datastructure extends Dao{
 	public function getBankCard1(){
 		return $this->bankCard1;
 	}
-	
+
 	// Patient Band Card2
 	public function setBankCard2($value){
 		$this->bankCard2 = $value;
@@ -876,7 +876,7 @@ class Datastructure extends Dao{
 	public function getBankCard2(){
 		return $this->bankCard2;
 	}
-		
+
 	// Patient Band Card3
 	public function setBankCard3($value){
 		$this->bankCard3 = $value;
@@ -884,7 +884,7 @@ class Datastructure extends Dao{
 	public function getBankCard3(){
 		return $this->bankCard3;
 	}
-	
+
 	// Patient Motor Card
 	public function setMotorCard($value){
 		$this->motorCard = $value;
@@ -892,7 +892,7 @@ class Datastructure extends Dao{
 	public function getMotorCard(){
 		return $this->motorCard;
 	}
-	
+
 	// Patient Car Card
 	public function setCarCard($value){
 		$this->carCard = $value;
@@ -900,7 +900,7 @@ class Datastructure extends Dao{
 	public function getCarCard(){
 		return $this->carCard;
 	}
-	
+
 	// Patient Student School
 	public function setStudentSchool($value){
 		$this->studentCard = $value;
@@ -908,7 +908,7 @@ class Datastructure extends Dao{
 	public function getStudentSchool(){
 		return $this->studentCard;
 	}
-	
+
 	// Patient Status
 	public function setPatientStatus($value){
 		$this->patientStatus = $value;
@@ -916,7 +916,7 @@ class Datastructure extends Dao{
 	public function getPatientStatus(){
 		return $this->patientStatus;
 	}
-	
+
 	// Register Date
 	public function setRegisterDate($value){
 		$this->registerDate = $value;
@@ -924,39 +924,39 @@ class Datastructure extends Dao{
 	public function getRegisterDate(){
 		return $this->registerDate;
 	}
-	
+
 	// Pregnancy
 	public function setPregnancy($value){
 	    $this->pregnancy = $value;
-	} 
+	}
 	public function getPregnancy(){
 	    return $this->pregnancy;
 	}
-	
+
 	// Pre Pregnancy
 	public function setPrePregnancy($value){
 	    $this->prePregnancy = $value;
-	} 
+	}
 	public function getPrePregnancy(){
 	    return $this->prePregnancy;
 	}
-	
+
 	// Breast Feeding
 	public function setBreastFeeding($value){
 	    $this->breastFeeding = $value;
-	} 
+	}
 	public function getBreastFeeding(){
 	    return $this->breastFeeding;
 	}
-	
+
 	// Other Disease
 	public function setOtherDisease($value){
 	    $this->otherDisease = $value;
-	} 
+	}
 	public function getOtherDisease(){
 	    return $this->otherDisease;
 	}
-	
+
 	// District
 	public function setDistrict($value){
 	    $this->district = $value;
@@ -964,7 +964,7 @@ class Datastructure extends Dao{
 	public function getDistrict(){
 	    return $this->district;
 	}
-	
+
 	// Province
 	public function setProvince($value){
 	    $this->province = $value;
@@ -972,7 +972,7 @@ class Datastructure extends Dao{
 	public function getProvince(){
 	    return $this->province;
 	}
-	
+
 	// Pulse Rate
 	public function setPulseRate($value){
 	    $this->pulseRate = $value;
@@ -980,7 +980,7 @@ class Datastructure extends Dao{
 	public function getPulseRate(){
 	    return $this->pulseRate;
 	}
-	
+
 	// Heart Rate
 	public function setHeartRate($value){
 	    $this->heartRate = $value;
@@ -988,7 +988,7 @@ class Datastructure extends Dao{
 	public function getHeartRate(){
 	    return $this->heartRate;
 	}
-	
+
 	// Respiratory Rate
 	public function setRespiratoryRate($value){
 	    $this->respiratoryRate = $value;
@@ -996,7 +996,7 @@ class Datastructure extends Dao{
 	public function getRespiratoryRate(){
 	    return $this->respiratoryRate;
 	}
-	
+
 	// Temperature
 	public function setTemperature($value){
 	    $this->temperature = $value;
@@ -1004,7 +1004,7 @@ class Datastructure extends Dao{
 	public function getTemperature(){
 	    return $this->temperature;
 	}
-	
+
 	// Blood Pressure
 	public function setBloodPressure($value){
 	    $this->bloodPressure = $value;
@@ -1012,7 +1012,7 @@ class Datastructure extends Dao{
 	public function getBloodPressure(){
 	    return $this->bloodPressure;
 	}
-	
+
 	// Insurance
 	public function setInsurance($value){
 	    $this->insurance = $value;
@@ -1027,14 +1027,14 @@ class Datastructure extends Dao{
 	// public function getInsurance(){
 	//     return $this->keyInsurance;
 	// }
-	
+
 	public function setInsuranceCode($value){
 	    $this->keyInsuranceCode = $value;
 	}
 	public function getInsuranceCode(){
 	    return $this->keyInsuranceCode;
 	}
-	
+
 	// ID Poor
 	public function setIdPoor($value){
 	    $this->keyIdPoor = $value;
@@ -1066,7 +1066,7 @@ class Datastructure extends Dao{
 
 
 	//========== Visitor ===========
-	
+
 	// Visitor Id
 	public function setVisitorId($value){
 		$this->visitorId = $value;
@@ -1191,7 +1191,7 @@ class Datastructure extends Dao{
 				$this->visitorStatus = '30';
 			}
 
-// adult ipd			
+// adult ipd
 			public function setI_delivery_normal(){
 				$this->visitorStatus = '36';
 			}
@@ -1223,7 +1223,7 @@ class Datastructure extends Dao{
 				$this->visitorStatus = '45';
 			}
 			public function setI_dermatology(){
-				$this->visitorStatus = '56';
+				$this->visitorStatus = '46';
 			}
 			public function setI_bone(){
 				$this->visitorStatus = '47';
@@ -1236,7 +1236,7 @@ class Datastructure extends Dao{
 			}
 			public function setI_ipd_others(){
 				$this->visitorStatus = '50';
-			}	
+			}
 			public function setI_general_med(){
 				$this->visitorStatus = '51';
 			}
@@ -1275,7 +1275,7 @@ class Datastructure extends Dao{
 			// }
 			// public function setObExamine(){
 			// 	$this->visitorStatus = '64';
-			// }			
+			// }
 			// public function setEchoOther(){
 			// 	$this->visitorStatus = '65';
 			// }
@@ -1288,7 +1288,7 @@ class Datastructure extends Dao{
 			// public function setPerine(){
 			// 	$this->visitorStatus = '68';
 			// }
-			
+
 // support service
 			public function setLabo(){
 				$this->visitorStatus = '69';
@@ -1317,19 +1317,15 @@ class Datastructure extends Dao{
 			public function setX_ray_overay(){
 				$this->visitorStatus = '77';
 			}
-
 			public function setDna(){
 				$this->visitorStatus = '78';
 			}
-
 			public function setEcg(){
 				$this->visitorStatus = '79';
 			}
-
 			public function setGastro_endoscopy(){
 				$this->visitorStatus = '80';
 			}
-
 			public function setOther_support_service(){
 				$this->visitorStatus = '81';
 			}
@@ -1408,7 +1404,7 @@ class Datastructure extends Dao{
 			}
 			public function setP_chNeoComplicatedIcu(){
 				$this->visitorStatus = '109';
-			}			
+			}
 			public function setP_chNeoEcho(){
 				$this->visitorStatus = '110';
 			}
@@ -1426,7 +1422,7 @@ class Datastructure extends Dao{
 				return $this->visitorStatus;
 			}
 
-        
+
         // Status Search
         public function setVisitorStatusSearch($value){
 		$this->visitorStatusSearch = $value;
@@ -1434,9 +1430,9 @@ class Datastructure extends Dao{
         public function getVisitorStatusSearch(){
             return $this->visitorStatusSearch;
         }
-	
+
 	//========== Diagnostic ===========
-	
+
 	// Diagnostic Id
 	public function setDiagnosticId($value){
 		$this->diagnosticId = $value;
@@ -1444,7 +1440,7 @@ class Datastructure extends Dao{
 	public function getDiagnosticId(){
 		return $this->diagnosticId;
 	}
-	
+
 	// Diagnostic Detail
 	public function setDiagnosticDetail($value){
 		$this->diagnosticDetail = $value;
@@ -1452,27 +1448,27 @@ class Datastructure extends Dao{
 	public function getDiagnosticDetail(){
 		return $this->diagnosticDetail;
 	}
-	
+
 	// Use Time
 	public function setUseTime($value){
 	    $this->useTime = $value;
-	} 
+	}
 	public function getUseTime(){
 	    return $this->useTime;
 	}
-	
+
 	// Use Time
 	public function setUseDetail($value){
 	    $this->useDetail = $value;
-	} 
+	}
 	public function getUseDetail(){
 	    return $this->useDetail;
 	}
-	
+
 	// Use Level
 	public function setLevel($value){
 	    $this->dialevel = $value;
-	} 
+	}
 	public function getLevel(){
 	    return $this->dialevel;
 	}
@@ -1480,7 +1476,7 @@ class Datastructure extends Dao{
 	// Use ward1
 	public function setWard($value){
 	    $this->ward = $value;
-	} 
+	}
 	public function getWard(){
 	    return $this->ward;
 	}
@@ -1488,14 +1484,14 @@ class Datastructure extends Dao{
 	// Use out ward1
 	public function setOutWard($value){
 	    $this->outWard = $value;
-	} 
+	}
 	public function getOutWard(){
 	    return $this->outWard;
 	}
 	// Use average
 	public function setAverage($value){
 	    $this->average = $value;
-	} 
+	}
 	public function getAverage(){
 	    return $this->average;
 	}
@@ -1503,218 +1499,218 @@ class Datastructure extends Dao{
 	// Use out date
 	public function setOutDate($value){
 	    $this->outDate = $value;
-	} 
+	}
 	public function getOutDate(){
 	    return $this->outDate;
 	}
-	
+
 	// AM
 	public function setAm($value){
 	    $this->keyAm = $value;
-	} 
+	}
 	public function getAm(){
 	    return $this->keyAm;
 	}
-	
+
 	// AF
 	public function setAf($value){
 	    $this->keyAf = $value;
-	} 
+	}
 	public function getAf(){
 	    return $this->keyAf;
 	}
-	
+
 	// PM
 	public function setPm($value){
 	    $this->keyPm = $value;
-	} 
+	}
 	public function getPm(){
 	    return $this->keyPm;
 	}
-	
+
 	// NT
 	public function setNt($value){
 	    $this->keyNt = $value;
-	} 
+	}
 	public function getNt(){
 	    return $this->keyNt;
 	}
-	
+
 	// Discount
 	public function setDiscount($value){
 	    $this->discount = $value;
-	} 
+	}
 	public function getDiscount(){
 	    return $this->discount;
 	}
-	
+
 	// fitzpatrik
 	public function setFitzpatrik($value){
 	    $this->fitzpatrik = $value;
-	} 
+	}
 	public function getFitzpatrik(){
 	    return $this->fitzpatrik;
 	}
-		
+
 	// fluence
 	public function setFluence($value){
 	    $this->fluence = $value;
-	} 
+	}
 	public function getFluence(){
 	    return $this->fluence;
 	}
-	
+
 	// fluence
 	public function setPulseLength($value){
 	    $this->pulseLength = $value;
-	} 
+	}
 	public function getPulseLength(){
 	    return $this->pulseLength;
 	}
-	
+
 	// frequency
 	public function setFrequency($value){
 	    $this->frequency = $value;
-	} 
+	}
 	public function getFrequency(){
 	    return $this->frequency;
 	}
-	
+
 	// Mode
 	public function setMode($value){
 	    $this->mode = $value;
-	} 
+	}
 	public function getMode(){
 	    return $this->mode;
 	}
-	
+
 	// No Of Treat
 	public function setNoOfTreal($value){
 	    $this->noOfTreal = $value;
-	} 
+	}
 	public function getNoOfTreal(){
 	    return $this->noOfTreal;
 	}
-	
+
 	// Lens
 	public function setLens($value){
 	    $this->lens = $value;
-	} 
+	}
 	public function getLens(){
 	    return $this->lens;
 	}
-	
+
 	// Spot Size
 	public function setSpotSize($value){
 	    $this->spotSize = $value;
-	} 
+	}
 	public function getSpotSize(){
 	    return $this->spotSize;
 	}
-	
+
 	// Cut Of Filter
 	public function setCutOffFilter($value){
 	    $this->cutOffFilter = $value;
-	} 
+	}
 	public function getCutOffFilter(){
 	    return $this->cutOffFilter;
 	}
-	
+
 	// Pulse Train
 	public function setPulseTrain($value){
 	    $this->pulseTrain = $value;
-	} 
+	}
 	public function getPulseTrain(){
 	    return $this->pulseTrain;
 	}
-	
+
 	// Pause Length
 	public function setPauseLength($value){
 	    $this->pauseLength = $value;
-	} 
+	}
 	public function getPauseLength(){
 	    return $this->pauseLength;
 	}
-	
+
 	// Pulse With Us
 	public function setPulseWithUs($value){
 	    $this->pulseWithUs = $value;
-	} 
+	}
 	public function getPulseWithUs(){
 	    return $this->pulseWithUs;
 	}
-	
+
 	// Energy Mj
 	public function setEnergyMj($value){
 	    $this->energyMj = $value;
-	} 
+	}
 	public function getEnergyMj(){
 	    return $this->energyMj;
 	}
-	
+
 	// REFER
 	// Cure
 	public function setCured($value){
 	    $this->energyMj = $value;
-	} 
+	}
 	public function getCure(){
 	    return $this->cur;
 	}
-        
+
         // Assign Percent
 	public function setAssignPer($value){
 	    $this->assignPer = $value;
-	} 
+	}
 	public function getAssignPer(){
 	    return $this->assignPer;
 	}
-        
+
         // Assign UID
 	public function setAssignUid($value){
 	    $this->assignUid = $value;
-	} 
+	}
 	public function getAssignUid(){
 	    return $this->assignUid;
 	}
-	
+
         // Accept Percent
 	public function setAcceptPer($value){
 	    $this->acceptPer = $value;
-	} 
+	}
 	public function getAcceptPer(){
 	    return $this->acceptPer;
 	}
-        
+
         // Accept UID
 	public function setAcceptUid($value){
 	    $this->acceptUid = $value;
-	} 
+	}
 	public function getAcceptUid(){
 	    return $this->acceptUid;
 	}
-        
+
 	// =========== User =================
 	public function setUserId($value){
 	    $this->userId = $value;
-	} 
+	}
 	public function getUserId(){
 	    return $this->userId;
 	}
-        
+
         public function setUsername($value) {
             $this->username = $value;
         }
         public function getUsername(){
             return $this->username;
         }
-        
+
         public function setPasswd($value){
             $this->passwd = $value;
         }
         public function getPasswd(){
             return $this->passwd;
         }
-        
+
         public function setSex($value){
             $this->sex = $value;
         }
@@ -1742,7 +1738,7 @@ class Datastructure extends Dao{
         public function getWeight(){
             return $this->weight;
         }
-        
+
         public function setBackground($value) {
             $this->background = $value;
         }
@@ -1756,14 +1752,14 @@ class Datastructure extends Dao{
         public function getStatus() {
             return $this->status;
         }
-        
+
         public function setWorkplace($value) {
             $this->workplace = $value;
         }
         public function getWorkplace() {
             return $this->workplace;
         }
-        
+
         public function setPermissionSection($value) {
             $this->permissionSection = $value;
         }
@@ -1798,7 +1794,7 @@ class Datastructure extends Dao{
         }
         public function getExamination() {
             return $this->examination;
-        }        
+        }
 
 	public function setWaittingOpen($value) {
             $this->waittingOpen = $value;
@@ -1839,7 +1835,7 @@ class Datastructure extends Dao{
         public function getCheckNeo() {
             return $this->checkNeo;
         }
-	
+
 	public function setDoctorId($value) {
             $this->doctorId = $value;
         }
@@ -1847,6 +1843,6 @@ class Datastructure extends Dao{
             return $this->doctorId;
         }
 
-		
+
 }
 ?>

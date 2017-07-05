@@ -1,6 +1,5 @@
 <?php
 if (! defined ( 'BASEPATH' )) exit ( 'No direct script access allowed' );
-
 // Include Security file
 require_once ('Securities.php');
 
@@ -127,7 +126,6 @@ class Pharmacies extends Securities {
             $data['b_opd'] = $this->Lang('b_opd');
             $data['ipd'] = $this->Lang('ipd');
             $data['opd'] = $this->Lang('opd');
-
 
             // Menu Active
             $data['ac_payments'] = 'active';

@@ -62,34 +62,31 @@ class Neonatal extends Datastructure{
 	}
 
 	// Add or Insert Neonatal
-	 function add(){
-	 	$this->insertData($this->getTblNeonatal(),$this->getArrayDatas());
-	 }
+ 	function add(){
+ 			$this->insertData($this->getTblNeonatal(),$this->getArrayDatas());
+ 	}
 	// Update Neo
 	function update(){
-		if($code_neo !== NULL || $code_neo !== ""){
-			return 'nonooo';
+		if($this->getCode() !== NULL || $this->getCode() !== ""){
 			$newCodeNeo = $this->genNeonatalNo();
 			$this->setArrayData('neonatal_code',$newCodeNeo);
 			$this->updateData($this->getTblNeonatal(),$this->getArrayDatas(), 'neonatal_id', $this->getId());
 			return $newCodeNeo;
 		}else{
-			return 'yesss';
 			$this->updateData($this->getTblNeonatal(),$this->getArrayDatas(), 'neonatal_id', $this->getId());
 		}
 	}
 
 	// Delete neonatal go to trash
 	function delete(){
-		if($this->getCode() !== '' || $this->getCode() !== null){
-			$this->setArrayData('neonatal_deleted', '1');
-			$this->updateData($this->getTblNeonatal(), $this->getArrayData(), 'neonatal_id', $this->getId());
-		}else{
-			$this->deleteDataWhere($this->getTblNeonatal(), 'neonatal_id', $this->getId());
-		}
+			if($this->getCode() == 'null'){
+				$this->deleteDataWhere($this->getTblNeonatal(), 'neonatal_id='.$this->getId());
+			}else{
+				$this->setArrayData('neonatal_deleted', '1');
+				$this->updateData($this->getTblNeonatal(), $this->getArrayData(), 'neonatal_id', $this->getId());
+			}
 	}
-
-        // Get Patient Info by ID
+  // Get Patient Info by ID
 	function getNeoById(){
 	    $select = '';
       $from = $this->getTblNeonatal() ." AS n";
