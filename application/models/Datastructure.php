@@ -208,6 +208,8 @@ class Datastructure extends Dao{
 	private $keyWorkstation = '';
 	private $keyTitle = '';
 	private $keySubject = '';
+	private $dataArray = '';
+	private $dataArray2 = '';
 	private $keyDeleted = '';
 	private $keyActive = '';
 	private $keyAddress = '';
@@ -448,6 +450,18 @@ class Datastructure extends Dao{
 	}
 	public function getSubject(){
 		return $this->keySubject;
+	}
+	public function setDataArray($value){
+		$this->dataArray = $value;
+	}
+	public function getDataArray(){
+		return $this->dataArray;
+	}
+	public function setDataArray2($value){
+		$this->dataArray2 = $value;
+	}
+	public function getDataArray2(){
+		return $this->dataArray2;
 	}
 
 	public function setDeleted(){

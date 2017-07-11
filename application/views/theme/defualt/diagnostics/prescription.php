@@ -300,6 +300,37 @@
 			    </div>
 			</div>
 			</div>
+			<!-- Room ward  -->
+			<div class="col-sm-4">
+			    <div class="form-group">
+				<div class="input-group">
+				    <div class="input-group-addon">
+					  	Room 1
+				    </div>
+				    <?php echo form_dropdown('room1', $drop_rooms, '','class="form-control" id="room1"');?>
+			    </div>
+			</div>
+			</div>
+			<div class="col-sm-4">
+			    <div class="form-group">
+				<div class="input-group">
+				    <div class="input-group-addon">
+					  	Room 2
+				    </div>
+				    <?php echo form_dropdown('room2', $drop_rooms, '','class="form-control" id="room2"');?>
+			    </div>
+			</div>
+			</div>
+			<div class="col-sm-4">
+			    <div class="form-group">
+				<div class="input-group">
+				    <div class="input-group-addon">
+					  	Room 3
+				    </div>
+				    <?php echo form_dropdown('room3', $drop_rooms, '','class="form-control" id="room3"');?>
+			    </div>
+			</div>
+			</div>
 
 			<div class="col-sm-4">
 			    <div class="input-group-btn">
@@ -898,15 +929,12 @@
 
 
 	}
-
 	function autoDoctor(){
 	    var dinput = $( 'input:focus' ).val();
 	    var url = <?php echo '"'.$base_url.'index.php/diagnostics/doctor_auto_complete/"';?>;
 	    var soc = String(url+dinput);
 	    $( 'input:focus' ).autocomplete({source: soc});
 	    var res = $( 'input:focus' ).val();
-
-
 	}
 
 	function autoService(){
@@ -927,16 +955,19 @@
 		var dianostic_level = $('#diagnostic_level').val();
 		var dianostic_de = $('#desc_dia').val();
 		var dianostic_ward1 = $('#ward1 option:selected').val();
+		var dianostic_room1 = $('#room1 option:selected').val();
 
 		var dianostic1 = $('#diagnostic1').val();
 		var dianostic1_level = $('#diagnostic1_level').val();
 		var dianostic1_de = $('#desc_dia1').val();
 		var dianostic1_ward2 = $('#ward2 option:selected').val();
+		var dianostic_room2 = $('#room2 option:selected').val();
 
 		var dianostic2 = $('#diagnostic2').val();
 		var dianostic2_level = $('#diagnostic2_level').val();
 		var dianostic2_de = $('#desc_dia2').val();
 		var dianostic2_ward3 = $('#ward3 option:selected').val();
+		var dianostic_room3 = $('#room3 option:selected').val();
 
 		$.post("<?php echo $base_url;?>index.php/diagnostics/add_dia/"+visitorId,{
 			dia: dianostic,
@@ -944,23 +975,26 @@
 			dia_de: dianostic_de,
 			dia_level: dianostic_level,
 			dia_ward1: dianostic_ward1,
+			dia_room1: dianostic_room1,
 
 			dia1: dianostic1,
 			dia1_id: dia1,
 			dia1_de: dianostic1_de,
 			dia1_level: dianostic1_level,
 			dia1_ward2: dianostic1_ward2,
+			dia_room2: dianostic_room2,
 
 			dia2_id: dia2,
 			dia2: dianostic2,
 			dia2_de: dianostic2_de,
 			dia2_level: dianostic2_level,
-			dia2_ward3: dianostic2_ward3
+			dia2_ward3: dianostic2_ward3,
+			dia_room3: dianostic_room3
 		},function(){
 			getDia(vid);
 			getDia(vid);
 			getDia(vid);
-            getVisitTime(pid);
+    			getVisitTime(pid);
 		});
 	}
 

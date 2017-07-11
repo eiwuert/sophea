@@ -47,10 +47,10 @@ class Visitors extends Securities {
 	    $this->ProductModel->setCategoryId($this->getPost('category_id'));
 	    $this->ProductModel->setDesc($this->getPost('product_desc'));
 
-            if($this->getPost('product_id') == NULL || $this->getPost('product_id') == ""){
-		    $this->ProductModel->add();
+      if($this->getPost('product_id') == NULL || $this->getPost('product_id') == ""){
+		    	$this->ProductModel->add();
 	    }else{
-		    $this->ProductModel->update();
+		    	$this->ProductModel->update();
 	    }
             // Write Log
             //$this->logs('3', 'Try to access application with user: '.$this->getPost('unit_name').' / '.$this->getPost('unit_desc'));
@@ -123,21 +123,19 @@ class Visitors extends Securities {
 	}
 
 	function get_count_patient_opd(){
-
 	    // Check Session
 	    $this->checkSession();
-
 	    $this->VisitorModel->setVisitorEnrol();
-            $datas = $this->VisitorModel->getCountAllVisitor();
-            $this->restData($datas);
+      $datas = $this->VisitorModel->getCountAllVisitor();
+      $this->restData($datas);
 	}
 
 	function get_count_patient_ipd(){
 	    // Check Session
 	    $this->checkSession();
 	    $this->VisitorModel->setVisitorStay();
-            $datas = $this->VisitorModel->getCountAllVisitor();
-            $this->restData($datas);
+      $datas = $this->VisitorModel->getCountAllVisitor();
+      $this->restData($datas);
 	}
 
 	function pharmacy_get_visitor_list(){

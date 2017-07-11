@@ -14,8 +14,19 @@ class Diagnostics extends Securities {
             $this->permissionSection('mDiagnostic');
             $this->checkPermission();
 
-	    $this->setSession('assign_to', $this->getSession('user_id'));
+	    			$this->setSession('assign_to', $this->getSession('user_id'));
             $data = array();
+
+						// $idOpd use for select all OPD
+						$idOpd = array("1","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30",
+						            "69","70","71","72","73","74","75","76","77","78","79","80","81",
+						          "82","83","84",
+						        "104","105",
+						      "86","87","88","89","90","91","92","93","94",
+						    "96",
+						  "98","99","100","101",
+						"107");
+						$this->VisitorModel->setId($idOpd);
 
             // Get Item Per Page
             $data['item_per_page'] = $this->getSysConfig();
@@ -37,7 +48,7 @@ class Diagnostics extends Securities {
             $this->LoadView('template/sidebar');
             $this->LoadView('diagnostics/list');
             $this->LoadView('template/footer');
-    }
+  }
 
 	public function add() {
 	    // Check Session
@@ -55,10 +66,10 @@ class Diagnostics extends Securities {
 					$query_ward = $this->WardModel->getAllWard();
 					$data['drop_wards'] = $this->queryDropDownMenu($query_ward,$label_id='',$label_name='',$id='wards_id',$value='wards_desc',$value2='');
 
-					// $this->RoomModel->setStart(0);
-					// $this->RoomModel->setLimit(0);
-					// $query_room = $this->RoomModel->getAllRoom();
-					// $data['drop_rooms'] = $this->queryDropDownMenu($query_room,$label_id='0',$label_name='',$id='room_id',$value='room_code',$value2='');
+					$this->RoomModel->setStart(0);
+					$this->RoomModel->setLimit(0);
+					$query_room = $this->RoomModel->getAllRoom();
+					$data['drop_rooms'] = $this->queryDropDownMenu($query_room,$label_id='0',$label_name='',$id='room_id',$value='room_code',$value2='');
 
           // Get Translate Word to View
           $data = $this->getTranslate($data);
@@ -278,19 +289,21 @@ class Diagnostics extends Securities {
 				$this->DiagnosticModel->setDesc($this->getPost('dia_de'));
 				$this->DiagnosticModel->setLevel($this->getPost('dia_level'));
 				$this->DiagnosticModel->setWard($this->getPost('dia_ward1'));
+				$this->DiagnosticModel->setRoomId($this->getPost('dia_room1'));
 				$this->DiagnosticModel->add();
 			}
 
 	    }else{
-			$this->DiagnosticModel->setDiagnosticId($this->getPost('dia_id'));
+					$this->DiagnosticModel->setDiagnosticId($this->getPost('dia_id'));
 
-			$this->Icd10Model->setDesc(explode('_',$this->getPost('dia'))[1]);
-			$dia = $this->Icd10Model->getIcd10IdByName();
-			$this->DiagnosticModel->setIcd10Id($dia);
-			$this->DiagnosticModel->setDesc($this->getPost('dia_de'));
-			$this->DiagnosticModel->setLevel($this->getPost('dia_level'));
-			$this->DiagnosticModel->setWard($this->getPost('dia_ward1'));
-			$this->DiagnosticModel->update();
+					$this->Icd10Model->setDesc(explode('_',$this->getPost('dia'))[1]);
+					$dia = $this->Icd10Model->getIcd10IdByName();
+					$this->DiagnosticModel->setIcd10Id($dia);
+					$this->DiagnosticModel->setDesc($this->getPost('dia_de'));
+					$this->DiagnosticModel->setLevel($this->getPost('dia_level'));
+					$this->DiagnosticModel->setWard($this->getPost('dia_ward1'));
+					$this->DiagnosticModel->setRoomId($this->getPost('dia_room1'));
+					$this->DiagnosticModel->update();
 	    }
 
 	    // Diagnostic 1
@@ -302,6 +315,7 @@ class Diagnostics extends Securities {
 				$this->DiagnosticModel->setDesc($this->getPost('dia1_de'));
 				$this->DiagnosticModel->setLevel($this->getPost('dia1_level'));
 				$this->DiagnosticModel->setWard($this->getPost('dia1_ward2'));
+				$this->DiagnosticModel->setRoomId($this->getPost('dia_room2'));
 				$this->DiagnosticModel->add();
 			}
 	    }else{
@@ -313,6 +327,7 @@ class Diagnostics extends Securities {
 			$this->DiagnosticModel->setDesc($this->getPost('dia1_de'));
 			$this->DiagnosticModel->setLevel($this->getPost('dia1_level'));
 			$this->DiagnosticModel->setWard($this->getPost('dia1_ward2'));
+			$this->DiagnosticModel->setRoomId($this->getPost('dia_room2'));
 			$this->DiagnosticModel->update();
 	    }
 
@@ -325,6 +340,7 @@ class Diagnostics extends Securities {
 				$this->DiagnosticModel->setDesc($this->getPost('dia2_de'));
 				$this->DiagnosticModel->setLevel($this->getPost('dia2_level'));
 				$this->DiagnosticModel->setWard($this->getPost('dia2_ward3'));
+				$this->DiagnosticModel->setRoomId($this->getPost('dia_room3'));
 				$this->DiagnosticModel->add();
 			}
 	    }else{
@@ -336,6 +352,7 @@ class Diagnostics extends Securities {
 			$this->DiagnosticModel->setDesc($this->getPost('dia2_de'));
 			$this->DiagnosticModel->setLevel($this->getPost('dia2_level'));
 			$this->DiagnosticModel->setWard($this->getPost('dia2_ward3'));
+			$this->DiagnosticModel->setRoomId($this->getPost('dia_room3'));
 			$this->DiagnosticModel->update();
 	    }
 
@@ -490,20 +507,29 @@ class Diagnostics extends Securities {
 
 	    $this->restData($datas);
 	}
-
-    function get_opd_list(){
-
+	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+  function get_opd_list(){
 	    // Check Session
 	    $this->checkSession();
+						// $idOpd use for select all OPD
+						$idOpd = array("1","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30",
+						            "69","70","71","72","73","74","75","76","77","78","79","80","81",
+						          "82","83","84",
+						        "104","105",
+						      "86","87","88","89","90","91","92","93","94",
+						    "96",
+						  "98","99","100","101",
+						"107");
+						$this->VisitorModel->setId($idOpd);
 
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    /*$this->VisitorModel->setStart($this->getPost('page_start'));
 	    $this->VisitorModel->setLimit($this->getPost('page_limit'));*/
 	    $this->VisitorModel->setVisitorEnrol();
-        $this->VisitorModel->setStart('0');
+      $this->VisitorModel->setStart('0');
 	    $this->VisitorModel->setLimit('0');
-        $datas = $this->VisitorModel->getAllVisitorOpd();
-        $this->restData($datas);
+      $datas = $this->VisitorModel->getAllVisitorOpd();
+      $this->restData($datas);
 	}
 
 	function get_ipd_info_by_id_json(){
@@ -654,42 +680,36 @@ class Diagnostics extends Securities {
 // #############################
 // sub diagnostic
 // #############################
-
 	public function o_ob() {
 	    // Check Session
 	    $this->checkSession();
         // $this->permissionSection('mDiagnosticOb');
         // $this->checkPermission();
+  			$this->setSession('assign_to', $this->getSession('user_id'));
+        $data = array();
+        // Get Item Per Page
+        $data['item_per_page'] = $this->getSysConfig();
+        // Get Count All Visitor
+        $data['rediUrl'] = "o_ob";
+        $data['rediTitle'] = $this->Lang('o_ob');
+        $data['jq_get_list'] = "get_o_ob_list";
+				$this->VisitorModel->setO_ob();
+        $data['totals'] = $this->VisitorModel->getCountVisitorOpd();
+        // Get Translate Word to View
+        $data = $this->getTranslate($data);
 
-	    	$this->setSession('assign_to', $this->getSession('user_id'));
-            $data = array();
-
-            // Get Item Per Page
-
-            $data['item_per_page'] = $this->getSysConfig();
-
-            // Get Count All Visitor
-            $data['rediUrl'] = "o_ob";
-            $data['rediTitle'] = $this->Lang('o_ob');
-            $data['jq_get_list'] = "get_o_ob_list";
-            $this->VisitorModel->setO_ob();
-            $data['totals'] = $this->VisitorModel->getCountVisitorOpd();
-
-            // Get Translate Word to View
-            $data = $this->getTranslate($data);
-
-            // Load View
-            $this->LoadView('template/header',$data);
-            $this->LoadView('template/topmenu');
-            $this->LoadView('template/sidebar');
-            $this->LoadView('diagnostics/list');
-            $this->LoadView('template/footer');
-    }
+        // Load View
+        $this->LoadView('template/header',$data);
+        $this->LoadView('template/topmenu');
+        $this->LoadView('template/sidebar');
+        $this->LoadView('diagnostics/list');
+        $this->LoadView('template/footer');
+  }
 
 	function get_o_ob_list(){
 	    // Check Session
 	    $this->checkSession();
-
+			// $idOpd use for select all OPD
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    $this->VisitorModel->setO_ob();
 	    $this->VisitorModel->setStart('0');
@@ -3211,7 +3231,7 @@ class Diagnostics extends Securities {
 	    $datas = $this->VisitorModel->getAllVisitorOpd();
 	    $this->restData($datas);
 	}
-			
+
 	// function p_chNeoEcho() {
 	//     // Check Session
 	//     $this->checkSession();
@@ -3481,7 +3501,7 @@ class Diagnostics extends Securities {
             $data['item_per_page'] = $this->getSysConfig();
 
             // Get Count All Visitor
-            $data['rediUrl'] = "p_chNeoOpd";
+            $data['rediUrl'] = "n_chNeoOpd";
             $data['rediTitle'] = $this->Lang('p_chNeoOpd');
             $data['jq_get_list'] = "get_n_chNeoOpd_list";
             $this->VisitorModel->setVisitorEnrol();

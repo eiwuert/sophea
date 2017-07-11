@@ -12,8 +12,12 @@ class Ipds extends Securities {
 	    // Check Session
 	    $this->checkSession();
             $this->setSession('assign_to', $this->getSession('user_id'));
-
             $data = array();
+
+						// $idOpd use for select all IPD
+						$idIpd = array("2","36","37","38","51","52","53","54","55","56","57","58","39","40","41","42","43","44","45","46","47","48","49","50",
+													"108","109");
+						$this->VisitorModel->setId($idIpd);
 
             // Get Item Per Page
             $data['item_per_page'] = $this->getSysConfig();
@@ -49,18 +53,22 @@ class Ipds extends Securities {
 	}
 
 	// ===================== JSON DATA ========================== //
-        function get_ipd_list(){
-
+	function get_ipd_list(){
 	    // Check Session
 	    $this->checkSession();
+
+			// $idOpd use for select all IPD
+			$idIpd = array("2","36","37","38","51","52","53","54","55","56","57","58","39","40","41","42","43","44","45","46","47","48","49",
+										"50","108","109");
+			$this->VisitorModel->setId($idIpd);
 
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    /*$this->VisitorModel->setStart($this->getPost('page_start'));
 	    $this->VisitorModel->setLimit($this->getPost('page_limit'));*/
-            $this->VisitorModel->setStart('0');
+      $this->VisitorModel->setStart('0');
 	    $this->VisitorModel->setLimit('0');
-            $datas = $this->VisitorModel->getAllVisitorIpd();
-            $this->restData($datas);
+      $datas = $this->VisitorModel->getAllVisitorIpd();
+      $this->restData($datas);
 	}
 
 	function get_ipd_info_by_id_json(){

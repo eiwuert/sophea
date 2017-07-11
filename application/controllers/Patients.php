@@ -173,56 +173,56 @@ class Patients extends Securities {
         }
 
         function save_patient(){
-		// Check Session
-		$this->checkSession();
+						// Check Session
+						$this->checkSession();
 
-        $this->PatientModel->setId($this->getPost('patient_id'));
-        $this->PatientModel->setCheckNeo($this->getPost('checkNeo'));
-		$this->PatientModel->setPatientKhName($this->getPost('patient_kh_name'));
-		$this->PatientModel->setPatientEnName($this->getPost('patient_en_name'));
-		$this->PatientModel->setPatientDob(date('Y-m-d',strtotime($this->getPost('patient_dob'))));
-		$this->PatientModel->setPhone($this->getPost('patient_phone'));
-		$this->PatientModel->setEmergencyPhone($this->getPost('emegency_phone'));
-		$this->PatientModel->setPatientOccupation($this->getPost('patient_occupation'));
-		$this->PatientModel->setAddress($this->getPost('patient_address'));
-		$this->PatientModel->setIdCard($this->getPost('id_card'));
-		$this->PatientModel->setAssuranceCard($this->getPost('assurance_card'));
-		$this->PatientModel->setAssuranceCompany($this->getPost('assurance_company'));
-		$this->PatientModel->setMotorCard($this->getPost('motor_card'));
-		$this->PatientModel->setCarCard($this->getPost('car_card'));
-		$this->PatientModel->setBankCard1($this->getPost('bank_card1'));
-		$this->PatientModel->setBankCard2($this->getPost('bank_card2'));
-		$this->PatientModel->setStudentSchool($this->getPost('student_card'));
-		$this->PatientModel->setPatientStatus($this->getPost('status_id'));
-		$this->PatientModel->setOtherDisease($this->getPost('other_disease'));
-		$this->PatientModel->setDesc($this->getPost('history'));
+		        $this->PatientModel->setId($this->getPost('patient_id'));
+		        $this->PatientModel->setCheckNeo($this->getPost('checkNeo'));
+						$this->PatientModel->setPatientKhName($this->getPost('patient_kh_name'));
+						$this->PatientModel->setPatientEnName($this->getPost('patient_en_name'));
+						$this->PatientModel->setPatientDob(date('Y-m-d',strtotime($this->getPost('patient_dob'))));
+						$this->PatientModel->setPhone($this->getPost('patient_phone'));
+						$this->PatientModel->setEmergencyPhone($this->getPost('emegency_phone'));
+						$this->PatientModel->setPatientOccupation($this->getPost('patient_occupation'));
+						$this->PatientModel->setAddress($this->getPost('patient_address'));
+						$this->PatientModel->setIdCard($this->getPost('id_card'));
+						$this->PatientModel->setAssuranceCard($this->getPost('assurance_card'));
+						$this->PatientModel->setAssuranceCompany($this->getPost('assurance_company'));
+						$this->PatientModel->setMotorCard($this->getPost('motor_card'));
+						$this->PatientModel->setCarCard($this->getPost('car_card'));
+						$this->PatientModel->setBankCard1($this->getPost('bank_card1'));
+						$this->PatientModel->setBankCard2($this->getPost('bank_card2'));
+						$this->PatientModel->setStudentSchool($this->getPost('student_card'));
+						$this->PatientModel->setPatientStatus($this->getPost('status_id'));
+						$this->PatientModel->setOtherDisease($this->getPost('other_disease'));
+						$this->PatientModel->setDesc($this->getPost('history'));
 
-		$this->PatientModel->setDateIn(date('Y-m-d',strtotime($this->getPost('patient_date_in'))));
-		$this->PatientModel->setReferFrom($this->getPost('patient_refer_from'));
-		$this->PatientModel->setNssf($this->getPost('nssf'));
-		$this->PatientModel->setWorkstation($this->getPost('workstation_id'));
+						$this->PatientModel->setDateIn(date('Y-m-d',strtotime($this->getPost('patient_date_in'))));
+						$this->PatientModel->setReferFrom($this->getPost('patient_refer_from'));
+						$this->PatientModel->setNssf($this->getPost('nssf'));
+						$this->PatientModel->setWorkstation($this->getPost('workstation_id'));
 
-		$this->PatientModel->setNssfCode($this->getPost('nssf_code'));
-		$this->PatientModel->setInsuranceCode($this->getPost('insurance_code'));
-		$this->PatientModel->setIdPoorCode($this->getPost('id_poor_code'));
+						$this->PatientModel->setNssfCode($this->getPost('nssf_code'));
+						$this->PatientModel->setInsuranceCode($this->getPost('insurance_code'));
+						$this->PatientModel->setIdPoorCode($this->getPost('id_poor_code'));
 
-		$this->PatientModel->setDistrict($this->getPost('patient_district'));
-		$this->PatientModel->setProvince($this->getPost('patient_province'));
+						$this->PatientModel->setDistrict($this->getPost('patient_district'));
+						$this->PatientModel->setProvince($this->getPost('patient_province'));
 
-		$this->PatientModel->setPulseRate($this->getPost('pulse'));
-		$this->PatientModel->setHeartRate($this->getPost('heart'));
-		$this->PatientModel->setBloodPressure($this->getPost('blood_pressure'));
-		$this->PatientModel->setRespiratoryRate($this->getPost('respiratory'));
-		$this->PatientModel->setTemperature($this->getPost('temperature'));
+						$this->PatientModel->setPulseRate($this->getPost('pulse'));
+						$this->PatientModel->setHeartRate($this->getPost('heart'));
+						$this->PatientModel->setBloodPressure($this->getPost('blood_pressure'));
+						$this->PatientModel->setRespiratoryRate($this->getPost('respiratory'));
+						$this->PatientModel->setTemperature($this->getPost('temperature'));
 
-		$this->PatientModel->setPatientStatus($this->getPost('status_id'));
-		// waitting
-	   		$this->WaittingModel->setId($this->getPost('waitting_id'));
-     		$this->WaittingModel->setWaittingOpen($this->getPost('waitting_open'));
-	    	$this->WaittingModel->setCode($this->getPost('waitting_code'));
-     		$this->WaittingModel->setExamination($this->getPost('waitting_examination'));
-	    	$this->WaittingModel->setRoomId($this->getPost('room_id'));
-     		$this->WaittingModel->setDoctor($this->getPost('waitting_doctor'));
+						$this->PatientModel->setPatientStatus($this->getPost('status_id'));
+						// waitting
+			   		$this->WaittingModel->setId($this->getPost('waitting_id'));
+		     		$this->WaittingModel->setWaittingOpen($this->getPost('waitting_open'));
+			    	$this->WaittingModel->setCode($this->getPost('waitting_code'));
+		     		$this->WaittingModel->setExamination($this->getPost('waitting_examination'));
+			    	$this->WaittingModel->setRoomId($this->getPost('room_id'));
+		     		$this->WaittingModel->setDoctor($this->getPost('waitting_doctor'));
 
 		if($this->getPost('pregnancy') == '1'){
 			$this->PatientModel->setPregnancy('1');
@@ -1043,7 +1043,7 @@ class Patients extends Securities {
 
 	    $this->PatientModel->setSearch(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getSearchProvince();
-            $this->restData($datas);
+      $this->restData($datas);
 	}
 
 	function get_district_json(){

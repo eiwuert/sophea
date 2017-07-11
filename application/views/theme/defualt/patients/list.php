@@ -1630,7 +1630,7 @@ function getPatientList(mySearch,pageStart,pageLimit){
                             htmlView +=' <a href="#" title="<?php echo @$ipd;?>" onclick="patientIpd(' + value.patient_id + ',\'' + value.patient_code + '\');"> <i class="fa fa-info action-btn primary"></i></a>&nbsp;&nbsp; ';
                             htmlView +=' <span title="<?php echo @$edit;?>"><i class="fa fa-edit action-btn primary" onclick="editPatient(' + value.patient_id + ');"></i></span>&nbsp;&nbsp; ';
                             htmlView +=' <span title="<?php echo @$delete;?>"><i class="fa fa-trash-o action-btn danger" onclick="deletePatient(' + value.patient_id + ');"></i></span>';
-                          htmlView += '</td>';
+                            htmlView += '</td>';
                       htmlView += '</tr>';
                   });
 

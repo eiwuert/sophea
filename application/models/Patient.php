@@ -315,64 +315,64 @@ class Patient extends Datastructure{
 
 	//Array data for Insert and Update
         function getArrayDatas(){
-	    $this->setArrayData('patient_check_neo',$this->getCheckNeo());
-	    $this->setArrayData('patient_kh_name',$this->getPatientKhName());
-	    $this->setArrayData('patient_en_name',$this->getPatientEnName());
-	    $this->setArrayData('patient_gender',$this->getPatientGender());
-	    //$this->setArrayData('patient_address',$this->getAddress());
-	    $this->setArrayData('patient_phone',$this->getPhone());
-	    $this->setArrayData('patient_emergency_phone',$this->getEmergencyPhone());
-	    $this->setArrayData('patient_dob',$this->getPatientDob());
-	    $this->setArrayData('patient_occupation',$this->getPatientOccupation());
+				    $this->setArrayData('patient_check_neo',$this->getCheckNeo());
+				    $this->setArrayData('patient_kh_name',$this->getPatientKhName());
+				    $this->setArrayData('patient_en_name',$this->getPatientEnName());
+				    $this->setArrayData('patient_gender',$this->getPatientGender());
+				    //$this->setArrayData('patient_address',$this->getAddress());
+				    $this->setArrayData('patient_phone',$this->getPhone());
+				    $this->setArrayData('patient_emergency_phone',$this->getEmergencyPhone());
+				    $this->setArrayData('patient_dob',$this->getPatientDob());
+				    $this->setArrayData('patient_occupation',$this->getPatientOccupation());
 
-	    $this->setArrayData('patient_date_in',$this->getDateIn());
-	    $this->setArrayData('patient_refer_from',$this->getReferFrom());
-	    $this->setArrayData('patient_nssf',$this->getNssf());
-	    $this->setArrayData('patient_nssf_code',$this->getNssfCode());
-	    $this->setArrayData('patient_workstation_id',$this->getWorkstation());
+				    $this->setArrayData('patient_date_in',$this->getDateIn());
+				    $this->setArrayData('patient_refer_from',$this->getReferFrom());
+				    $this->setArrayData('patient_nssf',$this->getNssf());
+				    $this->setArrayData('patient_nssf_code',$this->getNssfCode());
+				    $this->setArrayData('patient_workstation_id',$this->getWorkstation());
 
-	    $this->setArrayData('is_heart',$this->getIsHeart());
-	    $this->setArrayData('is_respiratory',$this->getIsRespiratory());
-	    $this->setArrayData('is_diabetes',$this->getIsDiabetes());
-	    $this->setArrayData('is_digestive',$this->getIsDisgestive());
-	    $this->setArrayData('is_kidney',$this->getIsKidney());
-	    $this->setArrayData('is_endocrine',$this->getIsEndocrine());
-	    $this->setArrayData('is_neuro_sys',$this->getIsNeuroSys());
-	    $this->setArrayData('is_lung',$this->getIsLung());
-	    $this->setArrayData('is_allergy',$this->getIsAllergy());
+				    $this->setArrayData('is_heart',$this->getIsHeart());
+				    $this->setArrayData('is_respiratory',$this->getIsRespiratory());
+				    $this->setArrayData('is_diabetes',$this->getIsDiabetes());
+				    $this->setArrayData('is_digestive',$this->getIsDisgestive());
+				    $this->setArrayData('is_kidney',$this->getIsKidney());
+				    $this->setArrayData('is_endocrine',$this->getIsEndocrine());
+				    $this->setArrayData('is_neuro_sys',$this->getIsNeuroSys());
+				    $this->setArrayData('is_lung',$this->getIsLung());
+				    $this->setArrayData('is_allergy',$this->getIsAllergy());
 
-	    $this->setArrayData('pulse_mm',$this->getPulseRate());
-	    $this->setArrayData('heart_rate_mm',$this->getHeartRate());
-	    $this->setArrayData('blood_pressure_mm',$this->getBloodPressure());
-	    $this->setArrayData('respirateory_rate_mm',$this->getRespiratoryRate());
-	    $this->setArrayData('temperature_mm',$this->getTemperature());
+				    $this->setArrayData('pulse_mm',$this->getPulseRate());
+				    $this->setArrayData('heart_rate_mm',$this->getHeartRate());
+				    $this->setArrayData('blood_pressure_mm',$this->getBloodPressure());
+				    $this->setArrayData('respirateory_rate_mm',$this->getRespiratoryRate());
+				    $this->setArrayData('temperature_mm',$this->getTemperature());
 
-	    $this->setArrayData('patient_id_card',$this->getIdCard());
-	    $this->setArrayData('patient_id_poor',$this->getIdPoor());
-	    $this->setArrayData('patient_id_poor_code',$this->getIdPoorCode());
-	    $this->setArrayData('patient_inssurance',$this->getInsurance());
-	    $this->setArrayData('patient_inssurance_code',$this->getInsuranceCode());
-	    $this->setArrayData('patient_assurance_card',$this->getAssuranceCard());
-	    $this->setArrayData('patient_assurance_company',$this->getAssuranceCompany());
-	    $this->setArrayData('patient_motor_card',$this->getMotorCard());
-	    $this->setArrayData('patient_car_card',$this->getCarCard());
-	    $this->setArrayData('patient_bank_card1',$this->getBankCard1());
-	    $this->setArrayData('patient_bank_card2',$this->getBankCard2());
-	    $this->setArrayData('patient_student_card',$this->getStudentSchool());
-	    $this->setArrayData('patient_status',$this->getPatientStatus());
+				    $this->setArrayData('patient_id_card',$this->getIdCard());
+				    $this->setArrayData('patient_id_poor',$this->getIdPoor());
+				    $this->setArrayData('patient_id_poor_code',$this->getIdPoorCode());
+				    $this->setArrayData('patient_inssurance',$this->getInsurance());
+				    $this->setArrayData('patient_inssurance_code',$this->getInsuranceCode());
+				    $this->setArrayData('patient_assurance_card',$this->getAssuranceCard());
+				    $this->setArrayData('patient_assurance_company',$this->getAssuranceCompany());
+				    $this->setArrayData('patient_motor_card',$this->getMotorCard());
+				    $this->setArrayData('patient_car_card',$this->getCarCard());
+				    $this->setArrayData('patient_bank_card1',$this->getBankCard1());
+				    $this->setArrayData('patient_bank_card2',$this->getBankCard2());
+				    $this->setArrayData('patient_student_card',$this->getStudentSchool());
+				    $this->setArrayData('patient_status',$this->getPatientStatus());
 
-	    $this->setArrayData('patient_pregnancy',$this->getPregnancy());
-	    $this->setArrayData('patient_pre_pregnancy',$this->getPrePregnancy());
-	    $this->setArrayData('patient_breastfeeding',$this->getBreastFeeding());
+				    $this->setArrayData('patient_pregnancy',$this->getPregnancy());
+				    $this->setArrayData('patient_pre_pregnancy',$this->getPrePregnancy());
+				    $this->setArrayData('patient_breastfeeding',$this->getBreastFeeding());
 
-	    $this->setArrayData('patient_disease',$this->getOtherDisease());
-	    $this->setArrayData('patient_desc',$this->getDesc());
-	    $this->setArrayData('patient_district',$this->getDistrict());
-	    $this->setArrayData('patient_province',$this->getProvince());
+				    $this->setArrayData('patient_disease',$this->getOtherDisease());
+				    $this->setArrayData('patient_desc',$this->getDesc());
+				    $this->setArrayData('patient_district',$this->getDistrict());
+				    $this->setArrayData('patient_province',$this->getProvince());
 
-	    // $this->setArrayData('patient_ready',$this->getReady());
+				    // $this->setArrayData('patient_ready',$this->getReady());
 
-	    return $this->getArrayData();
+				    return $this->getArrayData();
         }
 
 }

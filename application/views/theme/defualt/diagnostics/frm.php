@@ -3,7 +3,7 @@
 	<link rel="stylesheet" href="<?php echo $resources;?>bootstrap/css/bootstrap.min.css">
 	<link rel="stylesheet" href="<?php echo $resources;?>css/font.css">
     </head>
-    <?php 
+    <?php
 	$tblRow = '';
 	$i = 0;
 	$total = 0;
@@ -14,13 +14,14 @@
 	$pdob = '';
 	$pphone = '';
 	$pgender = '';
-	$ppage = date("Y") - date("Y", strtotime($pdob));
+  // $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
+  $ppage = $pdob;
         $diag = '';
         $diagLevel = '';
         $diagDetail = '';
         $appDetail = '';
         $phones = '';
-        
+
         $j = 0;
         foreach ($diaData as $rows) {
             $j = $j + 1;
@@ -34,34 +35,34 @@
         foreach ($appData as $rows2) {
             $appDetail = $rows2->appoitments_time;
         }
-	
+
 	if($frmId == '1'){
     ?>
-    
-	<?php 
-	    foreach($frmData as $row){
-		$i = $i + 1;
-		$total +=  $row->items_qty * $row->items_prices;
-		$discount += $row->items_discount;
-		$pdob = $row->patient_dob;
-		$pname = $row->patient_kh_name;
-		$pcode = $row->patient_code;
-		$pphone = $row->patient_phone;
 
-		$tblRow .= "<tr>";
+	<?php
+	    foreach($frmData as $row){
+    		$i = $i + 1;
+    		$total +=  $row->items_qty * $row->items_prices;
+    		$discount += $row->items_discount;
+    	  $pdob = $row->patient_dob;
+    		$pname = $row->patient_kh_name;
+    		$pcode = $row->patient_code;
+    		$pphone = $row->patient_phone;
+        $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
+    		$tblRow .= "<tr>";
 		    $tblRow .= "<td>". $i ."</td>";
 		    $tblRow .= "<td class='myCenter'>".$row->items_modified."</td>";
 		    $tblRow .= "<td>".$row->products_name."</td>";
 		    $tblRow .= "<td>".$row->items_time."</td>";
 		    $tblRow .= "<td class='myCenter'>".$row->name."</td>";
 		    $tblRow .= "<td class='myCenter'>".round(($row->items_qty * $row->items_prices),2)."$ </td>";
-		$tblRow .= "</tr>";
+		    $tblRow .= "</tr>";
 	    }
 	?>
 	<body>
 		<div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">ប័ណ្ណចាក់ថ្នាំ និងសេរ៉ូម</center>
-		<div style="float:right;position: relative; color:#F17795 !important;font-size:18px"></div>
+		<div style="float:right;position: relative; color:#000000 !important;font-size:18px"></div>
 		<br/><br/>
 		<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -80,41 +81,41 @@
 	    <table class="table">
 		<thead>
 		    <tr>
-			<th style="color:#F17795 !important" width="5%">លេខ</th>
-			<th style="color:#F17795 !important" width="15%">ថ្ងៃខែឆ្នាំ</th>
-			<th style="color:#F17795 !important" width="30%">ឈ្មោះថ្មាំ</th>
-			<th style="color:#F17795 !important" width="20%">បរិយាយ</th>
-			<th style="color:#F17795 !important" width="15%">វេជ្ជបណ្ឌិត</th>
-			<th style="color:#F17795 !important" width="15%">តម្លៃ</th>
+			<th style="color:#000000 !important" width="5%">លេខ</th>
+			<th style="color:#000000 !important" width="15%">ថ្ងៃខែឆ្នាំ</th>
+			<th style="color:#000000 !important" width="30%">ឈ្មោះថ្មាំ</th>
+			<th style="color:#000000 !important" width="20%">បរិយាយ</th>
+			<th style="color:#000000 !important" width="15%">វេជ្ជបណ្ឌិត</th>
+			<th style="color:#000000 !important" width="15%">តម្លៃ</th>
 		    </tr>
 		</thead>
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myCenter"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	    <h4 class="myLeft">ភ្នំពេញថ្ងៃទី៖ <?php echo date("d/m/Y h:i:sa");?></h4>
-	    <h4 class="myLeft">ហត្ថលេខា <br/><br/><span style="color:#F17795 !important"><?php echo @$uids;?></span></h4>
+	    <h4 class="myLeft">ហត្ថលេខា <br/><br/><span style="color:#000000 !important"><?php echo @$uids;?></span></h4>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '2'){
     ?>
-	
-	<?php 
+
+	<?php
 	    foreach($frmData as $row){
 		$i = $i + 1;
 		$total +=  $row->items_qty * $row->items_prices;
@@ -123,6 +124,7 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
 
 		$tblRow .= "<tr>";
 		    $tblRow .= "<td>". $i ."</td>";
@@ -141,7 +143,7 @@
 	<body>
 		<div style="float:left"><img style="width:50px !important" src="<?php echo $resources?>img/bc_logo.png"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">Diode Laser</center>
-		<div style="float:right;position: relative; color:#F17795 !important">&nbsp;</div>
+		<div style="float:right;position: relative; color:#000000 !important">&nbsp;</div>
 		<br/><br/>
 	    <div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -153,45 +155,45 @@
 	    <table class="table">
 		<thead>
 		    <tr>
-			<th style="color:#F17795 !important" width="5%">No</th>
-			<th style="color:#F17795 !important" width="10%">Date</th>
-			<th style="color:#F17795 !important" width="7%">Fitz-<br/>patrik</th>
-			<th style="color:#F17795 !important" width="10%">Fluence</th>
-			<th style="color:#F17795 !important" width="10%">Pulse<br/>Length</th>
-			<th style="color:#F17795 !important" width="10%">Freq-<br/>uency</th>
-			<th style="color:#F17795 !important" width="15%">Mode</th>
-			<th style="color:#F17795 !important" width="5%">Treat</th>
-			<th style="color:#F17795 !important" width="13%">Dr</th>
-			<th style="color:#F17795 !important" width="10%">Price</th>
+			<th style="color:#000000 !important" width="5%">No</th>
+			<th style="color:#000000 !important" width="10%">Date</th>
+			<th style="color:#000000 !important" width="7%">Fitz-<br/>patrik</th>
+			<th style="color:#000000 !important" width="10%">Fluence</th>
+			<th style="color:#000000 !important" width="10%">Pulse<br/>Length</th>
+			<th style="color:#000000 !important" width="10%">Freq-<br/>uency</th>
+			<th style="color:#000000 !important" width="15%">Mode</th>
+			<th style="color:#000000 !important" width="5%">Treat</th>
+			<th style="color:#000000 !important" width="13%">Dr</th>
+			<th style="color:#000000 !important" width="10%">Price</th>
 		    </tr>
 		</thead>
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="9" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="9" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="9" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="9" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myCenter"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="9" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="9" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	    <h4 class="myLeft">ភ្នំពេញថ្ងៃទី៖ <?php echo date("d/m/Y h:i:sa");?></h4>
-	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#F17795 !important"><?php echo @$uids;?></span></h4>
+	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#000000 !important"><?php echo @$uids;?></span></h4>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '3'){
     ?>
-	
-	<?php 
+
+	<?php
 	    foreach($frmData as $row){
 		$i = $i + 1;
 		$total +=  $row->items_qty * $row->items_prices;
@@ -200,6 +202,7 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
 
 		$tblRow .= "<tr>";
 		    $tblRow .= "<td>". $i ."</td>";
@@ -215,11 +218,11 @@
 		$tblRow .= "</tr>";
 	    }
 	?>
-	
+
 	<body>
 		<div style="float:left"><img style="width:50px !important" src="<?php echo $resources?>img/bc_logo.png"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">Q-Switch Laser</center>
-		<div style="float:right;position: relative; color:#F17795 !important">&nbsp;</div>
+		<div style="float:right;position: relative; color:#000000 !important">&nbsp;</div>
 		<br/><br/>
 	    <div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -231,45 +234,45 @@
 	    <table class="table">
 		<thead>
 		    <tr>
-			<th style="color:#F17795 !important" width="5%">No</th>
-			<th style="color:#F17795 !important" width="10%">Date</th>
-			<th style="color:#F17795 !important" width="7%">Lens</th>
-			<th style="color:#F17795 !important" width="10%">Fluence</th>
-			<th style="color:#F17795 !important" width="10%">Pulse<br/>Length</th>
-			<th style="color:#F17795 !important" width="10%">Freq-<br/>uency</th>
-			<th style="color:#F17795 !important" width="10%">Spot<br/>Size</th>
-			<th style="color:#F17795 !important" width="5%">Treat</th>
-			<th style="color:#F17795 !important" width="18%">Dr</th>
-			<th style="color:#F17795 !important" width="10%">Price</th>
+			<th style="color:#000000 !important" width="5%">No</th>
+			<th style="color:#000000 !important" width="10%">Date</th>
+			<th style="color:#000000 !important" width="7%">Lens</th>
+			<th style="color:#000000 !important" width="10%">Fluence</th>
+			<th style="color:#000000 !important" width="10%">Pulse<br/>Length</th>
+			<th style="color:#000000 !important" width="10%">Freq-<br/>uency</th>
+			<th style="color:#000000 !important" width="10%">Spot<br/>Size</th>
+			<th style="color:#000000 !important" width="5%">Treat</th>
+			<th style="color:#000000 !important" width="18%">Dr</th>
+			<th style="color:#000000 !important" width="10%">Price</th>
 		    </tr>
 		</thead>
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="9" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="9" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="9" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="9" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myCenter"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="9" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="9" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	    <h4 class="myLeft">ភ្នំពេញថ្ងៃទី៖ <?php echo date("d/m/Y h:i:sa");?></h4>
-	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#F17795 !important"><?php echo @$uids;?></span></h4>
+	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#000000 !important"><?php echo @$uids;?></span></h4>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '4'){
     ?>
-	
-	<?php 
+
+	<?php
 	    foreach($frmData as $row){
 		$i = $i + 1;
 		$total +=  $row->items_qty * $row->items_prices;
@@ -278,6 +281,7 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
 
 		$tblRow .= "<tr>";
 		    $tblRow .= "<td>". $i ."</td>";
@@ -290,10 +294,10 @@
 	    }
 	?>
 	<body>
-	    
+
 	    <div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">ប័ណ្ណចាក់ខ្លាញ់</center>
-		<div style="float:right;position: relative; color:#F17795 !important;font-size:18px"></div>
+		<div style="float:right;position: relative; color:#000000 !important;font-size:18px"></div>
 		<br/><br/>
 		<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -312,41 +316,41 @@
 	    <table class="table">
 		<thead>
 		    <tr>
-			<th style="color:#F17795 !important" width="5%">លេខ</th>
-			<th style="color:#F17795 !important" width="20%">ថ្ងៃខែឆ្នាំ</th>
-			<th style="color:#F17795 !important" width="30%">ឈ្មោះថ្មាំ</th>
-			<th style="color:#F17795 !important" width="10%">ពេល</th>
-			<th style="color:#F17795 !important" width="25%">វេជ្ជបណ្ឌិត</th>
-			<th style="color:#F17795 !important" width="10%">តម្លៃ</th>
+			<th style="color:#000000 !important" width="5%">លេខ</th>
+			<th style="color:#000000 !important" width="20%">ថ្ងៃខែឆ្នាំ</th>
+			<th style="color:#000000 !important" width="30%">ឈ្មោះថ្មាំ</th>
+			<th style="color:#000000 !important" width="10%">ពេល</th>
+			<th style="color:#000000 !important" width="25%">វេជ្ជបណ្ឌិត</th>
+			<th style="color:#000000 !important" width="10%">តម្លៃ</th>
 		    </tr>
 		</thead>
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myCenter"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	    <h4 class="myLeft">ភ្នំពេញថ្ងៃទី៖ <?php echo date("d/m/Y h:i:sa");?></h4>
-	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#F17795 !important"><?php echo @$uids;?></span></h4>
+	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#000000 !important"><?php echo @$uids;?></span></h4>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '5'){
     ?>
-	
-	<?php 
+
+	<?php
 	    foreach($frmData as $row){
 		$i = $i + 1;
 		$total +=  $row->items_qty * $row->items_prices;
@@ -355,6 +359,7 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
 
 		$tblRow .= "<tr>";
 		    $tblRow .= "<td>". $i ."</td>";
@@ -371,11 +376,11 @@
 		$tblRow .= "</tr>";
 	    }
 	?>
-	
+
 	<body>
 	    <div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">CPL Laser</center>
-		<div style="float:right;position: relative; color:#F17795 !important">&nbsp;</div>
+		<div style="float:right;position: relative; color:#000000 !important">&nbsp;</div>
 		<br/><br/>
 		<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -394,46 +399,46 @@
 	    <table class="table">
 		<thead>
 		    <tr>
-			<th style="color:#F17795 !important" width="5%">No</th>
-			<th style="color:#F17795 !important" width="10%">Date</th>
-			<th style="color:#F17795 !important" width="20%">Cut Off<br/>Filter</th>
-			<th style="color:#F17795 !important" width="10%">Freq-<br/>uency</th>
-			<th style="color:#F17795 !important" width="5%">Pulse<br/>Train</th>
-			<th style="color:#F17795 !important" width="5%">Pulse<br/>Delay</th>
-			<th style="color:#F17795 !important" width="5%">Pause<br/>Length</th>
-			<th style="color:#F17795 !important" width="5%">Fluence</th>
-			<th style="color:#F17795 !important" width="5%">Treat</th>
-			<th style="color:#F17795 !important" width="15%">Dr</th>
-			<th style="color:#F17795 !important" width="10%">Price</th>
+			<th style="color:#000000 !important" width="5%">No</th>
+			<th style="color:#000000 !important" width="10%">Date</th>
+			<th style="color:#000000 !important" width="20%">Cut Off<br/>Filter</th>
+			<th style="color:#000000 !important" width="10%">Freq-<br/>uency</th>
+			<th style="color:#000000 !important" width="5%">Pulse<br/>Train</th>
+			<th style="color:#000000 !important" width="5%">Pulse<br/>Delay</th>
+			<th style="color:#000000 !important" width="5%">Pause<br/>Length</th>
+			<th style="color:#000000 !important" width="5%">Fluence</th>
+			<th style="color:#000000 !important" width="5%">Treat</th>
+			<th style="color:#000000 !important" width="15%">Dr</th>
+			<th style="color:#000000 !important" width="10%">Price</th>
 		    </tr>
 		</thead>
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="10" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="10" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="10" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="10" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myCenter"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="10" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="10" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	    <h4 class="myLeft">ភ្នំពេញថ្ងៃទី៖ <?php echo date("d/m/Y h:i:sa");?></h4>
-	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#F17795 !important"><?php echo @$uids;?></span></h4>
+	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#000000 !important"><?php echo @$uids;?></span></h4>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '6'){
     ?>
-	
-	<?php 
+
+	<?php
 	    foreach($frmData as $row){
 		$i = $i + 1;
 		$total +=  $row->items_qty * $row->items_prices;
@@ -442,6 +447,7 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
 
 		$tblRow .= "<tr>";
 		    $tblRow .= "<td>". $i ."</td>";
@@ -454,11 +460,11 @@
 		$tblRow .= "</tr>";
 	    }
 	?>
-	
+
 	<body>
 	    <div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">Erbium Vag Laser</center>
-		<div style="float:right;position: relative;color:#F17795 !important ">&nbsp;</div>
+		<div style="float:right;position: relative;color:#000000 !important ">&nbsp;</div>
 		<br/><br/>
 		<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -487,32 +493,32 @@
 		    </tr>
 		</thead>
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="6" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="6" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="6" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="6" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myCenter"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="6" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="6" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	    <h4 class="myLeft">ភ្នំពេញថ្ងៃទី៖ <?php echo date("d/m/Y h:i:sa");?></h4>
-	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#F17795 !important"><?php echo @$uids;?></span></h4>
+	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#000000 !important"><?php echo @$uids;?></span></h4>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '7'){
     ?>
-	
-	<?php 
+
+	<?php
 	    foreach($frmData as $row){
 		$i = $i + 1;
 		$total +=  $row->items_qty * $row->items_prices;
@@ -521,6 +527,7 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
 
 		$tblRow .= "<tr>";
 		    $tblRow .= "<td>". $i ."</td>";
@@ -535,7 +542,7 @@
 	<body>
 		<div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">ប័ណ្ណភៀសមុខ (Facial Peeling)</center>
-		<div style="float:right;position: relative; color:#F17795 !important;font-size:18px"></div>
+		<div style="float:right;position: relative; color:#000000 !important;font-size:18px"></div>
 		<br/><br/>
 		<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -563,32 +570,32 @@
 		    </tr>
 		</thead>
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myCenter"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="5" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="5" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myCenter"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	    <h4 class="myLeft">ភ្នំពេញថ្ងៃទី៖ <?php echo date("d/m/Y h:i:sa");?></h4>
-	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#F17795 !important"><?php echo @$uids;?></span></h4>
+	    <h4 class="myLeft">ហត្ថលេខា <span style="color:#000000 !important"><?php echo @$uids;?></span></h4>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '8'){
     ?>
-	
-	<?php 
+
+	<?php
 	    foreach($frmData as $row){
 		$i = $i + 1;
 		$total +=  $row->items_qty * $row->items_prices;
@@ -597,6 +604,7 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
 		if( $i % 2 != 0){
 		    $tblRow .= "<tr>";
 			$tblRow .= '<td width="15%"><img src="'.$resources.'img/face.png" style="width:100%; height:auto;"/></td>';
@@ -623,13 +631,13 @@
 		$tblRow .= '<td width="15%"><img src="'.$resources.'img/face.png" style="width:100%; height:auto;"/></td>';
 		    $tblRow .= '<td width="35%"></td>';
 		$tblRow .= '</tr>';
-	    } 
+	    }
 	?>
-	
+
 	<body>
 	    <div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">Anti Aging Treatment</center>
-		<div style="float:right;position: relative; color:#F17795 !important;font-size:18px"></div>
+		<div style="float:right;position: relative; color:#000000 !important;font-size:18px"></div>
 		<br/><br/>
 		<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 		   	<center>
@@ -647,28 +655,28 @@
 	    </div>
 	    <table class="table">
 		<tbody>
-		    <?php 
+		    <?php
 			echo $tblRow;
 		    ?>
-		    
+
 		    <tr>
-			<td colspan="3" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="3" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myRight"><?php echo round(@$total,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="3" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+			<td colspan="3" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 			<td class="myRight"><?php echo round(@$discount,2);?>$</td>
 		    </tr>
 		    <tr>
-			<td colspan="3" class="myRight" style="color:#F17795 !important">សរុប</td>
+			<td colspan="3" class="myRight" style="color:#000000 !important">សរុប</td>
 			<td class="myRight"><?php echo round(($total - $discount),2);?>$</td>
 		    </tr>
 		</tbody>
 	    </table>
 	</body>
-    <?php 
+    <?php
 	}elseif($frmId == '9' || $frmId == '12' || $frmId == '13'){
-   
+
 	    $mamount = 0;
 	    $tbl1 = '';
             $i = 0;
@@ -684,14 +692,15 @@
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
-        $phones = $row->phone;
-		
+    $phones = $row->phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
+
 		if($row->patient_gender == 'm'){
 		    $pgender = "ប្រុស";
 		}else{
 		    $pgender = "ស្រី";
 		}
-		
+
 		if($row->types_id == '2'){
 			$total +=  $row->items_qty * $row->items_prices;
 			$discount += $row->items_discount;
@@ -713,24 +722,22 @@
 		// else{
 		//                   $j = $j + 1;
 		//     $tbl1.= "<tr>";
-		// 	$tbl1 .= "<td>". $j ."</td>";
-		// 	$tbl1 .= "<td class='myLeft'>".$row->products_name."</td>";
-		// 	$tbl1 .= "<td class='myLeft'>".$row->items_time."</td>";
-		//           $tbl1 .= "<td class='myLeft'>".$row->name."</td>";
-		// 	$tbl1 .= "<td class='myRight'>".round(($row->items_qty * $row->items_prices),2)."$ </td>";
+    		// $tbl1 .= "<td>". $j ."</td>";
+    		// $tbl1 .= "<td class='myLeft'>".$row->products_name."</td>";
+    		// $tbl1 .= "<td class='myLeft'>".$row->items_time."</td>";
+    		//           $tbl1 .= "<td class='myLeft'>".$row->name."</td>";
+    		// 	$tbl1 .= "<td class='myRight'>".round(($row->items_qty * $row->items_prices),2)."$ </td>";
 		//     $tbl1 .= "</tr>";
 		//     $tbl1 .= "<tr><td colspan='5'><span style='visibility: hidden;'>ក</span>".$row->items_detail."</td></tr>";
 		// }
-		
-		
 	    }
 	?>
-	
+
 	<body>
 		<div style="padding-top:2px">
 			<div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">មន្ទីរពេទ្យសម្ភពសោភាហ្គោល<br>Sorphear maternity hospital<br><br><br> </center>
-			<div style="float:right;position: relative;top:-80px; color:#F17795 !important;font-size:15px">វេជ្ជបញ្ជា</div>
+			<div style="float:right;position: relative;top:-80px; color:#000000 !important;font-size:15px">វេជ្ជបញ្ជា</div>
 			<div style="float:left;width:100% !important padding:0px !important; margin:0px !important;>
 			   	<center>
 			    	<div style="text-align:left;float:left;width:358px !important;">ឈ្មោះ៖ <?php echo @$pname;?></div>
@@ -748,31 +755,31 @@
 		    <table class="table">
 			<thead>
 			    <tr>
-				<th style="color:#F17795 !important" width="2%">No.</th>
-				<th style="color:#F17795 !important" width="35%">Medicine</th>
-				<th style="color:#F17795 !important" width="48%">Description</th>
-				<th style="color:#F17795 !important" width="5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">QTY</th>
-	            <th style="color:#F17795 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">ព្រឹក</th>
-				<th style="color:#F17795 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">ថ្ងៃ</th>
-				<th style="color:#F17795 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">ល្ងាច</th>
-				<th style="color:#F17795 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">យប់</th>
-				<th style="color:#F17795 !important" width="8%" style="padding-left: 0px !important; padding-right: 0px !important;">Price</th>
+				<th style="color:#000000 !important" width="2%">No.</th>
+				<th style="color:#000000 !important" width="35%">Medicine</th>
+				<th style="color:#000000 !important" width="48%">Description</th>
+				<th style="color:#000000 !important" width="5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">QTY</th>
+	            <th style="color:#000000 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">ព្រឹក</th>
+				<th style="color:#000000 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">ថ្ងៃ</th>
+				<th style="color:#000000 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">ល្ងាច</th>
+				<th style="color:#000000 !important" width="0.5%" style="font-size: 7px !important; padding-left: 0px !important; padding-right: 0px !important;">យប់</th>
+				<th style="color:#000000 !important" width="8%" style="padding-left: 0px !important; padding-right: 0px !important;">Price</th>
 			    </tr>
 			</thead>
 			<tbody>
-			    <?php 
+			    <?php
 				echo $tblRow;
 			    ?>
 			    <tr>
-				<td colspan="8" class="myRight" style="color:#F17795 !important">សរុប</td>
+				<td colspan="8" class="myRight" style="color:#000000 !important">សរុប</td>
 				<td class="myRight"><?php echo round(@$total,2);?>$</td>
 			    </tr>
 			    <tr>
-				<td colspan="8" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+				<td colspan="8" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 				<td class="myRight"><?php echo round(@$discount,2);?>$</td>
 			    </tr>
 			    <tr>
-				<td colspan="8" class="myRight" style="color:#F17795 !important">សរុប</td>
+				<td colspan="8" class="myRight" style="color:#000000 !important">សរុប</td>
 				<td class="myRight"><?php echo round(($total - $discount),2);?>$</td>
 			    </tr>
 			</tbody>
@@ -789,14 +796,14 @@
                                             }
                                     ?> </span>
 		    <br><br><br>
-		    <span class="fright" style="color:#F17795 !important"><?php echo @$uids;?></span><br/>
+		    <span class="fright" style="color:#000000 !important"><?php echo @$uids;?></span><br/>
 		    <span class="fright">Tel:<?php echo @$uphones;?></span></h4>
-		    </div>    
+		    </div>
 	    </div>
 	</body>
-	<?php 
+	<?php
 	}elseif($frmId == '14'){
-   
+
 	    $mamount = 0;
 	    $tbl1 = '';
         $i = 0;
@@ -807,13 +814,14 @@
 		$af ='';
 		$pm = '';
 		$nt = '';
-		
+
 		$pdob = $row->patient_dob;
 		$pname = $row->patient_kh_name;
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
-        $phones = $row->phone;
-		
+    $phones = $row->phone;
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
+
 		if($row->patient_gender == 'm'){
 		    $pgender = "ប្រុស";
 		}else{
@@ -841,7 +849,7 @@
 		    <div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 			<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">មន្ទីរពេទ្យសម្ភពសោភាហ្គោល<br>Sorphear maternity hospital<br></center>
             	<div style="width:100%; float:left; font-size: 9px">
-	
+
 						<div style="width:40%; float:left; line-height: 17px">
 							<span><b>សាស្រ្ដាចារ្យ</b></span> <span><b>តាន់ វូចឆេង</b></span><br>
 							<span><b>ទូរស័ព្ទ</b></span> <span>012 88 36 61</span><br>
@@ -879,28 +887,28 @@
 		    <table class="table">
 			<thead>
 			    <tr>
-				<th style="color:#F17795 !important" width="5%">លេខ</th>
-				<th style="color:#F17795 !important" width="30%">សេវា</th>
-				<th style="color:#F17795 !important" width="32%">ពណ៌នា</th>
-	            <th style="color:#F17795 !important" width="20%">ឈ្មោះ</th>
-				<th style="color:#F17795 !important" width="13%">តម្លៃ</th>
+				<th style="color:#000000 !important" width="5%">លេខ</th>
+				<th style="color:#000000 !important" width="30%">សេវា</th>
+				<th style="color:#000000 !important" width="32%">ពណ៌នា</th>
+	            <th style="color:#000000 !important" width="20%">ឈ្មោះ</th>
+				<th style="color:#000000 !important" width="13%">តម្លៃ</th>
 			    </tr>
 			</thead>
 			<tbody>
-			    <?php 
+			    <?php
 				echo $tbl1;
 			    ?>
-			    
+
 			    <tr>
-				<td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+				<td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
 				<td class="myRight"><?php echo round(@$total,2);?>$</td>
 			    </tr>
 			    <tr>
-				<td colspan="4" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+				<td colspan="4" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
 				<td class="myRight"><?php echo round(@$discount,2);?>$</td>
 			    </tr>
 			    <tr>
-				<td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+				<td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
 				<td class="myRight"><?php echo round(($total - $discount),2);?>$</td>
 			    </tr>
 			</tbody>
@@ -924,18 +932,18 @@
 					ផ្លូវលេខ ១៤១ សង្កាត់ វាលវង់ ខណ្ឌ ៧​​មករា<br>
 					លេខទូរស័ព្ទ : 012 883 661, 097 970 0080, 012 844 522, 097 970 0070
 			    </div>
-		    <span class="fright" style="color:#F17795 !important"><?php echo @$uids;?></span><br/>
+		    <span class="fright" style="color:#000000 !important"><?php echo @$uids;?></span><br/>
 		    <span class="fright">Tel:<?php echo @$uphones;?></span></h4>
 		    </div>
 		</div>
-	<?php 
+	<?php
 	    }elseif($frmId == '10'){
-	
+
             $total2 = 0;
             $total3 = 0;
             $total4 = 0;
             $total5 = 0;
-                
+
 	    $mamount = 0;
 	    $tbl1 = '';
             $tbl2 = '';
@@ -956,12 +964,15 @@
 		$pcode = $row->patient_code;
 		$pphone = $row->patient_phone;
 		$ordernant_no  = $row->ordernant_no;
+
+    $ppage = ($pdob !== '')? date("Y") - date("Y", strtotime($pdob)) : '';
+
 		if($row->patient_gender == 'm'){
 		    $pgender = "ប្រុស";
 		}else{
 		    $pgender = "ស្រី";
 		}
-		
+
 		if($row->types_id == '2'){
 				$ii = $ii+1;
                     if($row->ordernant_no == '1'){
@@ -977,9 +988,9 @@
                         // $tblRow .= "<tr><td colspan='9'><span style='visibility: hidden;'>ក</span>".$row->items_detail."</td></tr>";
                     }
                     if($row->ordernant_no == '2'){
-                        
+
                         $total2 +=  $row->items_qty * $row->items_prices;
-                        
+
                         $tbl2 .= "<tr>";
                             $tbl2 .= "<td>". $ii ."</td>";
                             $tbl2 .= "<td class='myLeft'>".$row->products_name."</td>";
@@ -990,9 +1001,9 @@
                         // $tbl2 .= "<tr><td colspan='9'><span style='visibility: hidden;'>ក</span>".$row->items_detail."</td></tr>";
                     }
                     if($row->ordernant_no == '3'){
-                        
+
                         $total3 +=  $row->items_qty * $row->items_prices;
-                        
+
                         $tbl3 .= "<tr>";
                             $tbl3 .= "<td>". $ii ."</td>";
                             $tbl3 .= "<td class='myLeft'>".$row->products_name."</td>";
@@ -1003,9 +1014,9 @@
                         // $tbl3 .= "<tr><td colspan='9'><span style='visibility: hidden;'>ក</span>".$row->items_detail."</td></tr>";
                     }
                     if($row->ordernant_no == '4'){
-                        
+
                         $total4 +=  $row->items_qty * $row->items_prices;
-                        
+
                         $tbl4 .= "<tr>";
                             $tbl4 .= "<td>". $ii ."</td>";
                             $tbl4 .= "<td class='myLeft'>".$row->products_name."</td>";
@@ -1016,9 +1027,9 @@
                         // $tbl4 .= "<tr><td colspan='9'><span style='visibility: hidden;'>ក</span>".$row->items_detail."</td></tr>";
                     }
                     if($ordernant_no == '5'){
-                        
+
                         $total5 +=  $row->items_qty * $row->items_prices;
-                        
+
                         $tbl5 .= "<tr>";
                             $tbl5 .= "<td>". $ii ."</td>";
                             $tbl5 .= "<td class='myLeft'>".$row->products_name."</td>";
@@ -1029,9 +1040,9 @@
                         // $tbl5 .= "<tr><td colspan='9'><span style='visibility: hidden;'>ក</span>".$row->items_detail."</td></tr>";
                     }
 		}else{
-                    
+
                     $total +=  $row->items_qty * $row->items_prices;
-                    
+
 		    $tbl1.= "<tr>";
 			$tbl1 .= "<td>". $i ."</td>";
 			$tbl1 .= "<td class='myLeft'>".$row->products_name."</td>";
@@ -1041,7 +1052,7 @@
 		    $tbl1 .= "<tr><td colspan='4'><span style='visibility: hidden;'>ក</span>".$row->items_detail."</td></tr>";
 		}
 	    }
-	    
+
 	    $dias = '';
 	    $diaLevel = '';
 	    $j = 0;
@@ -1053,17 +1064,17 @@
 		}
 	    }
 	?>
-	
+
 	<body>
             <?php
-                if($tblRow <> '' || $tblRow != '' || $tbl1 != ''){ 
+                if($tblRow <> '' || $tblRow != '' || $tbl1 != ''){
             ?>
 			<div style="min-height: 850px;">
 				<div style="float:left"><img style="width: 78px !important;position: relative;top: -14px;" src="<?php echo base_url("resources/theme/defualt/img/bc_logo.png")?>"/></div>
 				<center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">មន្ទីរពេទ្យសម្ភពសោភាហ្គោល<br>Sorphear maternity hospital</center>
-			
+
             	<div style="width:100%; float:left; font-size: 9px">
-	
+
 						<div style="width:40%; float:left; line-height: 17px">
 							<span><b>សាស្រ្ដាចារ្យ</b></span> <span><b>តាន់ វូចឆេង</b></span><br>
 							<span><b>ទូរស័ព្ទ</b></span> <span>012 88 36 61</span><br>
@@ -1084,10 +1095,10 @@
 				<div style="width:100%; float:left">
 					<center><span style="font-size:15px; color:#F17A97 !important">វិក័យប័ត្រ</span></center>
 				</div>
-			<div style="float:right;position: relative;top:-80px; color:#F17795 !important;font-size:15px"></div>
+			<div style="float:right;position: relative;top:-80px; color:#000000 !important;font-size:15px"></div>
 
 				<!-- <center style="color:#2F3290 !important;font-size:15px;position: relative;left: -30px;">វិក័យប័ត្រ</center>
-				<div style="float:right;position: relative;top:-80px; color:#F17795 !important;font-size:15px">សេវាកម្ម</div> -->
+				<div style="float:right;position: relative;top:-80px; color:#000000 !important;font-size:15px">សេវាកម្ម</div> -->
 				<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 				   	<center>
 				    	<div style="text-align:left;float:left;width:358px !important;">ឈ្មោះ៖ <?php echo @$pname;?></div>
@@ -1109,7 +1120,7 @@
 					    	<div style="text-align:left;float:left;width:60px !important;">កម្រិត៖  <?php echo @$diaLevel;?></div>
 					    </center>
 				    </div> -->
-                <?php 
+                <?php
                     }
                 ?>
                 <table class="table">
@@ -1123,7 +1134,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                             echo $tblRow;
                         ?>
                     </tbody>
@@ -1131,27 +1142,27 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th style="color:#F17795 !important" width="5%">លេខ</th>
-                            <th style="color:#F17795 !important" width="30%">សេវា</th>
-                            <th style="color:#F17795 !important" width="52%">ពណ៌នា</th>
-                            <th style="color:#F17795 !important" width="13%">តម្លៃ</th>
+                            <th style="color:#000000 !important" width="5%">លេខ</th>
+                            <th style="color:#000000 !important" width="30%">សេវា</th>
+                            <th style="color:#000000 !important" width="52%">ពណ៌នា</th>
+                            <th style="color:#000000 !important" width="13%">តម្លៃ</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                             echo $tbl1;
                         ?>
 
                         <tr>
-                            <td colspan="3" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="3" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(@$total,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+                            <td colspan="3" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
                             <td class="myRight"><?php echo round(@$discount,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="3" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(($total - $discount),2);?>$</td>
                         </tr>
                     </tbody>
@@ -1175,11 +1186,11 @@
 					ផ្លូវលេខ ១៤១ សង្កាត់ វាលវង់ ខណ្ឌ ៧​​មករា<br>
 					លេខទូរស័ព្ទ : 012 883 661, 097 970 0080, 012 844 522, 097 970 0070
 			    </div>
-			    <span class="fright" style="color:#F17795 !important"><?php echo @$uids;?></span><br/>
+			    <span class="fright" style="color:#000000 !important"><?php echo @$uids;?></span><br/>
 			    <span class="fright">Tel:<?php echo @$uphones;?></span></h4>
 			    </div>
-            </div> 
-            <?php 
+            </div>
+            <?php
                 }
                 if($tbl2 != ''){
             ?>
@@ -1201,27 +1212,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                             echo $tbl2;
                         ?>
-                        
+
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(@$total2,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
                             <td class="myRight"><?php echo round(@$discount,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(($total2),2);?>$</td>
                         </tr>
-                        
+
                     </tbody>
                 </table><br/>
             </div>
-            <?php 
+            <?php
                 }
                 if($tbl3 != '' || $tbl3 <> ''){
             ?>
@@ -1243,26 +1254,26 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                             echo $tbl3;
                         ?>
-                        
+
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(@$total3,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
                             <td class="myRight"><?php echo round(@$discount,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(($total3),2);?>$</td>
                         </tr>
                     </tbody>
                 </table><br/>
             </div>
-            <?php 
+            <?php
                 }
                 if($tbl4 != '' || $tbl4 <> ''){
             ?>
@@ -1284,27 +1295,27 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                             echo $tbl4;
                         ?>
-                        
+
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(@$total4,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
                             <td class="myRight"><?php echo round(@$discount,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(($total4),2);?>$</td>
                         </tr>
-                        
+
                     </tbody>
                 </table>
             </div>
-            <?php 
+            <?php
                 }
                 if($tbl5 != '' || $tbl5 <> ''){
             ?>
@@ -1326,30 +1337,30 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <?php 
+                        <?php
                             echo $tbl5;
                         ?>
-                        
+
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(@$total,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">បញ្ចុះតម្លៃ</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">បញ្ចុះតម្លៃ</td>
                             <td class="myRight"><?php echo round(@$discount,2);?>$</td>
                         </tr>
                         <tr>
-                            <td colspan="4" class="myRight" style="color:#F17795 !important">សរុប</td>
+                            <td colspan="4" class="myRight" style="color:#000000 !important">សរុប</td>
                             <td class="myRight"><?php echo round(($total5),2);?>$</td>
                         </tr>
                     </tbody>
                 </table><br/>
             </div>
-            <?php 
+            <?php
                 }
             ?>
 	</body>
-	
+
     <?php }else{ ?>
 	<h1> It is not in range ! </h1>
     <?php }?>
@@ -1364,7 +1375,7 @@
 	    .myLeft{
 		text-align: left !important;
 	    }
-	    
+
 	    .fleft{
 		float: left !important;
 	    }
@@ -1401,7 +1412,7 @@
 	    }
 	    body{
 		font-family: 'Kantumruy' !important;
-		font-size:11px;		
+		font-size:11px;
 	    }
 	    th{
 		text-align: center !important;
@@ -1428,10 +1439,10 @@
 	</style>
 	<script src="<?php echo $resources;?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
 	<script type="text/javascript">
-		// $(window).bind("load", function() {
-		// 	window.print();
-		// 	window.close();
-		// });
+		  $(window).bind("load", function() {
+		       window.print();
+		       window.close();
+		  });
 	</script>
-	
+
 </html>

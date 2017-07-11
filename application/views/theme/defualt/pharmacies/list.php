@@ -426,10 +426,10 @@
 	    var dic = $('#mDiscount').val();
 
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/add_medicine/" + visitId,{
-		medicines: v1,
-		qty: v2,
-		price: v3,
-		discount: dic,
+								medicines: v1,
+								qty: v2,
+								price: v3,
+								discount: dic,
                 amm: '1',
                 afm: '1',
                 pmm: '1',
@@ -471,7 +471,7 @@
 			    htmlView +='<span class="handOver" onclick="payInvoice(' + value.visitors_id + ');"><i class="fa fa-money action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
 			    htmlView +='<span class="handOver" onclick="printInvoice(' + value.visitors_id + ');"><i class="fa fa-print action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
 			    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.patient_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp;&nbsp;';
-                            htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+          htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ');"><i class="fa fa-external-link  action-btn danger"></i></span>';
 			htmlView += '</td>';
 		    htmlView += '</tr>';
 		});
@@ -507,11 +507,11 @@
 		    hpaid = parseFloat(hpaid) + (parseFloat(paidAmount)- parseFloat(value.payments_discount));
 		    i = i + 1;
 		    htmlView += '<tr>';
-			htmlView += '<td>' + i + '</td>';
-			htmlView += '<td>' + value.payments_date + '</td>';
-                        htmlView += '<td>' + value.payments_discount + '</td>';
-			htmlView += '<td>' + value.payments_amount + '</td>';
-			htmlView += '<td>' + value.payments_note + '</td>';
+				htmlView += '<td>' + i + '</td>';
+				htmlView += '<td>' + value.payments_date + '</td>';
+        htmlView += '<td>' + value.payments_discount + '</td>';
+				htmlView += '<td>' + value.payments_amount + '</td>';
+				htmlView += '<td>' + value.payments_note + '</td>';
 		    htmlView += '</tr>';
 		});
 
@@ -521,9 +521,9 @@
     }
 
     function printInvoice(vid){
-	$.post("<?php echo $base_url;?>index.php/prescriptions/view_form/10_"+vid,function (data){
-	    viewWindow(data);
-	});
+				$.post("<?php echo $base_url;?>index.php/prescriptions/view_form/10_"+vid,function (data){
+				    viewWindow(data);
+				});
     }
 
     function editMedicine(ids){
@@ -635,18 +635,17 @@
     }
 
     function payInvoice(ids){
-	$('#pharm_row').css('display','none');
-	$('#form_row').css('display','block');
-	$('#form_table').css('display','none');
-
-        visitId = ids;
-	frm_data(ids);
+				$('#pharm_row').css('display','none');
+				$('#form_row').css('display','block');
+				$('#form_table').css('display','none');
+ 					visitId = ids;
+				frm_data(ids);
     }
 
     function deleteItem(ids){
-	$.post("<?php echo $base_url;?>index.php/diagnostics/cancel_medicine/"+ids,function(data) {
-	    frm_data(visitId);
-	});
+				$.post("<?php echo $base_url;?>index.php/diagnostics/cancel_medicine/"+ids,function(data) {
+				    frm_data(visitId);
+				});
     }
 
     function viewWindow(htms){

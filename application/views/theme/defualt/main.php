@@ -8,16 +8,16 @@
           <!-- Info boxes -->
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
-		<a href="<?php echo $base_url;?>index.php/diagnostics">
-		    <span class="info-box-icon bg-fuchsia"><i class="fa fa-user-md"></i></span>
-		    <div class="info-box-content">
-		      <span class="info-box-text"> OPD </span>
-		      <span class="info-box-number" id="opdTotal"></span>
-		    </div><!-- /.info-box-content -->
-		  </div><!-- /.info-box -->
-		</a>
+  		<a href="<?php echo $base_url;?>index.php/diagnostics">
+  		    <span class="info-box-icon bg-fuchsia"><i class="fa fa-user-md"></i></span>
+  		    <div class="info-box-content">
+  		      <span class="info-box-text"> OPD </span>
+  		      <span class="info-box-number" id="opdTotal"></span>
+  		    </div><!-- /.info-box-content -->
+  		  </div><!-- /.info-box -->
+  		</a>
             </div><!-- /.col -->
-	    
+
 	    <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
 		<a href="<?php echo $base_url;?>index.php/ipds">
@@ -29,7 +29,7 @@
 		</a>
               </div><!-- /.info-box -->
             </div><!-- /.col -->
-	    
+
             <div class="col-md-3 col-sm-6 col-xs-12">
               <div class="info-box">
 		<a href="<?php echo $base_url;?>index.php/products">
@@ -101,7 +101,7 @@
     </a>
               </div><!-- /.info-box -->
             </div><!-- /.col -->
-	  
+
             <div class="col-md-12 col-sm-12 col-xs-12" style=" background: white !important;">
                 <h3 class="center"> Appoinment </h3>
                 <table class="table table-bordered table-hover dataTable">
@@ -116,7 +116,7 @@
                     </tbody>
                 </table>
             </div>
-	  
+
         </section><!-- /.content -->
       </div>
 <script>
@@ -138,8 +138,8 @@
                     htmlView += '<td>' + value.patient_kh_name+' (' + value.patient_en_name + ')' + '</td>';
                 htmlView += '</tr>';
             });
-            
+
             $('#appment').html(htmlView);
         });
     });
-</script>    
+</script>

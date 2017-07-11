@@ -196,134 +196,126 @@
 	});
 
     function getOpdList(mySearch,pageStart,pageLimit){
-
         $(document).ajaxStart(function(){
             $("#wait").css("display", "block");
         });
-		var status = '';
-        var htmlView = '';
-        var i = 0;
-        var stRow = '';
-        var jq_get_list = "<?php echo $jq_get_list ?>";
+						var status = '';
+		        var htmlView = '';
+		        var i = 0;
+		        var stRow = '';
+		        var jq_get_list = "<?php echo $jq_get_list ?>";
         $.post("<?php echo $base_url;?>index.php/diagnostics/"+jq_get_list,{
-			search_data: mySearch,
-			page_start: pageStart,
-			page_limit: pageLimit
-			},function(data,status){
-            $.each(data, function(key,value) {
+							search_data: mySearch,
+							page_start: pageStart,
+							page_limit: pageLimit
+				},function(data,status){
+        $.each(data, function(key,value) {
+		        	if(value.neonatal_id !== null){
+		        		v_name = value.neonatal_en_name;
+		        		v_code = value.neonatal_code;
+		        	}else{
+		        		v_name = value.patient_kh_name;
+		        		v_code = value.patient_code;
+		        	}
+		        	if(value.neonatal_id !== null){
+		        		leaveNeoId = value.neonatal_id;
+		        	}else{
+		        		leaveNeoId = 0;
+		        	}
+		          htmlView += '<tr ' + stRow + '>';
+		                htmlView += '<td>' + v_code + '</td>';
+		                htmlView += '<td>' + v_name + '</td>';
+		                htmlView += '<td>' + value.visitors_in_date + '</td>';
+		                if(value.visitors_status == '1'){
+		                        status = "Enrol";
+		                }else{
+		                        status = "Stay";
+		                }
+		                htmlView += '<td>' + status + '</td>';
+		                htmlView += '<td style="text-align:center;">';
+		                    htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
+		                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
+		                    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.visitors_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
+		                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" id="getCodeLeave" onclick="visitorLeave(' +value.patient_id+ ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+		                htmlView += '</td>';
+		          htmlView += '</tr>';
+        });
+	            $("#opdList").html(htmlView);
 
-            	if(value.neonatal_id !== null){
-            		v_name = value.neonatal_en_name;
-            		v_code = value.neonatal_code;
-            	}else{
-            		v_name = value.patient_kh_name;
-            		v_code = value.patient_code;
-            	}
-
-            	if(value.neonatal_id !== null){
-            		leaveNeoId = value.neonatal_id;
-            	}else{
-            		leaveNeoId = 0;
-            	}
-
-                	htmlView += '<tr ' + stRow + '>';
-                    htmlView += '<td>' + v_code + '</td>';
-                    htmlView += '<td>' + v_name + '</td>';
-                    htmlView += '<td>' + value.visitors_in_date + '</td>';
-                    if(value.visitors_status == '1'){
-                            status = "Enrol";
-                    }else{
-                            status = "Stay";
-                    }
-
-                    htmlView += '<td>' + status + '</td>';
-                    htmlView += '<td style="text-align:center;">';
-                        htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
-                        htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
-                        htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.visitors_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
-                        htmlView +='<span class="handOver" title="<?php echo @$leave;?>" id="getCodeLeave" onclick="visitorLeave(' +value.patient_id+ ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
-                    htmlView += '</td>';
-                htmlView += '</tr>';
-            });
-
-            $("#opdList").html(htmlView);
-
-            $(document).ajaxComplete(function(){
-                $("#wait").css("display", "none");
-            });
-
+	            $(document).ajaxComplete(function(){
+	                $("#wait").css("display", "none");
+	            });
         });
     }
     function viewVisitor(ids){
-		 $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
-		 function(data,status){
-			$.each(data, function(key,value) {
-				$('#p_code').html(value.patient_code);
-				$('#kh_name').html(value.patient_kh_name);
-				$('#en_name').html(value.patient_en_name);
-				$('#v_address').html(value.patient_address);
-				$('#v_phone').html(value.patient_phone);
-				$('#v_emergencyPhone').html(value.patient_emergency_phone);
-				$('#v_occupation').html(value.patient_occupation);
-				$('#v_dob').html(value.patient_dob);
-				$('#v_idCard').html(value.patient_id_card);
-				$('#v_assuranceCard').html(value.patient_assurance_card);
-				$('#v_assuranceCompany').html(value.patient_assurance_company);
-				$('#v_motorCard').html(value.patient_motor_card);
-				$('#v_carCard').html(value.patient_car_card);
+		$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
+				function(data,status){
+					$.each(data, function(key,value) {
+						$('#p_code').html(value.patient_code);
+						$('#kh_name').html(value.patient_kh_name);
+						$('#en_name').html(value.patient_en_name);
+						$('#v_address').html(value.patient_address);
+						$('#v_phone').html(value.patient_phone);
+						$('#v_emergencyPhone').html(value.patient_emergency_phone);
+						$('#v_occupation').html(value.patient_occupation);
+						$('#v_dob').html(value.patient_dob);
+						$('#v_idCard').html(value.patient_id_card);
+						$('#v_assuranceCard').html(value.patient_assurance_card);
+						$('#v_assuranceCompany').html(value.patient_assurance_company);
+						$('#v_motorCard').html(value.patient_motor_card);
+						$('#v_carCard').html(value.patient_car_card);
 
-				$('#v_bankCard1').html(value.patient_bank_card1);
-				$('#v_bankCard2').html(value.patient_bank_card2);
-				$('#v_studentCard').html(value.patient_student_card);
-				$('#v_assuranceCompany').html(value.patient_assurance_company);
-				if(value.patient_gender == 'm'){
-					$('#v_gender').html('Male');
-				}else{
-					$('#v_gender').html('Female');
-				}
+						$('#v_bankCard1').html(value.patient_bank_card1);
+						$('#v_bankCard2').html(value.patient_bank_card2);
+						$('#v_studentCard').html(value.patient_student_card);
+						$('#v_assuranceCompany').html(value.patient_assurance_company);
+						if(value.patient_gender == 'm'){
+							$('#v_gender').html('Male');
+						}else{
+							$('#v_gender').html('Female');
+						}
 
-				if(value.patient_status == '1'){
-					$('#v_status').html('Single');
-				}else{
-					$('#v_status').html('Married');
-				}
-				if(value.is_heart == '0'){
-					$('#v_heart').html('No');
-				}else{
-					$('#v_heart').html('Yes');
-				}
-				if(value.is_respiratory == '0'){
-					$('#v_respiratory').html('No');
-				}else{
-					$('#v_respiratory').html('Yes');
-				}
-				if(value.is_diabetes == '0'){
-					$('#v_diabetes').html('No');
-				}else{
-					$('#v_diabetes').html('Yes');
-				}
-				if(value.is_digestive == '0'){
-					$('#v_digestive').html('No');
-				}else{
-					$('#v_digestive').html('Yes');
-				}
-				if(value.is_kedney == '0'){
-					$('#v_kidney').html('No');
-				}else{
-					$('#v_kidney').html('Yes');
-				}
-				if(value.is_endocrine == '0'){
-					$('#v_endocrine').html('No');
-				}else{
-					$('#v_endocrine').html('Yes');
-				}
-				if(value.is_neuro_sys == '0'){
-					$('#v_neuro_sys').html('No');
-				}else{
-					$('#v_neuro_sys').html('Yes');
-				}
-
-			});
+						if(value.patient_status == '1'){
+							$('#v_status').html('Single');
+						}else{
+							$('#v_status').html('Married');
+						}
+						if(value.is_heart == '0'){
+							$('#v_heart').html('No');
+						}else{
+							$('#v_heart').html('Yes');
+						}
+						if(value.is_respiratory == '0'){
+							$('#v_respiratory').html('No');
+						}else{
+							$('#v_respiratory').html('Yes');
+						}
+						if(value.is_diabetes == '0'){
+							$('#v_diabetes').html('No');
+						}else{
+							$('#v_diabetes').html('Yes');
+						}
+						if(value.is_digestive == '0'){
+							$('#v_digestive').html('No');
+						}else{
+							$('#v_digestive').html('Yes');
+						}
+						if(value.is_kedney == '0'){
+							$('#v_kidney').html('No');
+						}else{
+							$('#v_kidney').html('Yes');
+						}
+						if(value.is_endocrine == '0'){
+							$('#v_endocrine').html('No');
+						}else{
+							$('#v_endocrine').html('Yes');
+						}
+						if(value.is_neuro_sys == '0'){
+							$('#v_neuro_sys').html('No');
+						}else{
+							$('#v_neuro_sys').html('Yes');
+						}
+				});
 		 });
 		 $('#visitor_view_form').css('display','block');
 		 $('#form_table').css('display','none');
@@ -347,7 +339,7 @@
 
     // visitor Leave
 	function visitorLeave(ids,codes){
-		$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+codes,{patient_id: ids, patient_code: codes},function(data,status){pagination();});
+			$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+codes,{patient_id: ids, patient_code: codes},function(data,status){pagination();});
 	}
 
     function viewWindow(htms){

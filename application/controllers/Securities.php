@@ -437,23 +437,23 @@ class Securities extends CI_Controller {
             // Translate
             $data['search'] = $this->Lang('search');
             $data['h_home'] = $this->Lang('home');
-    	    $data['h_patient'] = $this->Lang('patient');
-    	    $data['h_clinical'] = $this->Lang('clinical');
-    	    $data['h_product_and_service'] = $this->Lang('product_and_service');
-    	    $data['h_report'] = $this->Lang('report');
-    	    $data['h_search'] = $this->Lang('search');
-    	    $data['h_trash'] = $this->Lang('trash');
-    	    $data['h_visitor'] = $this->Lang('visitor');
-    	    $data['h_payment'] = $this->Lang('payment');
-    	    $data['h_waitting'] = $this->Lang('waitting_number');
-    	    $data['h_waitting_list'] = $this->Lang('waitting_list');
-    	    $data['h_waitting_history'] = $this->Lang('waitting_history');
-    	    $data['h_rooms'] = $this->Lang('room');
-    	    $data['h_workstation'] = $this->Lang('workstation');
-    	    $data['h_patient_rooms'] = $this->Lang('patient_room');
-          $data['h_receptionist'] = $this->Lang('receptionist');
-	        $data['h_neonatal_add'] = $this->Lang('neonatal_add');
-          $data['h_appoinment'] = $this->Lang('appoinment');
+	    	    $data['h_patient'] = $this->Lang('patient');
+	    	    $data['h_clinical'] = $this->Lang('clinical');
+	    	    $data['h_product_and_service'] = $this->Lang('product_and_service');
+	    	    $data['h_report'] = $this->Lang('report');
+	    	    $data['h_search'] = $this->Lang('search');
+	    	    $data['h_trash'] = $this->Lang('trash');
+	    	    $data['h_visitor'] = $this->Lang('visitor');
+	    	    $data['h_payment'] = $this->Lang('payment');
+	    	    $data['h_waitting'] = $this->Lang('waitting_number');
+	    	    $data['h_waitting_list'] = $this->Lang('waitting_list');
+	    	    $data['h_waitting_history'] = $this->Lang('waitting_history');
+	    	    $data['h_rooms'] = $this->Lang('room');
+	    	    $data['h_workstation'] = $this->Lang('workstation');
+	    	    $data['h_patient_rooms'] = $this->Lang('patient_room');
+	          $data['h_receptionist'] = $this->Lang('receptionist');
+		        $data['h_neonatal_add'] = $this->Lang('neonatal_add');
+	          $data['h_appoinment'] = $this->Lang('appoinment');
 
         $data['h_ipd'] = $this->Lang('ipd');
         $data['h_opd'] = $this->Lang('opd');
@@ -878,6 +878,21 @@ class Securities extends CI_Controller {
             }
             return $data_temp;
         }
+
+				function getServiceOption(){
+						return array('0' => '-- --',
+	                        '1' => 'OPD Adult',
+	                        '2'=>'IPD Adult',
+	                        '3'=>'Support Service',
+	                        '4'=>'Echo',
+	                        '5'=>'Booking',
+	                        '6'=>'Service',
+	                        '7'=>'Pharmacy',
+	                        '8'=>'Pediatric',
+	                        '9'=>'Neo Transfer',
+	                        '10'=>'Neo Gold');
+				}
+
 }
 
 /* End of file securities.php */

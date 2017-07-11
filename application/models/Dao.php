@@ -203,15 +203,15 @@ class Dao extends CI_Model{
 
 	// Get Count All Data From a Table
 	function getCountWhere($table_name,$where_con){
-		if($where_con != '' || $where_con != null){
-			$this->db->where($where_con);
-		}
-		$count = $this->db->count_all_results($table_name);
+				if($where_con != '' || $where_con != null){
+					$this->db->where($where_con);
+				}
+				$count = $this->db->count_all_results($table_name);
 
-                // Write Query Log
-		$this->queryLog();
+		                // Write Query Log
+				$this->queryLog();
 
-		return $count;
+				return $count;
 	}
 	// Get Join Count All Data From a Table
 	function getJoinCountWhere($select="", $from = "",$where = ""){
@@ -294,11 +294,11 @@ class Dao extends CI_Model{
 	// ########################### Logs and Session #################################
 	// General Log Style for Query Logs
 	function queryLog(){
-            if( $this->getQueryLog() == "true"){
-		$query = str_replace(array("\n", "\r"),' ', $this->db->last_query());
-		$log_data = $this->getSession('user_id').':'.$this->getSession('username').' ====> Execute Query ====> '.$query;
-		$this->writeLog($log_data);
-            }
+      if( $this->getQueryLog() == "true"){
+					$query = str_replace(array("\n", "\r"),' ', $this->db->last_query());
+					$log_data = $this->getSession('user_id').':'.$this->getSession('username').' ====> Execute Query ====> '.$query;
+					$this->writeLog($log_data);
+      }
 	}
 
 	// Custom Log Style for Query Logs
