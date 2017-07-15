@@ -64,19 +64,18 @@ class Patient extends Datastructure{
 
             return $this->executeQuery($select, $from, $where);
 	}
-
 	// Function Get Count Patient
 	function getCountAllPatient(){
-	    return $this->getCountWhere($this->getTblPatient(), " patient_deleted = 0");
+	    return $this->getCountWhere($this->getTblPatient(), " patient_deleted = 0 AND patient_ready = 0");
 	}
 	// Function Get Count Patient viewed
 	function getCountAllPatientView(){
-		$select = "";
-		$from = $this->getTblVisitor()." AS vs";
-		$from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
-		$where = " patient_deleted = 0";
-		$where .= " GROUP BY pt.patient_id";
-	 	return $this->getJoinCountWhere($select ,$from ,$where);
+			$select = "";
+			$from = $this->getTblPatient()." AS pt";
+			$from .= " LEFT JOIN ". $this->getTblVisitor()." AS vs ON vs.patient_id = pt.patient_id";
+			$where = " patient_deleted = 0 ";
+			$where .= " GROUP BY pt.patient_id";
+		 	return $this->getJoinCountWhere($select ,$from ,$where);
 	}
 
         // Function Get Count Patient
@@ -239,7 +238,7 @@ class Patient extends Datastructure{
 
 	// Get Count All Patient
 	function getCountPatient() {
-		return $this->getCountWhere($this->getTblPatient(), ' patient_deleted = 0');
+			return $this->getCountWhere($this->getTblPatient(), ' patient_deleted = 0 AND patient_ready = 0');
 	}
 
 	// Add or Insert Patient
@@ -272,15 +271,45 @@ class Patient extends Datastructure{
 
         // Get Patient Info by ID
 	function getPatientById(){
-
 	    $select = '';
-            $from = $this->getTblVisitor() ." AS vs";
-	    $from .= " JOIN ". $this->getTblPatient() ." AS pa ON vs.patient_id = pa.patient_id";
+      $from = $this->getTblVisitor() ." AS vs";
+			$from .= " JOIN ". $this->getTblPatient() ." AS pa ON vs.patient_id = pa.patient_id";
+	    $from .= " LEFT JOIN ". $this->getTblNeonatal() ." AS n ON vs.neonatal_id = n.neonatal_id";
 	    $from .= " LEFT JOIN ". $this->getTblDisctrict() ." AS di ON di.districts_id = pa.patient_district";
 	    $from .= " LEFT JOIN ". $this->getTblProvince() ." AS pr ON pr.provinces_id = pa.patient_province";
-	    $where = ' vs.patient_id = '.$this->getId().' AND patient_deleted = 0';
-
+	    $where = ' vs.visitors_id = '.$this->getId().' AND patient_deleted = 0';
 	    return $this->executeQuery($select, $from, $where);
+
+
+// patient_code
+// patient_kh_name
+// patient_en_name
+// patient_address
+// patient_phone
+// patient_emergency_phone
+// patient_dob
+// patient_id_card
+// patient_assurance_card
+// patient_assurance_company
+// patient_motor_card
+// patient_car_card
+// patient_bank_card1
+// patient_bank_card2
+// patient_student_card
+// patient_assurance_company
+// patient_gender
+// patient_status
+// is_heart
+// is_respiratory
+// is_diabetes
+// is_digestive
+// is_kedney
+// is_endocrine
+// is_neuro_sys
+// visitors_in_date
+// visitors_id
+
+
 	}
 	    // Get Patient Info by ID 2
 	function getEditPatientById(){

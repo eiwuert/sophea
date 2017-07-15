@@ -30,22 +30,18 @@ class Visitor extends Datastructure{
 
 	// Get All Visitor
 	function getAllVisited() {
-            $select = '';
-            $from = $this->getTblVisitor()." AS vs";
-            $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
-            $where = ' patient_deleted = 0 AND visitors_status NOT IN (4,5)';
-
-            if($this->getSearch() <> '' || $this->getSearch() != ''){
-                $where .= " AND (patient_kh_name LIKE '%".$this->getSearch()."%' OR patient_en_name LIKE '%".$this->getSearch()."%' OR patient_code LIKE '%".$this->getSearch()."%'  OR patient_phone LIKE '%".$this->getSearch()."%')";
-            }
-
-            if($this->getVisitorStatusSearch() != '0,0,0'){
-                $where .= " AND visitors_leave_status in (".$this->getVisitorStatusSearch().")";
-            }
-
-            $where .= " GROUP BY pt.patient_id";
-
-            return $this->executeQuery($select, $from, $where);
+        $select = '';
+        $from = $this->getTblVisitor()." AS vs";
+        $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
+        $where = ' patient_deleted = 0 AND visitors_status NOT IN (4,5)';
+        if($this->getSearch() <> '' || $this->getSearch() != ''){
+            $where .= " AND (patient_kh_name LIKE '%".$this->getSearch()."%' OR patient_en_name LIKE '%".$this->getSearch()."%' OR patient_code LIKE '%".$this->getSearch()."%'  OR patient_phone LIKE '%".$this->getSearch()."%')";
+        }
+        if($this->getVisitorStatusSearch() != '0,0,0'){
+            $where .= " AND visitors_leave_status in (".$this->getVisitorStatusSearch().")";
+        }
+        $where .= " GROUP BY pt.patient_id";
+        return $this->executeQuery($select, $from, $where);
 	}
 
 	// Get Count Visitor Status
@@ -85,18 +81,17 @@ class Visitor extends Datastructure{
 
 	// Get All Visitor
 	function getAllVisitorPay() {
-
 	    $sub = " SELECT visitors_id, SUM(IFNULL(payments_amount,0)) AS paid, SUM(IFNULL(payments_discount,0)) AS discount FROM ".$this->getTblServicePayment()." GROUP BY visitors_id";
-
-        $select = ' vs.visitors_id, accept_by_uid, patient_code, patient_kh_name, visitors_in_date AS register_date, visitors_status, SUM((IFNULL(items_qty,0) * IFNULL(items_prices,0)) - IFNULL(items_discount,0)) AS total, IFNULL(paid,0) AS paid, IFNULL(discount,0) AS discount';
-        $from = $this->getTblVisitor()." AS vs";
-        $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
+      $select = ' vs.visitors_id, vs.neonatal_id, accept_by_uid, patient_code, patient_kh_name, visitors_in_date AS register_date, visitors_status, SUM((IFNULL(items_qty,0) * IFNULL(items_prices,0)) - IFNULL(items_discount,0)) AS total, IFNULL(paid,0) AS paid, IFNULL(discount,0) AS discount, ';
+			$select .=' n.neonatal_kh_name, n.neonatal_en_name, n.neonatal_code, n.neonatal_date_in';
+			$from = $this->getTblVisitor()." AS vs";
+      $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
+			$from .= " LEFT JOIN ". $this->getTblNeonatal()." AS n ON n.neonatal_id = vs.neonatal_id";
 	    $from .= " LEFT JOIN ". $this->getTblServiceItem()." AS si ON vs.visitors_id = si.visitors_id";
 	    $from .= " LEFT JOIN (". $sub .") AS sp ON vs.visitors_id = sp.visitors_id";
-            //$where = '(visitors_status < 3 AND visitors_status > 0 AND items_deleted = 0) GROUP BY vs.visitors_id HAVING (total > (paid - discount)) AND total > 0';
+      //$where = '(visitors_status < 3 AND visitors_status > 0 AND items_deleted = 0) GROUP BY vs.visitors_id HAVING (total > (paid - discount)) AND total > 0';
 	    $where = ' accept_by_uid > 0 AND items_deleted = 0 GROUP BY vs.visitors_id HAVING (total > (paid + discount)) AND total > 0';
-
-            return $this->executeQuery($select, $from, $where);
+      return $this->executeQuery($select, $from, $where);
 	}
 
 	// Get Patient Visit
@@ -104,24 +99,24 @@ class Visitor extends Datastructure{
             $select = " vs.visitors_id, visitors_in_date, types_id, products_name, IFNULL(icd10_code, '') AS icd10_code, IFNULL(icd10_desc,'') AS icd10_desc, IFNULL(diagnostics_level,'') AS diagnostics_level, IFNULL(diagnostics_detail,'') AS diagnostics_detail, items_qty, items_discount, items_prices";
             $from = $this->getTblVisitor()." AS vs";
             $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
-	    $from .= " LEFT JOIN ". $this->getTblServiceItem() ." AS si ON si.visitors_id = vs.visitors_id";
-	    $from .= " LEFT JOIN ". $this->getTblProduct() . " AS pr ON pr.products_id = si.products_id";
+				    $from .= " LEFT JOIN ". $this->getTblServiceItem() ." AS si ON si.visitors_id = vs.visitors_id";
+				    $from .= " LEFT JOIN ". $this->getTblProduct() . " AS pr ON pr.products_id = si.products_id";
             $from .= " LEFT JOIN ". $this->getTblCategory() . " AS ca ON ca.categories_id = pr.categories_id";
             $from .= " LEFT JOIN ". $this->getTblDiagnostic() . " AS dia ON dia.visitors_id = vs.visitors_id";
             $from .= " LEFT JOIN ". $this->getTblIcd10() . " AS icd ON icd.icd10_id = dia.icd10_id";
             //$where = "	pt.patient_id = ". $this->getPatientId() ." AND visitors_status = 3 ORDER BY visitors_in_date ASC";
-	    $where = " products_name IS NOT NULL AND pt.patient_id = ". $this->getPatientId() ." GROUP BY si.service_items_id ORDER BY visitors_in_date ASC";
+	    			$where = " products_name IS NOT NULL AND pt.patient_id = ". $this->getPatientId() ." GROUP BY si.service_items_id ORDER BY visitors_in_date ASC";
 
             return $this->executeQuery($select, $from, $where);
 	}
 
 	// Get Visitor Info
 	function getVisitorInfo() {
-            $select = '';
+            $select = ' pt.patient_id,	vs.visitors_id,	pt.patient_kh_name,	pt.patient_en_name,	pt.patient_code,	pt.patient_dob,	pt.patient_gender,	pt.patient_date_in,	vs.visitors_status,	vs.visitors_in_date,	vs.neonatal_id as vneonatal_id,	vs.visitors_leave_status,	n.neonatal_en_name,	n.neonatal_kh_name,	n.neonatal_code,	n.neonatal_gender,	n.neonatal_weight,	n.neonatal_dob,	n.neonatal_date_in';
             $from = $this->getTblVisitor()." AS vs";
-            $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
+						$from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
+            $from .= " LEFT JOIN ". $this->getTblNeonatal()." AS n ON n.neonatal_id = vs.neonatal_id";
             $where = " visitors_id =".$this->getId();
-
             return $this->executeQuery($select, $from, $where);
 	}
 
@@ -132,7 +127,6 @@ class Visitor extends Datastructure{
             $from .= " JOIN ". $this->getTblVisitor()." AS vs ON vs.visitors_id = ds.visitors_id";
             $from .= " JOIN ". $this->getTblIcd10()." AS id ON ds.icd10_id = id.icd10_id";
             $where = ' diagnostics_deleted = 0 AND ds.visitors_id = '.$this->getId();
-
             return $this->executeQuery($select, $from, $where);
 	}
 
@@ -243,7 +237,8 @@ class Visitor extends Datastructure{
             if($neoOnly == '1'){
 									$where.= ' AND  vs.neonatal_id > 0';
 						}
-						$where.=' GROUP BY visitors_patient_code';
+						// hidden group by visitor because of this use in opd view with neo
+						// $where.=' GROUP BY visitors_patient_code';
             // Check If Limit
             if($this->getLimit() != '0' || $this->getStart() != '0'){
 									if($this->getStart() == '1' || $this->getStart() == ''){
@@ -336,7 +331,6 @@ class Visitor extends Datastructure{
 	function updateLeaveStatus(){
 	    $this->setArrayDataNothing();
 	    $this->setArrayData('visitors_leave_status', $this->getPatientStatus());
-
 	    $this->updateDataWhere($this->getTblVisitor(), $this->getArrayData(), ' visitors_id = '.$this->getId());
 	}
 

@@ -502,7 +502,7 @@ class Securities extends CI_Controller {
             $data['h_i_c_section'] = $this->Lang('i_c_section');
             $data['h_i_delivery_complication'] = $this->Lang('i_delivery_complication');
             $data['h_i_maternity'] = $this->Lang('i_maternity');
-            $data['h_i_medicine'] = $this->Lang('i_medicine');
+            $data['h_i_cancer'] = $this->Lang('i_cancer');
             $data['h_i_gyn'] = $this->Lang('i_gyn');
             $data['h_i_surgery'] = $this->Lang('i_surgery');
             $data['h_i_infertility'] = $this->Lang('i_infertility');
@@ -512,7 +512,7 @@ class Securities extends CI_Controller {
             $data['h_i_bone'] = $this->Lang('i_bone');
             $data['h_i_digestive'] = $this->Lang('i_digestive');
             $data['h_i_cardiaque'] = $this->Lang('i_cardiaque');
-            $data['h_i_opd_others'] = $this->Lang('i_opd_others');
+            $data['h_i_ipd_others'] = $this->Lang('i_ipd_others');
             $data['h_i_general_med'] = $this->Lang('i_general_med');
             $data['h_i_general_surgery'] = $this->Lang('i_general_surgery');
             $data['h_i_eye'] = $this->Lang('i_eye');
@@ -625,20 +625,17 @@ class Securities extends CI_Controller {
 
             // Techincal
             $data['loading'] = $this->Lang('loading');
-
             //$data[''] = $this->Lang($key);
-
             // Top Menu
             $data['resetPassword'] = $this->Lang('reset_password');
             $data['logout'] = $this->Lang('logout');
-
             // Session
             $data['userName'] = $this->getSession('name');
-	    $data['hospitalName'] = $this->getSession('hospitalName');
+	    			$data['hospitalName'] = $this->getSession('hospitalName');
 
             if($this->getUrlSegment1() <> 'logins' || $this->getUrlSegment1() != 'logins'){
                 //$data = $this->getAllPermission($data);
-		$data['hospitalLogo'] = $this->getHospitalLogo();
+								$data['hospitalLogo'] = $this->getHospitalLogo();
             }
 
             return $data;

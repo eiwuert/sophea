@@ -83,7 +83,7 @@
 				    </div>
 				</div>
 
-                                <!-----Payment Amoount------->
+        <!-----Payment Amoount------->
 				<div class="form-group">
 				    <div class="input-group">
 				      <div class="input-group-addon">
@@ -340,16 +340,16 @@
     });
 
     function autoMedicine(){
-	var dinput = $( 'input:focus' ).val();
-	var url = <?php echo '"'.$base_url.'index.php/products/product_auto_complete/"';?>;
-	var soc = String(url+dinput);
-	$( 'input:focus' ).autocomplete({source: soc});
-	var res = $( 'input:focus' ).val().split("-");
-	if(event.keyCode == 13){
-	    /*alert(res[1]);*/
-	    $( '#mQty' ).val('1');
-	    $( '#mPrice' ).val(res[3]);
-	}
+				var dinput = $( 'input:focus' ).val();
+				var url = <?php echo '"'.$base_url.'index.php/products/product_auto_complete/"';?>;
+				var soc = String(url+dinput);
+				$( 'input:focus' ).autocomplete({source: soc});
+				var res = $( 'input:focus' ).val().split("-");
+				if(event.keyCode == 13){
+				    /*alert(res[1]);*/
+				    $( '#mQty' ).val('1');
+				    $( '#mPrice' ).val(res[3]);
+				}
     }
 
     function autoPatient(){
@@ -408,13 +408,13 @@
 
     function addMedicine(){
 	    var htmlView = '<tr>';
-		htmlView += '<td  colspan="3" style="text-align:center;"><input type="text" id="m_medicine" style="text-align:center;" class="form-control" onkeyup="autoMedicine();"></td>';
-		htmlView += '<td style="text-align:center;"><input type="text" id="mQty" value=""  style="text-align:center;" class="form-control"></td>';
-		htmlView += '<td style="text-align:center;"><input type="text" id="mPrice" value=""  style="text-align:center;" class="form-control"></td>';
-		htmlView += '<td style="text-align:center;"><input type="text" id="mDiscount" value="0"  style="text-align:center;" class="form-control"></td>';
-		htmlView += '<td style="text-align:center;">';
+			htmlView += '<td  colspan="3" style="text-align:center;"><input type="text" id="m_medicine" style="text-align:center;" class="form-control" onkeyup="autoMedicine();"></td>';
+			htmlView += '<td style="text-align:center;"><input type="text" id="mQty" value=""  style="text-align:center;" class="form-control"></td>';
+			htmlView += '<td style="text-align:center;"><input type="text" id="mPrice" value=""  style="text-align:center;" class="form-control"></td>';
+			htmlView += '<td style="text-align:center;"><input type="text" id="mDiscount" value="0"  style="text-align:center;" class="form-control"></td>';
+			htmlView += '<td style="text-align:center;">';
 			htmlView += '<span class="handOver" onclick="saveData();"><i class="fa fa-save action-btn primary"></i></span>';
-		htmlView += '</td></tr>';
+			htmlView += '</td></tr>';
 
 	    $('#pharm_his').append(htmlView);
     }
@@ -447,54 +447,65 @@
         $(document).ajaxStart(function(){
             $("#wait").css("display", "block");
         });
-	var status = '';
+				var status = '';
         var htmlView = '';
         var i = 0;
         var stRow = '';
         $.post("<?php echo $base_url;?>index.php/visitors/pharmacy_get_visitor_list",{
-	    search_data: mySearch
-	    },function(data,status){
-		$.each(data, function(key,value) {
-		    htmlView += '<tr ' + stRow + '>';
-			htmlView += '<td>' + value.patient_code + '</td>';
-			htmlView += '<td>' + value.patient_kh_name + '</td>';
-			htmlView += '<td>' + value.register_date + '</td>';
-			if(value.visitors_status == '1'){
-				status = "Enrol";
-			}else if(value.visitors_status == '2'){
-				status = "Stay";
-			}else{
-				status = "Leave";
-			}
-			htmlView += '<td>' + status + '</td>';
-			htmlView += '<td style="text-align:center;">';
-			    htmlView +='<span class="handOver" onclick="payInvoice(' + value.visitors_id + ');"><i class="fa fa-money action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
-			    htmlView +='<span class="handOver" onclick="printInvoice(' + value.visitors_id + ');"><i class="fa fa-print action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
-			    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.patient_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp;&nbsp;';
-          htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ');"><i class="fa fa-external-link  action-btn danger"></i></span>';
-			htmlView += '</td>';
-		    htmlView += '</tr>';
-		});
+				    search_data: mySearch
+				    },function(data,status){
+						$.each(data, function(key,value) {
 
-		$("#icd10List").html(htmlView);
+								if(value.neonatal_id !== ''){
+										var pay_code = value.neonatal_code;
+										var pay_kh_name = value.neonatal_en_name;
+										var pay_register_date = value.neonatal_date_in;
+								}else{
+										var pay_code = value.patient_code;
+										var pay_kh_name = value.patient_kh_name;
+										var pay_register_date = value.register_date;
+								}
 
-		$(document).ajaxComplete(function(){
+						    htmlView += '<tr ' + stRow + '>';
+											htmlView += '<td>' + pay_code + '</td>';
+											htmlView += '<td>' + pay_kh_name + '</td>';
+											htmlView += '<td>' + pay_register_date + '</td>';
+
+											var visitorStatus = value.visitors_status;
+											var opdArr = ['1','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','104','105','86','87','88','89','90','91','92','93','94','96','98','99','100','101','107'];
+											var ipdArr = ['2','36','37','38','51','52','53','54','55','56','57','58','39','40','41','42','43','44','45','46','47','48','49','50','108','109'];
+											if($.inArray(visitorStatus, opdArr) > -1){
+												status = "Enrol";
+											}else if($.inArray(visitorStatus, ipdArr) > -1){
+												status = "Stay";
+											}else{
+												status = "Leave";
+											}
+											htmlView += '<td>' + status + '</td>';
+											htmlView += '<td style="text-align:center;">';
+											    htmlView +='<span class="handOver" onclick="payInvoice(' + value.visitors_id + ');"><i class="fa fa-money action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
+											    htmlView +='<span class="handOver" onclick="printInvoice(' + value.visitors_id + ');"><i class="fa fa-print action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
+											    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.patient_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp;&nbsp;';
+								          htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+											htmlView += '</td>';
+							  htmlView += '</tr>';
+						});
+				$("#icd10List").html(htmlView);
+				$(document).ajaxComplete(function(){
                 $("#wait").css("display", "none");
             });
-
         });
     }
 
     //visitor Leave
     function visitorLeave(ids){
-	$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){getVisitorList();});
-
+				$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){getVisitorList();});
     }
 
     function loadPayHis(){
-	var htmlView = '';
-	var i = 0;
-	var hpaid = 0;
+				var htmlView = '';
+				var i = 0;
+				var hpaid = 0;
 	$.post("<?php echo $base_url;?>index.php/pharmacies/get_visitor_payment_history/"+visitId,function(data){
 		$.each(data, function(key,value) {
                     var paidAmount = 0;

@@ -1218,6 +1218,7 @@ class Datastructure extends Dao{
 			public function setI_maternity(){
 				$this->visitorStatus = '39';
 			}
+			// change medicine to cancer
 			public function setI_medicine(){
 				$this->visitorStatus = '40';
 			}

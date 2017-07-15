@@ -52,9 +52,8 @@ class Neonatals extends Securities {
             $this->NeonatalModel->setName($this->getPost('neonatalName'));
             $this->NeonatalModel->setSex($this->getPost('neonatalGender'));
             $this->NeonatalModel->setWeight($this->getPost('neonatalWeight'));
-            $this->NeonatalModel->setDob(date('Y-m-d',strtotime($this->getPost('neonatalDob'))));
-            $this->NeonatalModel->setTime($this->getPost('neonatalTime'));
-
+            $this->NeonatalModel->setDob(date('Y-m-d H:i:s',strtotime($this->getPost('neonatalDob'))));
+            $this->NeonatalModel->setDateIn(date('Y-m-d',strtotime($this->getPost('neonatalDateIn'))));
             $ccode = $this->NeonatalModel->getNeoById();
             foreach ($ccode as $row){
                 $getCheckCodeNeo = $row->neonatal_id;
@@ -134,6 +133,7 @@ class Neonatals extends Securities {
             $data['dob'] = $this->Lang('dob');
             $data['time'] = $this->Lang('time');
             $data['old'] = $this->Lang('old');
+            $data['date_in'] = $this->Lang('date_in');
             $data['parents'] = $this->Lang('patient');
             return $data;
         }

@@ -51,16 +51,15 @@ class Diagnostics extends Securities {
   }
 
 	public function add() {
-	    // Check Session
-	    $this->checkSession();
-	    $this->permissionSection('mDiagnostic');
-	    $this->checkPermission();
+			    // Check Session
+			    $this->checkSession();
+			    $this->permissionSection('mDiagnostic');
+			    $this->checkPermission();
 					$data = array();
 					//Get visitor Info
           $this->VisitorModel->setId($this->getUrlSegment3());
 			    $data['visitor_info'] = $this->VisitorModel->getVisitorInfo();
 			    $data['dia_info'] = $this->VisitorModel->getDiaByVisitorId();
-
 					$this->WardModel->setStart(0);
 					$this->WardModel->setLimit(0);
 					$query_ward = $this->WardModel->getAllWard();
@@ -69,13 +68,13 @@ class Diagnostics extends Securities {
 					$this->RoomModel->setStart(0);
 					$this->RoomModel->setLimit(0);
 					$query_room = $this->RoomModel->getAllRoom();
-					$data['drop_rooms'] = $this->queryDropDownMenu($query_room,$label_id='0',$label_name='',$id='room_id',$value='room_code',$value2='');
+					$data['drop_rooms'] = $this->queryDropDownMenu($query_room,$label_id='0',$label_name='',$id='room_id',$value='room_name',$value2='');
 
           // Get Translate Word to View
           $data = $this->getTranslate($data);
           // Load View
           $this->LoadView('diagnostics/prescription',$data);
-      }
+  }
 
 	public function view_pres() {
 
@@ -681,8 +680,8 @@ class Diagnostics extends Securities {
 // sub diagnostic
 // #############################
 	public function o_ob() {
-	    // Check Session
-	    $this->checkSession();
+		    // Check Session
+		    $this->checkSession();
         // $this->permissionSection('mDiagnosticOb');
         // $this->checkPermission();
   			$this->setSession('assign_to', $this->getSession('user_id'));
@@ -697,7 +696,6 @@ class Diagnostics extends Securities {
         $data['totals'] = $this->VisitorModel->getCountVisitorOpd();
         // Get Translate Word to View
         $data = $this->getTranslate($data);
-
         // Load View
         $this->LoadView('template/header',$data);
         $this->LoadView('template/topmenu');
@@ -3489,35 +3487,32 @@ class Diagnostics extends Securities {
 	// Neonatal Gold
 	// ##############
 	function n_chNeoOpd() {
-	    // Check Session
-	    $this->checkSession();
+		    // Check Session
+		    $this->checkSession();
         // $this->permissionSection('mDiagnosticOb');
         // $this->checkPermission();
-
 	    	$this->setSession('assign_to', $this->getSession('user_id'));
-            $data = array();
+        $data = array();
+        // Get Item Per Page
+        $data['item_per_page'] = $this->getSysConfig();
+        // Get Count All Visitor
+        $data['rediUrl'] = "n_chNeoOpd";
+        $data['rediTitle'] = $this->Lang('p_chNeoOpd');
+        $data['jq_get_list'] = "get_n_chNeoOpd_list";
+        $this->VisitorModel->setVisitorEnrol();
+        $neoOnly = '1';
+        $data['totals'] = $this->VisitorModel->getCountVisitorOpd($neoOnly);
 
-            // Get Item Per Page
-            $data['item_per_page'] = $this->getSysConfig();
+        // Get Translate Word to View
+        $data = $this->getTranslate($data);
 
-            // Get Count All Visitor
-            $data['rediUrl'] = "n_chNeoOpd";
-            $data['rediTitle'] = $this->Lang('p_chNeoOpd');
-            $data['jq_get_list'] = "get_n_chNeoOpd_list";
-            $this->VisitorModel->setVisitorEnrol();
-            $neoOnly = '1';
-            $data['totals'] = $this->VisitorModel->getCountVisitorOpd($neoOnly);
-
-            // Get Translate Word to View
-            $data = $this->getTranslate($data);
-
-            // Load View
-            $this->LoadView('template/header',$data);
-            $this->LoadView('template/topmenu');
-            $this->LoadView('template/sidebar');
-            $this->LoadView('diagnostics/list');
-            $this->LoadView('template/footer');
-    }
+        // Load View
+        $this->LoadView('template/header',$data);
+        $this->LoadView('template/topmenu');
+        $this->LoadView('template/sidebar');
+        $this->LoadView('diagnostics/list');
+        $this->LoadView('template/footer');
+  }
 
 	function get_n_chNeoOpd_list(){
 	    // Check Session

@@ -120,6 +120,18 @@
     	/*close style clock*/
     </style>
 
+<?php
+    $query = $this->db
+    		->join('emedirec_1_patient pt','pt.patient_id = w.waitting_patient_id','left')
+          	->join('emedirec_1_rooms r','r.room_id = w.waitting_room','left')
+          	->join('emedirec_1_wards wd','wd.wards_id = w.waitting_examination','left')
+          	->join('emedirec_1_user user','user.uid = w.waitting_doctor','left')
+          	->where('w.waitting_deleted',0)->where('w.waitting_id_out',0)->where('w.waitting_open',1)
+          	->order_by('w.waitting_code','ASC')
+          	->get('Emedirec_1_waitting w',6);
+?>
+
+
 <div class="content-wrapper" style="margin-left:0px">
 	<!-- Content Header (Page header) -->
 	<!-- Main content -->
@@ -218,7 +230,51 @@
 															<th>ឈ្មោះ គ្រូពេទ្យ</th>
 														</tr>
 													</thead>
-													<tbody id="typeList"></tbody>
+													<tbody id="typeList">
+														<?php foreach($query->result() as $row): ?>
+															<?php 
+																if($row->patient_code !== null){
+												   					$showPatientCode = $row->patient_code;
+												   				}else{
+												   					$showPatientCode = '';
+												   				}
+											   					if($row->patient_kh_name !== null){
+												   					$showPatientKhName = $row->patient_kh_name;
+												   				}else{
+												   					$showPatientKhName = '';
+												   				}
+												   				if($row->patient_gender == 'f'){
+																	$showGender = "ស្រី";
+																}else{
+																	$showGender = "ប្រុស";
+																}
+																
+																$year = date('Y', strtotime($row->patient_dob));
+   																$yearToday = date("Y");
+																$yearOld = ($yearToday - $year);
+
+												   				if($row->wards_code !== null){
+												   					$showWard = $row->wards_desc;
+												   				}else{
+												   					$showWard = '';
+												   				}
+												   				if($row->name !== null){
+												   					$showName = $row->name;
+												   				}else{
+												   					$showName = '';
+												   				}
+															?>
+														<tr>
+															<td style="text-align:right"><?php echo $row->waitting_code?></td>
+															<td><?php echo $showPatientCode?></td>
+															<td><?php echo $showPatientKhName?></td>
+															<td><?php echo $showGender?></td>
+															<td><?php echo $yearOld?></td>
+															<td><?php echo $showWard?></td>
+															<td><?php echo $showName?></td>
+														</tr>
+														<?php endforeach ?>
+													</tbody>
 												</table>
 
 											</div>
@@ -226,11 +282,9 @@
 							</div>
 						</div><!-- /.box-body -->
 						<div style="float:left; width:100%; overflow:auto">
-                <marquee behavior="scroll" style="padding-top:10px" scrolldelay="500" scrollamount="50">
-                      <div style="font-size: 24px; color:red">
-                        មន្ទីរពេទ្យសម្ភពសោភាហ្គោល មានផ្តល់សេវាពិនិត្យពិគ្រោះនិងព្យាបាល ជំងឺកុមារនិងទារកដែលទើបកើតដោយគ្រូពេទ្យឯកទេសមានបទពិសោធន៍ ច្រើនឆ្នាំនៅមន្ទីរពេទ្យគន្ឋាបុប្ផា ។
-                      </div>
-                      <div style="font-size: 24px;">
+                <marquee behavior="scroll" style="padding-top:10px"><span class="marquee" style="font-size: 29px; color:red">សូមថ្លៃងអំណរគុណចំពោះការមកទទួលសេវាថែទាំព្យាបាល​ នៅមន្ទីរពេទ្យសម្ភពសោភា​ !</span></marquee>
+  								<marquee behavior="scroll" style="padding-top:10px" scrolldelay="500" scrollamount="50">
+                      <div class="marquee" style="font-size: 24px;">
                           <b>ផ្ដល់ជូនជាពិសេសការបញ្ចុះតំលៃចំពោះ :<b>
                           <b>+</b> ស៊ីធីស្កេន​ (CT scan) = <span style="color:blue">70$</span> (ពីមុន<span style="color:red; text-decoration:line-through">100$</span>) &nbsp;&nbsp;&nbsp;&nbsp;
                           <b>+</b> ស៊ីធីស្កេន​ (CT scan) + ចាក់ថ្នាំ​​ = <span style="color:blue">120$</span> (ពីមុន<span style="color:red; text-decoration:line-through">150$</span>) &nbsp;&nbsp;&nbsp;&nbsp;
@@ -238,10 +292,7 @@
                            សូមទំនាក់ទំនង​ 023 223 873 &nbsp;&nbsp;&nbsp;&nbsp;
                            សូមអរគុណ។
                       </div>
-                      <div style="font-size: 24px; color:red">
-                          សូមថ្លៃងអំណរគុណចំពោះការមកទទួលសេវាថែទាំព្យាបាល​ នៅមន្ទីរពេទ្យសម្ភពសោភា​ !
-                      </div>
-              </marquee>
+                  </marquee>
 						</div>
 				</div><!-- /.box -->
 
@@ -255,55 +306,55 @@
 		setInterval(function(){getTypeList();}, 5000);
 	});
 
-   	function getTypeList(){
-        var htmlView = '';
-        var i = 0;
-        var stRow = '';
-        $.post("<?php echo $base_url;?>index.php/waittings_list/get_waitting_screen_list",
-			function(data,status){
-            $.each(data, function(key,value) {
+   // 	function getTypeList(){
+   //      var htmlView = '';
+   //      var i = 0;
+   //      var stRow = '';
+   //      $.post("<?php echo $base_url;?>index.php/waittings_list/get_waitting_screen_list",
+			// function(data,status){
+   //          $.each(data, function(key,value) {
 
-            	var dob = new Date(value.patient_dob);
-   				var year = dob.getFullYear();
-   				var yearToday = <?php echo date("Y");?>;
-   				var yearOld = (yearToday - year);
+   //          	var dob = new Date(value.patient_dob);
+   // 				var year = dob.getFullYear();
+   // 				var yearToday = <?php echo date("Y");?>;
+   // 				var yearOld = (yearToday - year);
 
-   				if(value.patient_gender == 'f'){
-   					showGender = "ស្រី";
-   				}else{
-   					showGender = "ប្រុស";
-   				}
-   				if(value.wards_code !== null){
-   					showWard = value.wards_desc;
-   				}else{
-   					showWard = '';
-   				}
-   				if(value.name !== null){
-   					showName = value.name;
-   				}else{
-   					showName = '';
-   				}
-				if(value.patient_kh_name !== null){
-   					showPatientKhName = value.patient_kh_name;
-   				}else{
-   					showPatientKhName = '';
-   				}
-				if(value.patient_code !== null){
-   					showPatientCode = value.patient_code;
-   				}else{
-   					showPatientCode = '';
-   				}
-                htmlView += '<tr ' + stRow + '>';
-                    htmlView += '<td style="text-align:right">' + value.waitting_code + '</td>';
-                    htmlView += '<td>' + showPatientCode + '</td>';
-                    htmlView += '<td>' + showPatientKhName + '</td>';
-                    htmlView += '<td>' + showGender + '</td>';
-                    htmlView += '<td>' + yearOld + '</td>';
-                    htmlView += '<td>' + showWard + '</td>';
-                    htmlView += '<td>' + showName + '</td>';
-                htmlView += '</tr>';
-            });
-            $("#typeList").html(htmlView);
-        });
-    }
+   // 				if(value.patient_gender == 'f'){
+   // 					showGender = "ស្រី";
+   // 				}else{
+   // 					showGender = "ប្រុស";
+   // 				}
+   // 				if(value.wards_code !== null){
+   // 					showWard = value.wards_desc;
+   // 				}else{
+   // 					showWard = '';
+   // 				}
+   // 				if(value.name !== null){
+   // 					showName = value.name;
+   // 				}else{
+   // 					showName = '';
+   // 				}
+			// 	if(value.patient_kh_name !== null){
+   // 					showPatientKhName = value.patient_kh_name;
+   // 				}else{
+   // 					showPatientKhName = '';
+   // 				}
+			// 	if(value.patient_code !== null){
+   // 					showPatientCode = value.patient_code;
+   // 				}else{
+   // 					showPatientCode = '';
+   // 				}
+   //              htmlView += '<tr ' + stRow + '>';
+   //                  htmlView += '<td style="text-align:right">' + value.waitting_code + '</td>';
+   //                  htmlView += '<td>' + showPatientCode + '</td>';
+   //                  htmlView += '<td>' + showPatientKhName + '</td>';
+   //                  htmlView += '<td>' + showGender + '</td>';
+   //                  htmlView += '<td>' + yearOld + '</td>';
+   //                  htmlView += '<td>' + showWard + '</td>';
+   //                  htmlView += '<td>' + showName + '</td>';
+   //              htmlView += '</tr>';
+   //          });
+   //          $("#typeList").html(htmlView);
+   //      });
+   //  }
 </script>

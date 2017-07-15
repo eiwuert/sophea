@@ -6,7 +6,7 @@ include_once 'Datastructure.php';
 
 // Define Type Class
 class Waitting extends Datastructure{
-	
+
 	// Get All Waitting
 	function getAllWaitting() {
             $select = '';
@@ -29,29 +29,29 @@ class Waitting extends Datastructure{
 				// }
 				// $where .= " LIMIT ".$this->getStart().", ".$this->getLimit();
     //         }
-            
+
             return $this->executeQuery($select, $from, $where);
 	}
-	
+
 	function allType(){
 		return $this->executeQuery("", $this->getTblWaitting()," waitting_deleted = 0 AND waitting_id_out = 0");
 	}
-	
+
 	// Get Count All Waitting
 	function getCountWaitting(){
 		return $this->getCountWhere($this->getTblWaitting(), ' waitting_deleted = 0 AND waitting_id_out = 0');
 	}
-	
+
 	// Add or Insert Waitting
 	function add(){
 		$this->insertData($this->getTblWaitting(),$this->getArrayDatas());
 	}
-	
+
 	// Update Waitting
 	function update(){
 		$this->updateData($this->getTblWaitting(),$this->getArrayDatas(), 'waitting_id', $this->getId());
 	}
-	
+
     // Delete Unit go to trash
 	function delete(){
 		$this->updateData($this->getTblWaitting(), array('waitting_deleted' => "1"), 'waitting_id', $this->getId());
@@ -83,7 +83,7 @@ class Waitting extends Datastructure{
 			$this->setArrayData('waitting_doctor',$this->getDoctor());
 			return $this->getArrayData();
         }
-	
+
 	// New Number Waitting
 	function genNumber(){
 		$query = $this->executeLastQueryId($this->getTblWaitting(),$order="waitting_id",$by="DESC");
@@ -103,15 +103,14 @@ class Waitting extends Datastructure{
             $from = $this->getTblWaitting();
             $from .= " LEFT JOIN ". $this->getTblPatient() ." ON ".$this->getTblPatient().".patient_id = ".$this->getTblWaitting().".waitting_patient_id";
             $from .= " LEFT JOIN ". $this->getTblRooms() ." ON ".$this->getTblRooms().".room_id = ".$this->getTblWaitting().".waitting_room";
-            $from .= " LEFT JOIN ". $this->getTblWard() ." ON ".$this->getTblWard().".wards_id = ".$this->getTblWaitting().".waitting_examination";            
+            $from .= " LEFT JOIN ". $this->getTblWard() ." ON ".$this->getTblWard().".wards_id = ".$this->getTblWaitting().".waitting_examination";
             $from .= " LEFT JOIN ". $this->getTblUser() ." ON ".$this->getTblUser().".uid = ".$this->getTblWaitting().".waitting_doctor";
-
-            $where = '';            
-            $where .= " waitting_deleted = 0 AND waitting_id_out = 0 AND waitting_open = 1 ORDER BY waitting_code ASC Limit 6";            
+            $where = '';
+            $where .= " waitting_deleted = 0 AND waitting_id_out = 0 AND waitting_open = 1 ORDER BY waitting_code ASC Limit 6";
             return $this->executeQuery($select, $from, $where);
 	}
 
-	
+
 	// Get All Waitting History
 	function getAllWaitting_history() {
             $select = '';
@@ -134,7 +133,7 @@ class Waitting extends Datastructure{
 				}
 				$where .= " LIMIT ".$this->getStart().", ".$this->getLimit();
             }
-            
+
             return $this->executeQuery($select, $from, $where);
 	}
 	// Get Count All Waitting History

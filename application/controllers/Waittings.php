@@ -6,15 +6,14 @@ require_once ('Securities.php');
 
 // Definds Type
 class Waittings extends Securities {
-	
+
 	// Define Index of Unit Fucntion
 	public function index() {
 	    // Check Session
 	    $this->checkSession();
-             
-            $data = array();
-            
-        // Get Item Per Page 
+      $data = array();
+
+        // Get Item Per Page
 	    $data['item_per_page'] = $this->getSysConfig();
 
 	    // Get Count All Type
@@ -23,7 +22,7 @@ class Waittings extends Securities {
         $this->WaittingModel->setStart(0);
         $this->WaittingModel->setLimit(0);
         $query_patient = $this->PatientModel->getAllPatient();
-        $data['drop_patient'] = $this->queryDropDownMenu($query_patient,$label_id='0',$label_name='-- --',$id='patient_id',$value='patient_kh_name',$value2=''); 
+        $data['drop_patient'] = $this->queryDropDownMenu($query_patient,$label_id='0',$label_name='-- --',$id='patient_id',$value='patient_kh_name',$value2='');
 
         $this->RoomModel->setStart(0);
         $this->RoomModel->setLimit(0);
@@ -38,11 +37,11 @@ class Waittings extends Securities {
         $this->WardModel->setStart(0);
         $this->WardModel->setLimit(0);
         $query_user = $this->UserModel->getAllUser();
-        $data['drop_user'] = $this->queryDropDownMenu($query_user,$label_id='0',$label_name='-- --',$id='uid',$value='username',$value2='');  
+        $data['drop_user'] = $this->queryDropDownMenu($query_user,$label_id='0',$label_name='-- --',$id='uid',$value='username',$value2='');
 
         $data['generate_num_waitting'] = $this->WaittingModel->genNumber();
 
-            // Get Translate Word to View 
+            // Get Translate Word to View
             $data = $this->getTranslate($data);
 
             // Load View
@@ -52,7 +51,7 @@ class Waittings extends Securities {
             $this->LoadView('waitting/list');
             $this->LoadView('template/footer');
         }
-        
+
         function save_waitting(){
 
 	    // Check Session
@@ -74,52 +73,52 @@ class Waittings extends Securities {
 	    }
             // Write Log
             //$this->logs('3', 'Try to access application with user: '.$this->getPost('unit_name').' / '.$this->getPost('unit_desc'));
-            
+
 	}
-        
+
     function get_waitting_list(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->WaittingModel->setSearch($this->getPost('search_data'));
 	    $this->WaittingModel->setStart($this->getPost('page_start'));
 	    $this->WaittingModel->setLimit($this->getPost('page_limit'));
-            
+
             $datas = $this->WaittingModel->getAllWaitting();
             $this->restData($datas);
 	}
 
-	function get_waitting_info_by_id_json(){ 
-	    
+	function get_waitting_info_by_id_json(){
+
 	    // Check Session
-	    $this->checkSession();	    
+	    $this->checkSession();
             $this->WaittingModel->setId($this->getUrlSegment3());
             $datas = $this->WaittingModel->getWaittingById();
             $this->restData($datas);
 	}
 
-	// Delete Limit 
+	// Delete Limit
         function delete_waitting(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-            
+
             $this->WaittingModel->setId($this->getUrlSegment3());
             $this->WaittingModel->delete();
-            
+
             // Write Log in to log file
             $this->logs('3', 'Delete '.$this->getUrlSegment1().' Type From List');
             $this->logs('4', 'Delete '.$this->getUrlSegment1().' Type From List');
         }
-        
+
         // #################### Translate ####################### //
         // Translate to View
         function getTranslate($data = null){
-            
+
             // Define Default Language from Security to view
             @$data = $this->defTranslation($data);
-            
+
             // Translate
                 $data['h_waitting_number'] = $this->Lang('waitting_number');
                 $data['edit'] = $this->Lang('update');
@@ -140,10 +139,10 @@ class Waittings extends Securities {
                 $data['examination'] = $this->Lang('examination');
                 $data['date'] = $this->Lang('date');
                 $data['print'] = $this->Lang('print');
-            
+
             // Menu Active
             $data['ac_waitting'] = 'active';
-            
+
             return $data;
         }
 
@@ -155,11 +154,11 @@ class Waittings extends Securities {
         }
         function view_print(){
             // Check Session
-            $this->checkSession();           
+            $this->checkSession();
 
             $this->WaittingModel->setId($this->getUrlSegment3());
             $this->WaittingModel->setCheckOut($this->getPost('chw'));
-            $datas = $this->WaittingModel->getWaittingById();  
+            $datas = $this->WaittingModel->getWaittingById();
 
             $data['svipd_info'] = $datas;
             $data['resources'] = $this->getResources();
@@ -170,13 +169,13 @@ class Waittings extends Securities {
             // Check Session
             $this->checkSession();
             $data = array();
-            // Get Item Per Page 
+            // Get Item Per Page
             $data['item_per_page'] = $this->getSysConfig();
             // Get Count All Type
             $data['totals'] = $this->WaittingModel->getCountWaitting_history();
             $data['generate_num_waitting'] = $this->WaittingModel->genNumber();
 
-                // Get Translate Word to View 
+                // Get Translate Word to View
                 $data = $this->getTranslate($data);
 
                 // Load View
@@ -192,10 +191,10 @@ class Waittings extends Securities {
             $this->WaittingModel->setSearch($this->getPost('search_data'));
             $this->WaittingModel->setStart($this->getPost('page_start'));
             $this->WaittingModel->setLimit($this->getPost('page_limit'));
-            
+
             $datas = $this->WaittingModel->getAllWaitting_history();
             $this->restData($datas);
         }
-        
+
 }
 ?>

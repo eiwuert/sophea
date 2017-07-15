@@ -36,7 +36,7 @@
 			<div class="col-xs-12">
 				<div class="box" style="padding:10px !important;">
 					<div class="box-body">
-						<div class="col-sm-12" style="text-align:center;"><h4><b> <?php echo @$h_visitor;?> : (<span id="p_code"></span>) </b></h4></div>
+						<div class="col-sm-12" style="text-align:center;"><h4><b> <span id="dispTitleCode"></span> : (<span id="p_code"></span>) </b></h4></div>
 					</div>
 
 					<div class="box box-primary" style="padding:10px !important;">
@@ -209,37 +209,37 @@
 							page_start: pageStart,
 							page_limit: pageLimit
 				},function(data,status){
-        $.each(data, function(key,value) {
-		        	if(value.neonatal_id !== null){
-		        		v_name = value.neonatal_en_name;
-		        		v_code = value.neonatal_code;
-		        	}else{
-		        		v_name = value.patient_kh_name;
-		        		v_code = value.patient_code;
-		        	}
-		        	if(value.neonatal_id !== null){
-		        		leaveNeoId = value.neonatal_id;
-		        	}else{
-		        		leaveNeoId = 0;
-		        	}
-		          htmlView += '<tr ' + stRow + '>';
-		                htmlView += '<td>' + v_code + '</td>';
-		                htmlView += '<td>' + v_name + '</td>';
-		                htmlView += '<td>' + value.visitors_in_date + '</td>';
-		                if(value.visitors_status == '1'){
-		                        status = "Enrol";
-		                }else{
-		                        status = "Stay";
-		                }
-		                htmlView += '<td>' + status + '</td>';
-		                htmlView += '<td style="text-align:center;">';
-		                    htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
-		                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
-		                    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.visitors_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
-		                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" id="getCodeLeave" onclick="visitorLeave(' +value.patient_id+ ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
-		                htmlView += '</td>';
-		          htmlView += '</tr>';
-        });
+			        $.each(data, function(key,value) {
+					        	if(value.neonatal_id !== null){
+					        		v_name = value.neonatal_en_name;
+					        		v_code = value.neonatal_code;
+					        	}else{
+					        		v_name = value.patient_kh_name;
+					        		v_code = value.patient_code;
+					        	}
+					        	if(value.neonatal_id !== null){
+					        		leaveNeoId = value.neonatal_id;
+					        	}else{
+					        		leaveNeoId = 0;
+					        	}
+					          htmlView += '<tr ' + stRow + '>';
+					                htmlView += '<td>' + v_code + '</td>';
+					                htmlView += '<td>' + v_name + '</td>';
+					                htmlView += '<td>' + value.visitors_in_date + '</td>';
+					                if(value.visitors_status == '1'){
+					                        status = "Enrol";
+					                }else{
+					                        status = "Stay";
+					                }
+					                htmlView += '<td>' + status + '</td>';
+					                htmlView += '<td style="text-align:center;">';
+					                    htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
+					                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
+					                    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.visitors_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
+					                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" id="getCodeLeave" onclick="visitorLeave(' +value.patient_id+ ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+					                htmlView += '</td>';
+					          htmlView += '</tr>';
+			        });
 	            $("#opdList").html(htmlView);
 
 	            $(document).ajaxComplete(function(){
@@ -248,6 +248,9 @@
         });
     }
     function viewVisitor(ids){
+			alert('view this');
+			alert();
+			end();
 		$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
 				function(data,status){
 					$.each(data, function(key,value) {
@@ -435,12 +438,11 @@
 		getOpdList(mySearch,pageStart,pageLimit);
 	}
 	function addPrescription(ids){
-		$.post("<?php echo $base_url;?>index.php/diagnostics/add/"+ids,function(data,status){
-			$("#dia_form").html(data);
-		});
-		$("#form_table").css('display','none');
-		$("#diagnostic_form").css('display','block');
-
+				$.post("<?php echo $base_url;?>index.php/diagnostics/add/"+ids,function(data,status){
+						$("#dia_form").html(data);
+				});
+				$("#form_table").css('display','none');
+				$("#diagnostic_form").css('display','block');
 	}
 
         function getFormateDate(date) {
@@ -471,180 +473,190 @@
 	}
 
         /* *********************   Function History *********************** */
-        function viewVisitor(ids){
-		 $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
-		 function(data,status){
-			$.each(data, function(key,value) {
+    function viewVisitor(ids){
+		 		$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,function(data,status){
+						$.each(data, function(key,value) {
+								if(value.neonatal_id !== ''){
+									$('#dispTitleCode').text('Neonatals');
+									$('#p_code').html(value.neonatal_code);
+									$('#kh_name').html(value.neonatal_kh_name);
+									$('#en_name').html(value.neonatal_en_name);
+									$('#v_address').html(value.patient_address);
+									// $('#v_phone').html(value.patient_phone);
+									// $('#v_emergencyPhone').html(value.patient_emergency_phone);
+									// $('#v_occupation').html(value.patient_occupation);
+									// $('#v_dob').html(getFormateDate(value.patient_dob));
+									// $('#v_idCard').html(value.patient_id_card);
+									// $('#v_assuranceCard').html(value.patient_assurance_card);
+									// $('#v_assuranceCompany').html(value.patient_assurance_company);
+									// $('#v_motorCard').html(value.patient_motor_card);
+									// $('#v_carCard').html(value.patient_car_card);
+									//
+									// $('#v_bankCard1').html(value.patient_bank_card1);
+									// $('#v_bankCard2').html(value.patient_bank_card2);
+									// $('#v_studentCard').html(value.patient_student_card);
+									// $('#v_assuranceCompany').html(value.patient_assurance_company);
+								}else{
+									$('#dispTitleCode').text('Patients');
+									$('#p_code').html(value.patient_code);
+									$('#kh_name').html(value.patient_kh_name);
+									$('#en_name').html(value.patient_en_name);
+									$('#v_address').html(value.patient_address);
+									$('#v_phone').html(value.patient_phone);
+									$('#v_emergencyPhone').html(value.patient_emergency_phone);
+									$('#v_occupation').html(value.patient_occupation);
+									$('#v_dob').html(getFormateDate(value.patient_dob));
+									$('#v_idCard').html(value.patient_id_card);
+									$('#v_assuranceCard').html(value.patient_assurance_card);
+									$('#v_assuranceCompany').html(value.patient_assurance_company);
+									$('#v_motorCard').html(value.patient_motor_card);
+									$('#v_carCard').html(value.patient_car_card);
 
-				$('#p_code').html(value.patient_code);
-				$('#kh_name').html(value.patient_kh_name);
-				$('#en_name').html(value.patient_en_name);
-				$('#v_address').html(value.patient_address);
-				$('#v_phone').html(value.patient_phone);
-				$('#v_emergencyPhone').html(value.patient_emergency_phone);
-				$('#v_occupation').html(value.patient_occupation);
-				$('#v_dob').html(getFormateDate(value.patient_dob));
-				$('#v_idCard').html(value.patient_id_card);
-				$('#v_assuranceCard').html(value.patient_assurance_card);
-				$('#v_assuranceCompany').html(value.patient_assurance_company);
-				$('#v_motorCard').html(value.patient_motor_card);
-				$('#v_carCard').html(value.patient_car_card);
+									$('#v_bankCard1').html(value.patient_bank_card1);
+									$('#v_bankCard2').html(value.patient_bank_card2);
+									$('#v_studentCard').html(value.patient_student_card);
+									$('#v_assuranceCompany').html(value.patient_assurance_company);
+								}
 
-				$('#v_bankCard1').html(value.patient_bank_card1);
-				$('#v_bankCard2').html(value.patient_bank_card2);
-				$('#v_studentCard').html(value.patient_student_card);
-				$('#v_assuranceCompany').html(value.patient_assurance_company);
-				if(value.patient_gender == 'm'){
-					$('#v_gender').html('Male');
-				}else{
-					$('#v_gender').html('Female');
-				}
+								if(value.patient_gender == 'm'){
+									$('#v_gender').html('Male');
+								}else{
+									$('#v_gender').html('Female');
+								}
+								if(value.patient_status == '1'){
+									$('#v_status').html('Single');
+								}else{
+									$('#v_status').html('Married');
+								}
+								if(value.is_heart == '0'){
+									$('#v_heart').html('No');
+								}else{
+									$('#v_heart').html('Yes');
+								}
+								if(value.is_respiratory == '0'){
+									$('#v_respiratory').html('No');
+								}else{
+									$('#v_respiratory').html('Yes');
+								}
+								if(value.is_diabetes == '0'){
+									$('#v_diabetes').html('No');
+								}else{
+									$('#v_diabetes').html('Yes');
+								}
+								if(value.is_digestive == '0'){
+									$('#v_digestive').html('No');
+								}else{
+									$('#v_digestive').html('Yes');
+								}
+								if(value.is_kedney == '0'){
+									$('#v_kidney').html('No');
+								}else{
+									$('#v_kidney').html('Yes');
+								}
+								if(value.is_endocrine == '0'){
+									$('#v_endocrine').html('No');
+								}else{
+									$('#v_endocrine').html('Yes');
+								}
+								if(value.is_neuro_sys == '0'){
+									$('#v_neuro_sys').html('No');
+								}else{
+									$('#v_neuro_sys').html('Yes');
+								}
+		            var inDate = getFormateDateNoAge(value.visitors_in_date);
+		            $('#bhistory').append(inDate+'<hr/>');
+		            getDia(value.visitors_id);
+		            getMedicine(value.visitors_id);
+		            getService(value.visitors_id);
+		            getNote(value.visitors_id)
+						});
+		 	 });
+			 $('#visitor_view_form').css('display','block');
+			 $('#form_table').css('display','none');
+       $('#form_row').css('display','none');
 
-				if(value.patient_status == '1'){
-					$('#v_status').html('Single');
-				}else{
-					$('#v_status').html('Married');
-				}
-				if(value.is_heart == '0'){
-					$('#v_heart').html('No');
-				}else{
-					$('#v_heart').html('Yes');
-				}
-				if(value.is_respiratory == '0'){
-					$('#v_respiratory').html('No');
-				}else{
-					$('#v_respiratory').html('Yes');
-				}
-				if(value.is_diabetes == '0'){
-					$('#v_diabetes').html('No');
-				}else{
-					$('#v_diabetes').html('Yes');
-				}
-				if(value.is_digestive == '0'){
-					$('#v_digestive').html('No');
-				}else{
-					$('#v_digestive').html('Yes');
-				}
-				if(value.is_kedney == '0'){
-					$('#v_kidney').html('No');
-				}else{
-					$('#v_kidney').html('Yes');
-				}
-				if(value.is_endocrine == '0'){
-					$('#v_endocrine').html('No');
-				}else{
-					$('#v_endocrine').html('Yes');
-				}
-				if(value.is_neuro_sys == '0'){
-					$('#v_neuro_sys').html('No');
-				}else{
-					$('#v_neuro_sys').html('Yes');
-				}
-
-                                var inDate = getFormateDateNoAge(value.visitors_in_date);
-                                $('#bhistory').append(inDate+'<hr/>');
-                                getDia(value.visitors_id);
-                                getMedicine(value.visitors_id);
-                                getService(value.visitors_id);
-                                getNote(value.visitors_id)
-			});
-		 });
-		 $('#visitor_view_form').css('display','block');
-		 $('#form_table').css('display','none');
-                 $('#form_row').css('display','none');
-
-        }
-
+  	}
 
     function getDia(ids){
-	    var i = 0;
+	    			var i = 0;
             var htms = '<table id="tbl4" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="4" style="background: yellow;"> Diagnostic </td><tr style="background: #b9b9b5;"><td>Type</td><td>Diagnostic</td><td>Level</td><td>Description</td></tr></tr>';
-	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_diagnostic_list/"+ids,function (data,status){
-				// $.each(data, function(key,value) {
-				//     i = i + 1;
+				    $.post("<?php echo $base_url;?>index.php/diagnostics/get_diagnostic_list/"+ids,function (data,status){
+							// $.each(data, function(key,value) {
+							//     i = i + 1;
 
-				//                   /******************* Diagnostic *******************/
-				//                   if( i < 4){
-				//                       htms += '<tr>';
-				//                           htms += '<td class="textLeft">Diagnostic In ('+ i +')</td>';
-				//                           htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-				//                           htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-				//                           htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-				//                       htms += '</tr>';
-				//                   }else{
-				//                       htms += '<tr>';
-				//                           htms += '<td class="textLeft">Diagnostic Out ('+ i +')</td>';
-				//                           htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-				//                           htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-				//                           htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-				//                       htms += '</tr>';
-				//                   }
-				// });
-
-                htms += '</table>';
-                $('#bhistory').append(htms);
-	    });
+							//                   /******************* Diagnostic *******************/
+							//                   if( i < 4){
+							//                       htms += '<tr>';
+							//                           htms += '<td class="textLeft">Diagnostic In ('+ i +')</td>';
+							//                           htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+							//                           htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+							//                           htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+							//                       htms += '</tr>';
+							//                   }else{
+							//                       htms += '<tr>';
+							//                           htms += '<td class="textLeft">Diagnostic Out ('+ i +')</td>';
+							//                           htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+							//                           htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+							//                           htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+							//                       htms += '</tr>';
+							//                   }
+							// });
+              htms += '</table>';
+              $('#bhistory').append(htms);
+				    });
 	}
 
-        function getMedicine(ids){
-	    var i = 0;
-            var htmlView = '<table id="tbl5" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="8" style="background: yellow;"> Medicine </td><tr style="background: #b9b9b5;"><td>កាលបរិច្ឆេទ</td><td>ឈ្មោះថ្នាំ</td><td>ចំនួន</td><td>តំលៃ</td><td>ព្រឹក</td><td>ថ្ងៃ</td><td>ល្ងាច</td><td>យប់</td></tr></tr>';
-	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_list/"+ids,function (data,status){
-		$.each(data, function(key,value) {
-
-		    i = i + 1;
-
-                    htmlView += '<tr class="bloom-row-2">';
-                        htmlView += '<td  colspan="2" style="text-align:center !important;">Assign By</td>';
-                        htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_from+'</td>';
-                        htmlView += '<td  colspan="2" style="text-align:center !important;">Assign To</td>';
-                        htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_to+'</td>';
-                    htmlView += '</tr>';
-
-		    htmlView += '<tr>';
-			htmlView += '<td  style="text-align:center !important;">'+$.datepicker.formatDate('dd-mm-yy', new Date(value.items_modified))+'</td>';
-			if(value.forms_name == null || value.forms_name == ''){
-			    htmlView += '<td  style="text-align:center !important;">'+value.products_name+'('+value.products_code+')</td>';
-			}else{
-			    htmlView += '<td  style="text-align:center !important;">'+value.products_name+'('+value.products_code+')-['+value.forms_name+']</td>';
-			}
-
-			htmlView += '<td  style="text-align:center !important;">'+ value.units_name+'</td>';
-			htmlView += '<td  style="text-align:center !important;">$'+value.items_prices+'</td>';
-			htmlView += '<td  style="text-align:center !important;">'+value.mediacines_am+'</td>';
-			htmlView += '<td  style="text-align:center !important;">'+value.mediacines_af+'</td>';
-			htmlView += '<td  style="text-align:center !important;">'+value.mediacines_pm+'</td>';
-			htmlView += '<td  style="text-align:center !important;">'+value.mediacines_nt+'</td>';
-		    htmlView += '</tr>';
-
-		    if(value.items_time != '' || value.items_detail != ''){
-			htmlView += '<tr>';
-			    htmlView += '<td  colspan="2" style="text-align:center !important;">ពេល៖</td>';
-			    htmlView += '<td  colspan="6" style="text-align:center;">'+value.items_time+'</td>';
-			htmlView += '</tr>';
-                        htmlView += '<tr>';
-			    htmlView += '<td  colspan="2" style="text-align:center !important;">បរិយាយ៖</td>';
-			    htmlView += '<td  colspan="6" style="text-align:center;">'+value.items_detail+'</td>';
-			htmlView += '</tr>';
-		    }
-
-                    if(value.forms_name == 'Erbium Yag Laser'){
-			htmlView += "<tr class='bloom-row'>";
-			    htmlView += '<td colspan="4">Pulse With Us</td>';
-			    htmlView += '<td colspan="4">Energy mj</td>';
-			htmlView += "</tr>";
-			htmlView += "<tr class='bloom-row'>";
-			    htmlView += '<td colspan="4">' + value.pulse_with_us + '</td>';
-			    htmlView += '<td colspan="4">' + value.energy_mj + '</td>';
-			htmlView += "</tr>";
-		    }
-
-		});
-
-                htmlView += "</table>";
-		$('#bhistory').append(htmlView);
-	    });
-	}
+    function getMedicine(ids){
+	    		var i = 0;
+          var htmlView = '<table id="tbl5" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="8" style="background: yellow;"> Medicine </td><tr style="background: #b9b9b5;"><td>កាលបរិច្ឆេទ</td><td>ឈ្មោះថ្នាំ</td><td>ចំនួន</td><td>តំលៃ</td><td>ព្រឹក</td><td>ថ្ងៃ</td><td>ល្ងាច</td><td>យប់</td></tr></tr>';
+	    		$.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_list/"+ids,function (data,status){
+							$.each(data, function(key,value) {
+										i = i + 1;
+							      htmlView += '<tr class="bloom-row-2">';
+							          htmlView += '<td  colspan="2" style="text-align:center !important;">Assign By</td>';
+							          htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_from+'</td>';
+							          htmlView += '<td  colspan="2" style="text-align:center !important;">Assign To</td>';
+							          htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_to+'</td>';
+							      htmlView += '</tr>';
+						    		htmlView += '<tr>';
+												htmlView += '<td  style="text-align:center !important;">'+$.datepicker.formatDate('dd-mm-yy', new Date(value.items_modified))+'</td>';
+												if(value.forms_name == null || value.forms_name == ''){
+												    htmlView += '<td  style="text-align:center !important;">'+value.products_name+'('+value.products_code+')</td>';
+												}else{
+												    htmlView += '<td  style="text-align:center !important;">'+value.products_name+'('+value.products_code+')-['+value.forms_name+']</td>';
+												}
+												htmlView += '<td  style="text-align:center !important;">'+ value.units_name+'</td>';
+												htmlView += '<td  style="text-align:center !important;">$'+value.items_prices+'</td>';
+												htmlView += '<td  style="text-align:center !important;">'+value.mediacines_am+'</td>';
+												htmlView += '<td  style="text-align:center !important;">'+value.mediacines_af+'</td>';
+												htmlView += '<td  style="text-align:center !important;">'+value.mediacines_pm+'</td>';
+												htmlView += '<td  style="text-align:center !important;">'+value.mediacines_nt+'</td>';
+							    	htmlView += '</tr>';
+								    if(value.items_time != '' || value.items_detail != ''){
+													htmlView += '<tr>';
+													    htmlView += '<td  colspan="2" style="text-align:center !important;">ពេល៖</td>';
+													    htmlView += '<td  colspan="6" style="text-align:center;">'+value.items_time+'</td>';
+													htmlView += '</tr>';
+										                        htmlView += '<tr>';
+													    htmlView += '<td  colspan="2" style="text-align:center !important;">បរិយាយ៖</td>';
+													    htmlView += '<td  colspan="6" style="text-align:center;">'+value.items_detail+'</td>';
+													htmlView += '</tr>';
+								    }
+					          if(value.forms_name == 'Erbium Yag Laser'){
+													htmlView += "<tr class='bloom-row'>";
+													    htmlView += '<td colspan="4">Pulse With Us</td>';
+													    htmlView += '<td colspan="4">Energy mj</td>';
+													htmlView += "</tr>";
+													htmlView += "<tr class='bloom-row'>";
+													    htmlView += '<td colspan="4">' + value.pulse_with_us + '</td>';
+													    htmlView += '<td colspan="4">' + value.energy_mj + '</td>';
+													htmlView += "</tr>";
+							    	}
+							});
+              htmlView += "</table>";
+							$('#bhistory').append(htmlView);
+	    	});
+		}
 
     function getService(ids){
 		    var i = 0;
@@ -653,10 +665,10 @@
 					$.each(data, function(key,value) {
 					    i = i + 1;
 					    htmlView += '<tr class="bloom-row-2">';
-			                        htmlView += '<td  colspan="3" style="text-align:center !important;">Assign By</td>';
-			                        htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_from+'</td>';
-			                        htmlView += '<td  colspan="3" style="text-align:center !important;">Assign To</td>';
-			                        htmlView += '<td  colspan="4" style="text-align:center;">'+value.assign_to+'</td>';
+                      htmlView += '<td  colspan="3" style="text-align:center !important;">Assign By</td>';
+                      htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_from+'</td>';
+                      htmlView += '<td  colspan="3" style="text-align:center !important;">Assign To</td>';
+                      htmlView += '<td  colspan="4" style="text-align:center;">'+value.assign_to+'</td>';
 			        htmlView += '</tr>';
 
 					    htmlView += "<tr>";

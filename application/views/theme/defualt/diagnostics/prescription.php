@@ -21,25 +21,60 @@
 	$died = '';
 
 	$statuss = '';
-
+	$getAge = '';
 	$i = 0;
 	foreach($visitor_info as $row){
 		$patientId = $row->patient_id;
 		$visitorId = $row->visitors_id;
-		$visitorName = $row->patient_kh_name."(".$row->patient_en_name.")";
 		$visitorCode = $row->patient_code;
-		$visitorDob = $row->patient_dob;
 		$status = $row->visitors_status;
-                $visitDate = date('d/m/Y', strtotime($row->visitors_in_date));
+    $visitDate = date('d/m/Y', strtotime($row->visitors_in_date));
+		if($row->vneonatal_id > 0){
+					$visitorDob = $row->neonatal_dob;
+					$visitorName = $row->neonatal_kh_name."(".$row->neonatal_en_name.")";
+					if ($row->neonatal_gender == "1"){
+						$visitorGender = "Male" ;
+					}elseif($row->neonatal_gender == "0"){
+						$visitorGender = "Female" ;
+					}else{
+						$visitorGender = "" ;
+					}
 
-		// $visitorOutWard = $row->visitors_leave_out_ward;
-		// $visitorOutDate = date('d-m-Y',strtotime($row->visitors_out_date));
-		// $visitorAverage = $row->visitors_average;
-		// $visitorPatientRoom = $row->visitors_patient_room;
+					$datetime1 = new DateTime();
+					$datetime2 = new DateTime($visitorDob);
+					$interval = $datetime1->diff($datetime2);
+					$dob_year = $interval->format('%y');
+					$dob_month = $interval->format('%m');
+					$dob_day = $interval->format('%a');
+					$dob_hour = $interval->format('%h');
+					$dob_min = $interval->format('%i');
+					if($dob_year >0){
+							$getAge.=$dob_year.' Year';
+					}elseif($dob_month > 0){
+							$getAge.= $dob_month.' Month';
+					}elseif($dob_day > 0){
+							$getAge.= $dob_day.' Day';
+					}elseif($dob_hour > 0){
+							$getAge.= $dob_hour.' Hour';
+					}elseif($dob_min > 0){
+							$getAge.= $dob_min.' Min';
+					}
+					$visitorAge = $getAge;
+					$visitorDateIn = $row->neonatal_date_in;
 
-		// if($row->visitors_chart_storage == '1'){
-		//     $ch_chart = 'checked';
-		// }
+		}else{
+					$visitorDob = $row->patient_dob;
+					$visitorName = $row->patient_kh_name."(".$row->patient_en_name.")";
+					if ($row->patient_gender == "m"){
+						$visitorGender = "Male" ;
+					}elseif($row->patient_gender == "f"){
+						$visitorGender = "Female" ;
+					}else{
+						$visitorGender = "" ;
+					}
+					$visitorAge = date("Y") - date("Y", strtotime($visitorDob)).' Year';
+					$visitorDateIn = $row->patient_date_in;
+		}
 
 		if($row->visitors_leave_status == '1'){
 		    $cured = 'checked';
@@ -50,16 +85,17 @@
 		}else if($row->visitors_leave_status == '4'){
 		    $died = 'checked';
 		}
-		if ($row->patient_gender == "m"){
-			$visitorGender = "Male" ;
-		}elseif($row->patient_gender == "f"){
-			$visitorGender = "Female" ;
-		}else{
-			$visitorGender = "" ;
-		}
 	}
-	$visitorAge = date("Y") - date("Y", strtotime($visitorDob));
-	$visitorDateIn = $row->patient_date_in;
+
+	// $visitorOutWard = $row->visitors_leave_out_ward;
+	// $visitorOutDate = date('d-m-Y',strtotime($row->visitors_out_date));
+	// $visitorAverage = $row->visitors_average;
+	// $visitorPatientRoom = $row->visitors_patient_room;
+
+	// if($row->visitors_chart_storage == '1'){
+	//     $ch_chart = 'checked';
+	// }
+
 ?>
 <div class="col-sm-8">
     <div class="row">
@@ -761,7 +797,7 @@
         <a href="<?php echo $base_url;?>index.php/patients/photo/<?php echo $patientId;?>" target="_blank"> <button class="btn btn-sm btn-default col-sm-12">View Patient Photo</button> </a>
         <br/>
         <table class="myExample table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-                <tbody  id="v_id"></tbody>
+            <tbody  id="v_id"></tbody>
         </table>
 
 </div>
@@ -822,24 +858,25 @@
 	var pid = <?php echo $patientId;?>;
 	var came = 1;
 	$(document).ready(function(){
-		if($('#doctorId').val() == ''){
-			// $('.saveApp').prop( "disabled", true );
-		}
-		$( '#doctorName' ).keypress(function(e){
-		    var dinput = this.value;
-		    var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
-		    var soc = String(url+dinput);
-		    $( '#doctorName' ).autocomplete({source: soc});
-
-		    if(event.keyCode == 13){
-			    $.post("<?php echo $base_url;?>index.php/users/get_doctor_json/"+dinput,function(data){
-					$.each(data, function(key,value) {
-						idDoctor = value.uid;
-			    		$( '#doctorId' ).val(value.uid);
-					});
-					$('.saveApp').prop( "disabled", false );
-			    });
+			$('#appment').datetimepicker({format:'Y-m-d H:i'});
+			if($('#doctorId').val() == ''){
+				// $('.saveApp').prop( "disabled", true );
 			}
+			$( '#doctorName' ).keypress(function(e){
+				    var dinput = this.value;
+				    var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
+				    var soc = String(url+dinput);
+				    $( '#doctorName' ).autocomplete({source: soc});
+
+				    if(event.keyCode == 13){
+					    $.post("<?php echo $base_url;?>index.php/users/get_doctor_json/"+dinput,function(data){
+							$.each(data, function(key,value) {
+								idDoctor = value.uid;
+					    		$( '#doctorId' ).val(value.uid);
+							});
+							$('.saveApp').prop( "disabled", false );
+					    });
+						}
 	    });
 
 	    $( '#diagnostic').keyup(function(e){
@@ -879,8 +916,6 @@
 		    var soc = String(url+dinput);
 		    $( '#out_dia2' ).autocomplete({source: soc});
 	    });
-
-            $('#appment').datetimepicker({format:'Y-m-d H:i'});
 
 	    getDia(vid);
 	    getMedicine(vid);
@@ -1123,12 +1158,12 @@
 	function getVisitTime(ids){
 	    var i = 0;
 	    $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_list_by_patient_id/"+ids,function (data,status){
-		var vid = 0;
-		var vdate = '';
-		var htmlView = '';
-		var sr = '';
-                var pr = '';
-		var din = '';
+				var vid = 0;
+				var vdate = '';
+				var htmlView = '';
+				var sr = '';
+		    var pr = '';
+				var din = '';
         var icd10Code = '';
         var icd10Desc = '';
         var detail = '';
@@ -1137,89 +1172,86 @@
         var amount = 0;
         var vsid = 0;
         $('#v_id').html('');
-		$.each(data, function(key,value) {
-		    vid = parseInt(value.visitors_id);
 
-		    if(din == ''){
-			i = i + 1;
-                        vsid = value.visitors_id;
-			din = value.visitors_in_date;
-                        dis = parseFloat(value.items_discount);
-                        amount = parseFloat(value.items_qty) * parseFloat(value.items_prices);
+				$.each(data, function(key,value) {
+		    		vid = parseInt(value.visitors_id);
+				    if(din == ''){
+							
+								i = i + 1;
+			          vsid = value.visitors_id;
+								din = value.visitors_in_date;
+			          dis = parseFloat(value.items_discount);
+			          amount = parseFloat(value.items_qty) * parseFloat(value.items_prices);
+			          if(value.icd10_code != '' && value.icd10_desc != ''){
+			              icd10Code =  '(' + value.icd10_code + ')-';
+			              icd10Desc =  value.icd10_desc;
+			              detail = ' [' + value.diagnostics_detail + ']';
+			              diaLevel = '{' + value.diagnostics_level + '}';
+			          }
+								if(value.types_id == '4'){
+		                sr = value.products_name;
+		            }else{
+		                pr = value.products_name;
+		            }
+				    }else if(din != value.visitors_in_date){
 
-                        if(value.icd10_code != '' && value.icd10_desc != ''){
-                            icd10Code =  '(' + value.icd10_code + ')-';
-                            icd10Desc =  value.icd10_desc;
-                            detail = ' [' + value.diagnostics_detail + ']';
-                            diaLevel = '{' + value.diagnostics_level + '}';
-                        }
+		              htmlView = '<tr class="bloom-row"><td colspan="2" class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vsid+');">' + $.datepicker.formatDate('dd-mm-yy', new Date(din)) +'</td></tr>';
+		              htmlView += '<tr><td class="handOver"> D ' + diaLevel + ' </td>';
+		              htmlView += '<td>' + icd10Code + icd10Desc + detail + '</td></tr>';
+		              htmlView += '<tr><td class="handOver"> M </td>';
+		              htmlView += '<td>'+ pr +'</td></tr>';
+		              htmlView += '<tr><td class="handOver"> S </td>';
+		              htmlView += '<td>'+ sr +'</td></tr>';
+		              htmlView += '<tr><td class="handOver"> Dis </td>';
+		              htmlView += '<td>' + dis + '$ </td></tr>';
+		              htmlView += '<tr><td class="handOver"> Total </td>';
+		              htmlView += '<td>' + (parseFloat(amount)-parseFloat(dis)) + '$ </td></tr>';
+		              $('#v_id').append(htmlView);
 
-			if(value.types_id == '4'){
-                            sr = value.products_name;
-                        }else{
-                            pr = value.products_name;
-                        }
-		    }else if(din != value.visitors_in_date){
+		              /*htmlView += '<span class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vid+');"><i class="fa fa-search action-btn primary"></i></span>&nbsp;&nbsp;';*/
+		              /*startTrTd();
+		                  setTd(1);
+		                  setTd($.datepicker.formatDate('dd-mm-yy', new Date(value.visitors_in_date)));
+		                  setTd(sr);
+		                  setTd(htmlView);
+		              stopTrTd();*/
 
-                        htmlView = '<tr class="bloom-row"><td colspan="2" class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vsid+');">' + $.datepicker.formatDate('dd-mm-yy', new Date(din)) +'</td></tr>';
-                        htmlView += '<tr><td class="handOver"> D ' + diaLevel + ' </td>';
-                        htmlView += '<td>' + icd10Code + icd10Desc + detail + '</td></tr>';
-                        htmlView += '<tr><td class="handOver"> M </td>';
-                        htmlView += '<td>'+ pr +'</td></tr>';
-                        htmlView += '<tr><td class="handOver"> S </td>';
-                        htmlView += '<td>'+ sr +'</td></tr>';
-                        htmlView += '<tr><td class="handOver"> Dis </td>';
-                        htmlView += '<td>' + dis + '$ </td></tr>';
-                        htmlView += '<tr><td class="handOver"> Total </td>';
-                        htmlView += '<td>' + (parseFloat(amount)-parseFloat(dis)) + '$ </td></tr>';
+		              htmlView = '';
+		              i = i + 1;
+		              vid = parseInt(value.visitors_id);
+		              dis = parseFloat(value.items_discount);
+		              amount = parseFloat(value.items_qty) * parseFloat(value.items_prices);
+		              if(value.icd10_code != '' && value.icd10_desc != ''){
+		                  icd10Code =  '(' + value.icd10_code + ')-';
+		                  icd10Desc =  value.icd10_desc;
+		                  detail = ' [' + value.diagnostics_detail + ']';
+		                  diaLevel = '{' + value.diagnostics_level + '}';
+		              }
 
-                        $('#v_id').append(htmlView);
+		              if(value.types_id == '4'){
+		                  sr = value.products_name;
+		              }else{
+		                  pr = value.products_name;
+		              }
+		              din = value.visitors_in_date;
 
-                        /*htmlView += '<span class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vid+');"><i class="fa fa-search action-btn primary"></i></span>&nbsp;&nbsp;';*/
-                        /*startTrTd();
-                            setTd(1);
-                            setTd($.datepicker.formatDate('dd-mm-yy', new Date(value.visitors_in_date)));
-                            setTd(sr);
-                            setTd(htmlView);
-                        stopTrTd();*/
-
-                        htmlView = '';
-                        i = i + 1;
-                        vid = parseInt(value.visitors_id);
-                        dis = parseFloat(value.items_discount);
-                        amount = parseFloat(value.items_qty) * parseFloat(value.items_prices);
-                        if(value.icd10_code != '' && value.icd10_desc != ''){
-                            icd10Code =  '(' + value.icd10_code + ')-';
-                            icd10Desc =  value.icd10_desc;
-                            detail = ' [' + value.diagnostics_detail + ']';
-                            diaLevel = '{' + value.diagnostics_level + '}';
-                        }
-
-                        if(value.types_id == '4'){
-                            sr = value.products_name;
-                        }else{
-                            pr = value.products_name;
-                        }
-
-                        din = value.visitors_in_date;
-
-                    }else{
-                        if(value.types_id == '4'){
-                            if(sr == ''){
-                                sr = value.products_name;
-                            }else{
-                                sr = sr + "," + value.products_name;
-                            }
-                        }else{
-                            if(pr == ""){
-                                pr = value.products_name;
-                            }else{
-                                pr = pr + "," + value.products_name;
-                            }
-                        }
-                        dis = parseFloat(dis) + parseFloat(value.items_discount);
-                        amount = parseFloat(amount) + (parseFloat(value.items_qty) * parseFloat(value.items_prices));
-                    }
+		        }else{
+		              if(value.types_id == '4'){
+		                  if(sr == ''){
+		                      sr = value.products_name;
+		                  }else{
+		                      sr = sr + "," + value.products_name;
+		                  }
+		              }else{
+		                  if(pr == ""){
+		                      pr = value.products_name;
+		                  }else{
+		                      pr = pr + "," + value.products_name;
+		                  }
+		              }
+		              dis = parseFloat(dis) + parseFloat(value.items_discount);
+		              amount = parseFloat(amount) + (parseFloat(value.items_qty) * parseFloat(value.items_prices));
+		        }
 		});
 
 		htmlView = '<tr class="bloom-row"><td colspan="2" class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vsid+');">' + $.datepicker.formatDate('dd-mm-yy', new Date(din)) +'</td></tr>';

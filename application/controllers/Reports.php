@@ -81,7 +81,7 @@ class Reports extends Securities {
               $queryOpd = $this->VisitorModel->getCountByArrayId();
         }elseif($this->getPost('serviceOpt') == 2){
               $titleIpd = array("2"=>"IPD","36"=>"Deivery Normal","37"=>"C section","38"=>"Delivery-Complication","51"=>"General Med IPD","52"=>"General Surgery","53"=>"EYE-IPD","54"=>"Trauma IPD","55"=>"Pulmonaire IPD","56"=>"Renal IPD","57"=>"ICU IPD",
-                        "58"=>"ICU OB","39"=>"Maternity","40"=>"Medicine","41"=>"GYN","42"=>"Surgery","43"=>"Infertility","44"=>"ORL","45"=>"ENT","46"=>"Dermatology","47"=>"Bone","48"=>"Digestive","49"=>"Cardiaque",
+                        "58"=>"ICU OB","39"=>"Maternity","40"=>"Cancer","41"=>"GYN","42"=>"OBGYN Surgery","43"=>"Infertility","44"=>"ORL","45"=>"ENT","46"=>"Dermatology","47"=>"Bone","48"=>"Digestive","49"=>"Cardiaque",
                         "50"=>"IPD others");
               $idIpd = array("2","36","37","38","51","52","53","54","55","56","57","58","39","40","41","42","43","44","45","46","47","48","49","50");
               $this->VisitorModel->setDataArray2($idIpd);

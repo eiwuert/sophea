@@ -263,7 +263,6 @@ class Dao extends CI_Model{
                 }
 
 		$query = $this->db->query($qr);
-
                 // Write Query Log
 		$this->queryLog();
 

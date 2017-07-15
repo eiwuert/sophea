@@ -99,10 +99,8 @@ class Visitors extends Securities {
 
         // #################### JSON DATA ####################### //
 	function get_visitor_list_by_patient_id(){
-
 	    // Check Session
 	    $this->checkSession();
-
 	    $this->VisitorModel->setPatientId($this->getUrlSegment3());
 	    $datas = $this->VisitorModel->getPatientVisit();
 	    $this->restData($datas);
@@ -139,12 +137,10 @@ class Visitors extends Securities {
 	}
 
 	function pharmacy_get_visitor_list(){
-
 	    // Check Session
 	    $this->checkSession();
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
       $datas = $this->VisitorModel->getAllVisitorPay();
-			$this->logs('3','==========>'.$this->db->last_query());
       $this->restData($datas);
 	}
 
@@ -159,23 +155,21 @@ class Visitors extends Securities {
 	}
 
 	function get_visitor_info_by_id_json(){
-
 	    // Check Session
 	    $this->checkSession();
-
-            $this->PatientModel->setId($this->getUrlSegment3());
-            $datas = $this->PatientModel->getPatientById();
-            $this->restData($datas);
+      $this->PatientModel->setId($this->getUrlSegment3());
+      $datas = $this->PatientModel->getPatientById();
+      $this->restData($datas);
 	}
 
-        function get_visitor_history_by_id_json(){
 
+
+  function get_visitor_history_by_id_json(){
 	    // Check Session
 	    $this->checkSession();
-
-            $this->PatientModel->setId($this->getUrlSegment3());
-            $datas = $this->PatientModel->getPatientHistoryById();
-            $this->restData($datas);
+      $this->PatientModel->setId($this->getUrlSegment3());
+      $datas = $this->PatientModel->getPatientHistoryById();
+      $this->restData($datas);
 	}
 
         // #################### Translate ####################### //

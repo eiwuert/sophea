@@ -74,16 +74,15 @@
 								<input type="text" name="neonatal_dob" id="neonatal_dob" class="form-control">
 							</div>
 						</div>
-						<!--Neonatal Time-->
+						<!--Neonatal Date IN-->
 						<div class="form-group">
 							<div class="input-group">
 								<div class="input-group-addon">
-								      <?php echo @$time;?>
+								      <?php echo @$date_in;?>
 								</div>
-								<input type="text" name="neonatal_time" id="neonatal_time" class="form-control">
+								<input type="text" name="neonatal_date_in" id="neonatal_date_in" class="form-control">
 							</div>
 						</div>
-
 						<!-- Submit -->
 					    <div class="form-group">
 						  <div class="input-group">
@@ -164,7 +163,6 @@
 									<th><?php echo $gender;?></th>
 									<th><?php echo $weight;?></th>
 									<th><?php echo $dob;?></th>
-									<th><?php echo $time;?></th>
 									<th><?php echo $old;?></th>
 									<th></th>
 								</tr>
@@ -196,6 +194,8 @@
 <script src="<?php echo $resources;?>plugins/jQuery/jQuery-2.1.4.min.js"></script>
 <script src="<?php echo $resources;?>plugins/jslibs/table.js"></script>
 <script src="<?php echo $resources;?>jquery-ui/jquery-ui.js" ></script>
+<link rel="stylesheet" type="text/css" href="<?php echo $resources;?>plugins/datetimepicker/jquery.datetimepicker.css"/>
+<script src="<?php echo $resources;?>plugins/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
 <script>
 	// var	pnid = "<?//php echo $pnid ?>";
 	// if(pnid > 0){
@@ -212,9 +212,10 @@
     var pageStartTop = '0';
     var baseUrl = <?php echo '"'.$base_url.'index.php/"';?>;
     $(document).ready(function(){
-	    pagination();
-	    $( "#neonatal_dob" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
-    });
+		    pagination();
+				$('#neonatal_dob').datetimepicker({format:'Y-m-d H:i:s'});
+				$( "#neonatal_date_in" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
+		});
 
     function getSearch(){
         var e = event.keyCode;
@@ -236,20 +237,25 @@
 	    saveEdit();
     });
 
-    function getNeoList(mySearch,pageStart,pageLimit){
-
-	    $(document).ajaxStart(function(){
-	        $("#wait").css("display", "block");
-	    });
-		var totalRecord = <?php echo @$totals;?>;
+  function getNeoList(mySearch,pageStart,pageLimit){
+		    $(document).ajaxStart(function(){
+		        $("#wait").css("display", "block");
+		    });
+				var totalRecord = <?php echo @$totals;?>;
         var htmlView = '';
         var i = 0;
 
         $.post("<?php echo $base_url;?>index.php/neonatals/get_neonatal_list",{
-			search_data: mySearch/*,page_start: pageStart,page_limit: pageLimit*/},
-			function(data){
+						search_data: mySearch/*,page_start: pageStart,page_limit: pageLimit*/},
+						function(data){
             	$.each(data, function(key,value) {
             		viewGender = "";
+
+								// var dob = value.neonatal_dob;
+								// var today = new Date();
+								// var age = Math.round((today-dob)/ (365.25 * 24 * 60 * 60 * 1000));
+								var age = '';
+
             		if(value.neonatal_gender == '1'){
             			viewGender = "Male";
             		}else if(value.neonatal_gender == '0'){
@@ -262,8 +268,7 @@
                     htmlView += '<td>' + viewGender + '</td>';
                     htmlView += '<td>' + value.neonatal_weight + '</td>';
                     htmlView += '<td>' + $.datepicker.formatDate('dd-mm-yy', new Date(value.neonatal_dob)) + '</td>';
-                    htmlView += '<td>' + value.neonatal_time + '</td>';
-                    htmlView += '<td>' + value.neonatal_old + '</td>';
+                    htmlView += '<td>' + age + '</td>';
                     htmlView += '<td>';
                     	// htmlView +='<a title="ICU" href="#" title="<?php echo @$icu;?>" onclick="neoIcu(' + value.neonatal_id + ');">ICU</a>&nbsp;&nbsp; ';
                     	// htmlView +='<a title="Vaccination" href="#" title="<?php echo @$vaccination;?>" onclick="neoVaccination(' + value.neonatal_id + ');">Vacc</a>&nbsp;&nbsp; ';
@@ -271,11 +276,11 @@
                     	// htmlView +='<a title="OPD" href="#" title="<?php echo @$opd;?>" onclick="neoOpd(' + value.neonatal_id + ');">O</a>&nbsp;&nbsp; ';
                    		// htmlView +=' <a title="IPD" href="#" title="<?php echo @$ipd;?>" onclick="neoIpd(' + value.neonatal_id + ');">I</a>&nbsp;&nbsp; ';
                     	htmlView +=' <span title="<?php echo @$edit;?>"><i class="fa fa-edit action-btn primary" onclick="editNeonatal(' + value.neonatal_id + ');"></i></span>&nbsp;&nbsp; ';
-                        htmlView +=' <span title="<?php echo @$delete;?>"><i class="fa fa-trash-o action-btn danger" onclick="deleteNeonatal(' + value.neonatal_id + ',\'' + value.neonatal_code + '\');"></i></span>';
+                      htmlView +=' <span title="<?php echo @$delete;?>"><i class="fa fa-trash-o action-btn danger" onclick="deleteNeonatal(' + value.neonatal_id + ',\'' + value.neonatal_code + '\');"></i></span>';
                     htmlView += '</td>';
                 	htmlView += '</tr>';
 
-            	});
+            });
 
             	$("#neonatalList").html(htmlView);
             	$("#total_record").html(totalRecord);
@@ -283,7 +288,7 @@
 	                $("#wait").css("display", "none");
 	            });
         });
-    }
+  }
        /* Jquery Pagination */
 	function pagination(){
 		/*  Post 3 parameter [ strSearch, Start, Limit]*/
@@ -329,21 +334,20 @@
 		 $('#title_name').html('/ Edit');
 
 		 $.post("<?php echo $base_url;?>index.php/neonatals/get_neonatal_info_by_id_json/"+ids,function(data,status){
-			$.each(data, function(key,value) {
-					$('#neonatal_name').val(value.neonatal_en_name);
-					$('#neonatal_patient_id').val(value.neonatal_patient_id);
-					$('#neonatal_patient_code').val(value.neonatal_patient_code);
-					$('#neonatal_id').val(value.neonatal_id);
-					if(value.neonatal_gender == "1"){
-						$('#neonatal_gender').val('1');
-					}else{
-						$('#neonatal_gender').val('0');
-					}
-					$('#neonatal_weight').val(value.neonatal_weight);
-					$('#neonatal_dob').val($.datepicker.formatDate('dd-mm-yy', new Date(value.neonatal_dob)));
-					$('#neonatal_time').val(value.neonatal_time);
-			});
-
+				$.each(data, function(key,value) {
+						$('#neonatal_name').val(value.neonatal_en_name);
+						$('#neonatal_patient_id').val(value.neonatal_patient_id);
+						$('#neonatal_patient_code').val(value.neonatal_patient_code);
+						$('#neonatal_id').val(value.neonatal_id);
+						if(value.neonatal_gender == "1"){
+								$('#neonatal_gender').val('1');
+						}else{
+								$('#neonatal_gender').val('0');
+						}
+						$('#neonatal_weight').val(value.neonatal_weight);
+						$('#neonatal_dob').val(value.neonatal_dob);
+						$('#neonatal_date_in').val($.datepicker.formatDate('dd-mm-yy', new Date(value.neonatal_date_in+'T00:00:00')));
+				});
 		 });
     }
     function saveEdit(){
@@ -357,7 +361,7 @@
 				var neonatalGender = $('#neonatal_gender').val();
 				var neonatalWeight = $('#neonatal_weight').val();
 				var neonatalDob = $('#neonatal_dob').val();
-				var neonatalTime = $('#neonatal_time').val();
+				var neonatalDateIn = $('#neonatal_date_in').val();
 
 				var opd = $('#chNeoOpd:checked').val();
 				var neoSimpleIcu = $('#chNeoSimpleIcu:checked').val();
@@ -381,11 +385,11 @@
 				    neonatalGender: neonatalGender,
 				    neonatalWeight: neonatalWeight,
 				    neonatalDob: neonatalDob,
-				    neonatalTime :neonatalTime,
+						neonatalDateIn: neonatalDateIn,
 
 				    opd: opd,
-					neoSimpleIcu: neoSimpleIcu,
-					neoComplicatedIcu: neoComplicatedIcu,
+						neoSimpleIcu: neoSimpleIcu,
+						neoComplicatedIcu: neoComplicatedIcu,
 
 				},function(data){
 

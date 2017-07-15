@@ -126,7 +126,7 @@
 					echo '</li>';
 				//}
 				//if(@$per_opd_adults == '1'){
-					echo '<li class="'.@$ac_i_delivery_normal.@$ac_i_c_section.@$ac_i_delivery_complication.@$ac_i_maternity.@$ac_i_medicine.@$ac_i_gyn.@$ac_i_surgery.@$ac_i_infertility.@$ac_i_orl.@$ac_i_ent.@$ac_i_dermatology.@$ac_i_bone.@$ac_i_digestive.@$ac_i_cardiaque.@$ac_i_opd_others. ' treeview">';
+					echo '<li class="'.@$ac_i_delivery_normal.@$ac_i_c_section.@$ac_i_delivery_complication.@$ac_i_maternity.@$ac_i_cancer.@$ac_i_gyn.@$ac_i_surgery.@$ac_i_infertility.@$ac_i_orl.@$ac_i_ent.@$ac_i_dermatology.@$ac_i_bone.@$ac_i_digestive.@$ac_i_cardiaque.@$ac_i_opd_others. ' treeview">';
 						echo '<a href="#">';
 							echo '<i class="fa fa-user-md"></i> <span> '.@$h_ipd_adults.' </span> <i class="fa fa-angle-left pull-right"></i>';
 						echo '</a>';
@@ -145,7 +145,7 @@
 									echo '<a href="'.$base_url.'index.php/ipds/i_maternity"><i class="fa fa-circle-o text-aqua"></i> '.@$h_i_maternity.' </a>';
 								echo '</li>';
 								echo '<li class="'.@$ac_i_medicine.'">';
-									echo '<a href="'.$base_url.'index.php/ipds/i_medicine"><i class="fa fa-circle-o text-aqua"></i> '.@$h_i_medicine.' </a>';
+									echo '<a href="'.$base_url.'index.php/ipds/i_cancer"><i class="fa fa-circle-o text-aqua"></i> '.@$h_i_cancer.' </a>';
 								echo '</li>';
 								echo '<li class="'.@$ac_i_gyn.'">';
 									echo '<a href="'.$base_url.'index.php/ipds/i_gyn"><i class="fa fa-circle-o text-aqua"></i> '.@$h_i_gyn.' </a>';

@@ -11,20 +11,17 @@ class Patients extends Securities {
 	public function index() {
 	    // Check Session
 	    $this->checkSession();
-		$data = array();
+			$data = array();
 			// Menu Active
-		$data['ac_patients'] = 'active';
-
+			$data['ac_patients'] = 'active';
         // Get Item Per Page
 	    $data['item_per_page'] = $this->getSysConfig();
-
 	    // Get Count All Product
 	    $data['totals'] = $this->PatientModel->getCountPatient();
-
-        // Define Gender Cambo
+      // Define Gender Cambo
 	    $data['genderCambo'][0] = "Female";
 	    $data['genderCambo'][1] = "Male";
-            // Define Status Cambo
+      // Define Status Cambo
 	    $data['statusCambo'][0] = "Sigle";
 	    $data['statusCambo'][1] = "Married";
     	$this->WorkstationModel->setStart(0);
@@ -114,20 +111,15 @@ class Patients extends Securities {
 
 	// Define Index of Unit Fucntion
 	public function visited() {
-
-	    // Check Session
-	    $this->checkSession();
-
-            $data = array();
-	        // Get Item Per Page
+	    	// Check Session
+	    	$this->checkSession();
+        $data = array();
+	      // Get Item Per Page
 		    $data['item_per_page'] = $this->getSysConfig();
-
 		    // Get Count All Product
 		    $data['totals'] = $this->PatientModel->getCountAllPatientView();
-
-
-            // Menu Active
-            $data['ac_viewall'] = 'active';
+        // Menu Active
+        $data['ac_viewall'] = 'active';
 
             // Define Gender Cambo
 		    $data['genderCambo'][0] = "Female";
@@ -142,8 +134,8 @@ class Patients extends Securities {
 	    	$query_workstation = $this->WorkstationModel->getAllWorkstation();
 	    	$data['drop_workshop'] = $this->queryDropDownMenu($query_workstation,$label_id='0',$label_name='-- --',$id='workstation_id',$value='workstation_name',$value2='');
 
-                // Get Translate Word to View
-                $data = $this->getTranslate($data);
+	      // Get Translate Word to View
+	      $data = $this->getTranslate($data);
     		// waitting Form
     		$data['generate_num_waitting'] = $this->WaittingModel->genNumber();
 
@@ -175,6 +167,9 @@ class Patients extends Securities {
         function save_patient(){
 						// Check Session
 						$this->checkSession();
+
+						// $this->logs('3','===ff==='.date('Y-m-d',strtotime($this->getPost('patient_date_in'))));
+						// exit();
 
 		        $this->PatientModel->setId($this->getPost('patient_id'));
 		        $this->PatientModel->setCheckNeo($this->getPost('checkNeo'));
@@ -541,7 +536,7 @@ class Patients extends Securities {
 							$this->VisitorModel->add();
 							// redirect('opds');
 						}
-						if($this->getPost('i_medicine') == 1){
+						if($this->getPost('i_cancer') == 1){
 							$this->logs('3',$this->PatientModel->getPatientIdByCode());
 							$this->VisitorModel->setI_medicine();
 							$this->VisitorModel->add();
@@ -921,14 +916,12 @@ class Patients extends Securities {
 	}
 
 	function get_patient_visited_list(){
-
 	    // Check Session
 	    $this->checkSession();
-
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
-            $this->VisitorModel->setVisitorStatusSearch($this->getPost('ipd').','.$this->getPost('opd').','.$this->getPost('pharm'));
-            $datas = $this->VisitorModel->getAllVisited();
-            $this->restData($datas);
+      $this->VisitorModel->setVisitorStatusSearch($this->getPost('ipd').','.$this->getPost('opd').','.$this->getPost('pharm'));
+      $datas = $this->VisitorModel->getAllVisited();
+      $this->restData($datas);
 	}
 
 	// Delete Patients
@@ -950,7 +943,6 @@ class Patients extends Securities {
 	function get_count_patient(){
 	    // Check Session
 	    $this->checkSession();
-
 	    $datas = $this->PatientModel->getCountAllPatient();
 	    $this->restData($datas);
 	}

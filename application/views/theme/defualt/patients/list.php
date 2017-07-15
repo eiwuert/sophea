@@ -31,7 +31,7 @@
                           <div class="input-group-addon">
                                 <?php echo @$enName;?>
                           </div>
-                          <input type="text" name="patient_kh_name" id="patient_kh_name" cla	ss="form-control">
+                          <input type="text" name="patient_kh_name" id="patient_kh_name" class="form-control">
                           <input type="text" name="patient_id" id="patient_id" style="display:none;">
                           <input type="text" name="patient_code" id="patient_code" style="display:none;">
                         </div>
@@ -205,7 +205,7 @@
                                 <div class="input-group-addon">
                                       <?php echo @$date_in;?>
                                 </div>
-                                <input type="text" name="patient_date_in" id="patient_date_in" class="form-control">
+                                <input type="text" name="patient_date_in" id="patient_date_in" data-date-format='yy-mm-dd' class="form-control">
                           </div>
                     </div>
                     <div class="form-group">
@@ -694,9 +694,9 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                              <input name="formCheck[]" type="checkbox" id="i_medicine" value="1">
+                                              <input name="formCheck[]" type="checkbox" id="i_cancer" value="1">
                                             </span>
-                                            <input type="text" value="Medicine" class="form-control" disabled="disabled">
+                                            <input type="text" value="Cancer" class="form-control" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -712,7 +712,7 @@
                                             <span class="input-group-addon">
                                               <input name="formCheck[]" type="checkbox" id="i_surgery" value="1">
                                             </span>
-                                            <input type="text" value="Surgery" class="form-control" disabled="disabled">
+                                            <input type="text" value="OBGYN Surgery" class="form-control" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -1692,7 +1692,7 @@ function editPatient(ids){
         $('#patient_kh_name').val(value.patient_kh_name);
         $('#patient_en_name').val(value.patient_en_name);
 
-        $('#patient_date_in').val($.datepicker.formatDate('dd-mm-yy', new Date(value.patient_date_in)));
+				$('#patient_date_in').val($.datepicker.formatDate('dd-mm-yy', new Date(value.patient_date_in+'T00:00:00')));
         $('#patient_refer_from').val(value.patient_refer_from);
 
         if(value.patient_nssf == '1'){
@@ -1943,7 +1943,7 @@ function editPatient(ids){
 												$('#i_maternity').prop('checked', true);
 										    $('#openOptIpd').css('display','block');
 										}else if(osVal.visitors_status == 40){
-												$('#i_medicine').prop('checked', true);
+												$('#i_cancer').prop('checked', true);
 										    $('#openOptIpd').css('display','block');
 										}else if(osVal.visitors_status == 41){
 												$('#i_gyn').prop('checked', true);
@@ -2207,7 +2207,7 @@ function saveEdit(){
             var i_icu = $('#i_icu:checked').val();
             var i_icu_ob = $('#i_icu_ob:checked').val();
             var i_maternity = $('#i_maternity:checked').val();
-            var i_medicine = $('#i_medicine:checked').val();
+            var i_cancer = $('#i_cancer:checked').val();
             var i_gyn = $('#i_gyn:checked').val();
             var i_surgery = $('#i_surgery:checked').val();
             var i_infertility = $('#i_infertility:checked').val();
@@ -2361,7 +2361,7 @@ function saveEdit(){
             i_icu: i_icu,
             i_icu_ob: i_icu_ob,
             i_maternity : i_maternity,
-            i_medicine : i_medicine,
+            i_cancer : i_cancer,
             i_gyn : i_gyn,
             i_surgery : i_surgery,
             i_infertility : i_infertility,

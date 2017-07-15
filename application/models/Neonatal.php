@@ -28,13 +28,13 @@ class Neonatal extends Datastructure{
 	}
 	// New Patient Code
 	function genNeonatalNo(){
-        return $this->genRef('P','0',$this->getCountNeonatalCode());
+        return $this->genRef('N','0',$this->getCountNeonatalCode());
 	}
 	function genRef($pre_char,$auto_no,$current_ref){
 
 		// In Detail  H0000001P0000001 H0000001P0000002 H0000001P0000003
 
-		if($pre_char == 'P'){
+		if($pre_char == 'N'){
 			$no = str_pad($current_ref+1, 8, "0", STR_PAD_LEFT);
 			//$ref_no = $pre_char.$no.'-'.($auto_no+1);
 			$ref_no = $pre_char.$no;
@@ -106,8 +106,8 @@ class Neonatal extends Datastructure{
 	    $this->setArrayData('neonatal_en_name',$this->getName());
 	    $this->setArrayData('neonatal_gender',$this->getSex());
 	    $this->setArrayData('neonatal_weight',$this->getWeight());
-	    $this->setArrayData('neonatal_dob',$this->getDob());
-	    $this->setArrayData('neonatal_time',$this->getTime());
+			$this->setArrayData('neonatal_dob',$this->getDob());
+	    $this->setArrayData('neonatal_date_in',$this->getDateIn());
 	    return $this->getArrayData();
     }
 }

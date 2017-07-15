@@ -868,7 +868,7 @@
 			<br>
 			<br>
 			<div style="width:100%; float:left">
-				<center><span style="font-size:15px; color:#F17A97 !important">សេវាកម្ម</span></center>
+				<center><span style="font-size:15px; color:#000 !important">សេវាកម្ម</span></center>
 			</div>
 			<div style="float:left;width:100% !important padding:0px !important; margin:0px !important">
 			   	<center>
@@ -1093,7 +1093,7 @@
 			<br>
 			<br>
 				<div style="width:100%; float:left">
-					<center><span style="font-size:15px; color:#F17A97 !important">វិក័យប័ត្រ</span></center>
+					<center><span style="font-size:15px; color:#000 !important">វិក័យប័ត្រ</span></center>
 				</div>
 			<div style="float:right;position: relative;top:-80px; color:#000000 !important;font-size:15px"></div>
 
