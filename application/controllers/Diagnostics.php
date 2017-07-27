@@ -118,6 +118,51 @@ class Diagnostics extends Securities {
 	    $this->DiagnosticModel->save_note();
 	}
 
+	function get_protocol_list(){
+	        // Check Session
+		    $this->checkSession();
+		    $this->DiagnosticModel->setId($this->getUrlSegment3());
+		    $datas = $this->DiagnosticModel->getProtocolList();
+		    $this->restData($datas);
+	}
+	function get_protocol_list_byid(){
+		// Check Session
+			$this->checkSession();
+			$this->DiagnosticModel->setId($this->getUrlSegment3());
+			$datas = $this->DiagnosticModel->getProtocolListById();
+			$this->restData($datas);
+	}
+
+	public function add_protocol() {
+			    // Check Session
+			    $this->checkSession();
+			    // $this->permissionSection('mAddProtocols');
+			    // $this->checkPermission();
+					$data = array();
+          $this->DiagnosticModel->setId($this->getUrlSegment3());
+					$this->DiagnosticModel->setVisitorId($this->getPost('visitorId'));
+					$this->DiagnosticModel->setProtocolId($this->getPost('protocolId'));
+					$this->DiagnosticModel->setDate(date('Y-m-d',strtotime($this->getPost('protocolDate'))));
+					$this->DiagnosticModel->setProtocolSurgeon($this->getPost('protocolSurgeon'));
+					$this->DiagnosticModel->setProtocolAnesthesia($this->getPost('protocolAnesthesia'));
+					$this->DiagnosticModel->setProtocolHelper($this->getPost('protocolHelper'));
+					$this->DiagnosticModel->setProtocolNeoDoctor($this->getPost('protocolNeoDoctor'));
+					$this->DiagnosticModel->setProtocolMidult($this->getPost('protocolMidult'));
+
+					if( $this->getUrlSegment3() == 0){
+							$addd = $this->DiagnosticModel->addProtocol();
+					}else{
+							$accc = $this->DiagnosticModel->updateProtocol();
+					}
+  }
+
+	function delete_protocol(){
+				// Check Session
+				$this->checkSession();
+				$this->DiagnosticModel->setId($this->getUrlSegment3());
+				$this->DiagnosticModel->deleteProtocol();
+	}
+
 	function saveVirtualSign(){
 	        $this->DiagnosticModel->setId($this->getPost('virtual_id'));
 	        $this->DiagnosticModel->setVisitorId($this->getPost('visitor_id'));
@@ -156,8 +201,8 @@ class Diagnostics extends Securities {
 
             // Check Session
 	    $this->checkSession();
-            $this->permissionSection('mAddMedicine');
-            $this->checkPermission();
+      $this->permissionSection('mAddMedicine');
+      $this->checkPermission();
 
 	    $pInfo = explode('-', $this->getPost('medicines'));
 	    $this->ProductModel->setProductCode($pInfo[0]);
@@ -193,8 +238,8 @@ class Diagnostics extends Securities {
 	    $this->DiagnosticModel->setPulseWithUs($this->checkIfNull($this->getPost('pulse_with_us')));
 	    $this->DiagnosticModel->setEnergyMj($this->checkIfNull($this->getPost('energy_mj')));
 
-            //	ordernant_no
-            $this->DiagnosticModel->setAmount($this->getPost('order_no'));
+      //	ordernant_no
+      $this->DiagnosticModel->setAmount($this->getPost('order_no'));
 
 	    // Set Form
 	    $this->DiagnosticModel->setName($this->getPost('frm'));
@@ -438,13 +483,10 @@ class Diagnostics extends Securities {
 	}
 
 	function get_diagnostic_list(){
-
 	    // Check Session
 	    $this->checkSession();
-
 	    $this->DiagnosticModel->setVisitorId($this->getUrlSegment3());
 	    $datas = $this->DiagnosticModel->getDiagnosticListByVisitorId();
-
 	    $this->restData($datas);
 	}
 
@@ -506,7 +548,7 @@ class Diagnostics extends Securities {
 
 	    $this->restData($datas);
 	}
-	// xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+	// xxxx
   function get_opd_list(){
 	    // Check Session
 	    $this->checkSession();
@@ -555,22 +597,35 @@ class Diagnostics extends Securities {
 	function doctor_auto_complete(){
 	    // Check Session
 	    $this->checkSession();
-
 	    $this->UserModel->setName(urldecode($this->getUrlSegment3()));
 	    $datas = $this->UserModel->getUserInfoByName();
-            $this->restData($datas);
+			$this->restData($datas);
+	}
+	// Auto Protocol
+	function protocols_auto_complete(){
+	    // Check Session
+	    $this->checkSession();
+	    $this->UserModel->setName(urldecode($this->getUrlSegment3()));
+	    $datas = $this->ProtocolModel->getProtocolsInfoByName();
+			$this->restData($datas);
 	}
 
-        // Get Appoinment
-        function getAppoinmentByVisitorId(){
-            // Check Session
-	    $this->checkSession();
+	function get_protocol_json(){
+			// Check Session
+			$this->checkSession();
+			$this->ProtocolModel->setSearch(urldecode($this->getUrlSegment3()));
+			$datas = $this->ProtocolModel->getProtocolsInfo();
+			$this->restData($datas);
+	}
 
-            $this->AppoinmentModel->setVisitorId($this->getUrlSegment3());
-            $datas = $this->AppoinmentModel->getAppoinmentByVisitorId();
-
-            $this->restData($datas);
-        }
+  // Get Appoinment
+  function getAppoinmentByVisitorId(){
+      // Check Session
+			$this->checkSession();
+      $this->AppoinmentModel->setVisitorId($this->getUrlSegment3());
+      $datas = $this->AppoinmentModel->getAppoinmentByVisitorId();
+      $this->restData($datas);
+  }
 
         // Get Appoinment
         function getAppoinmentAll(){
@@ -1511,7 +1566,7 @@ class Diagnostics extends Securities {
 	    $datas = $this->VisitorModel->getAllVisitorOpd();
 	    $this->restData($datas);
 	}
-	public function o_icu() {
+	public function o_cancer() {
 	    // Check Session
 	    $this->checkSession();
         // $this->permissionSection('mDiagnosticOb');
@@ -1524,10 +1579,10 @@ class Diagnostics extends Securities {
             $data['item_per_page'] = $this->getSysConfig();
 
             // Get Count All Visitor
-            $data['rediUrl'] = "o_icu";
-            $data['rediTitle'] = $this->Lang('o_icu');
-            $data['jq_get_list'] = "get_o_icu_list";
-            $this->VisitorModel->setO_icu();
+            $data['rediUrl'] = "o_cancer";
+            $data['rediTitle'] = $this->Lang('o_cancer');
+            $data['jq_get_list'] = "get_o_cancer_list";
+            $this->VisitorModel->setO_cancer();
             $data['totals'] = $this->VisitorModel->getCountVisitorOpd();
 
             // Get Translate Word to View
@@ -1541,12 +1596,12 @@ class Diagnostics extends Securities {
             $this->LoadView('template/footer');
     }
 
-	function get_o_icu_list(){
+	function get_o_cancer_list(){
 	    // Check Session
 	    $this->checkSession();
 
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
-	    $this->VisitorModel->setO_icu();
+	    $this->VisitorModel->setO_cancer();
 	    $this->VisitorModel->setStart('0');
 	    $this->VisitorModel->setLimit('0');
 	    $datas = $this->VisitorModel->getAllVisitorOpd();
@@ -3196,20 +3251,16 @@ class Diagnostics extends Securities {
 
 	    	$this->setSession('assign_to', $this->getSession('user_id'));
             $data = array();
-
             // Get Item Per Page
             $data['item_per_page'] = $this->getSysConfig();
-
             // Get Count All Visitor
             $data['rediUrl'] = "p_chNeoOpd";
             $data['rediTitle'] = $this->Lang('p_chNeoOpd');
             $data['jq_get_list'] = "get_p_chNeoOpd_list";
             $this->VisitorModel->setP_chNeoOpd();
             $data['totals'] = $this->VisitorModel->getCountVisitorOpd();
-
             // Get Translate Word to View
             $data = $this->getTranslate($data);
-
             // Load View
             $this->LoadView('template/header',$data);
             $this->LoadView('template/topmenu');
@@ -3221,12 +3272,13 @@ class Diagnostics extends Securities {
 	function get_p_chNeoOpd_list(){
 	    // Check Session
 	    $this->checkSession();
+			$neoOnly = 0;
 
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    $this->VisitorModel->setP_chNeoOpd();
 	    $this->VisitorModel->setStart('0');
 	    $this->VisitorModel->setLimit('0');
-	    $datas = $this->VisitorModel->getAllVisitorOpd();
+	    $datas = $this->VisitorModel->getAllVisitorOpd($neoOnly);
 	    $this->restData($datas);
 	}
 
@@ -3517,14 +3569,15 @@ class Diagnostics extends Securities {
 	function get_n_chNeoOpd_list(){
 	    // Check Session
 	    $this->checkSession();
+      $neoOnly = '1';
 
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
-        $neoOnly = '1';
 	    $this->VisitorModel->setVisitorEnrol();
 	    $this->VisitorModel->setStart('0');
 	    $this->VisitorModel->setLimit('0');
 	    $datas = $this->VisitorModel->getAllVisitorOpd($neoOnly);
 	    $this->restData($datas);
 	}
+
 }
 ?>

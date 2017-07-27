@@ -77,16 +77,13 @@ class Waittings extends Securities {
 	}
 
     function get_waitting_list(){
-
 	    // Check Session
 	    $this->checkSession();
-
 	    $this->WaittingModel->setSearch($this->getPost('search_data'));
 	    $this->WaittingModel->setStart($this->getPost('page_start'));
 	    $this->WaittingModel->setLimit($this->getPost('page_limit'));
-
-            $datas = $this->WaittingModel->getAllWaitting();
-            $this->restData($datas);
+      $datas = $this->WaittingModel->getAllWaitting();
+      $this->restData($datas);
 	}
 
 	function get_waitting_info_by_id_json(){

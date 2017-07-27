@@ -15,7 +15,7 @@
 		    <h4><i class="icon fa fa-check"></i> Save Sucessfull!</h4>
 		</div>
 	    </div>
-		
+
 	    <div class="row" id="form_row" style="display: none;">
 		<!-- General -->
            <div class="col-md-4">
@@ -24,7 +24,7 @@
 					<h3 class="box-title"><?php echo @$general;?></h3>
 				</div>
 	            <div class="box-body">
-					
+
 	                <!-----Patient Code--
 					  <div class="form-group">
 						<div class="input-group">
@@ -33,7 +33,7 @@
 						  </div>
 						  <input type="text" name="patient_code" id="patient_code" class="form-control">
 						</div>
-					  </div>----->                    
+					  </div>----->
                     <!-----Patient Kh Name------->
                     <div class="form-group">
                           <div class="input-group">
@@ -297,12 +297,12 @@
                     </div>
 
 			<!-- end watiiting from -->
-						
+
 		    </div>
 		   </div>
 		  </div>
 	     <!-- End General side-->
-	     
+
 	    <!-- Contact side-->
            <div class="col-md-4">
 		<div class="box box-primary">
@@ -373,7 +373,7 @@
             <h3 class="box-title">Adult</h3>
           </div>
                     <!----- OPD ------->
-                   
+
                         <div class="form-group">
                             <div class="input-group">
                   					    <span class="input-group-addon">
@@ -509,7 +509,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                              <input type="checkbox" id="o_icu" value="1">
+                                              <input type="checkbox" id="o_cancer" value="1">
                                             </span>
                                             <input type="text" value="ICU" class="form-control" disabled="disabled">
                                         </div>
@@ -641,7 +641,7 @@
                                         <input type="text" value="Echo Ovaries" class="form-control" disabled="disabled">
                                     </div>
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">
@@ -704,7 +704,7 @@
                                         </span>
                                         <input type="text" value="Labo" class="form-control" disabled="disabled">
                                     </div>
-                                </div>    
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -713,7 +713,7 @@
                                         </span>
                                         <input type="text" value="X-ray" class="form-control" disabled="disabled">
                                     </div>
-                                </div>  
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -722,7 +722,7 @@
                                         </span>
                                         <input type="text" value="CT Scan" class="form-control" disabled="disabled">
                                     </div>
-                                </div>  
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -731,7 +731,7 @@
                                         </span>
                                         <input type="text" value="Anapat" class="form-control" disabled="disabled">
                                     </div>
-                                </div>  
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -740,7 +740,7 @@
                                         </span>
                                         <input type="text" value="HPV" class="form-control" disabled="disabled">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -749,7 +749,7 @@
                                         </span>
                                         <input type="text" value="Colpo" class="form-control" disabled="disabled">
                                     </div>
-                                </div>  
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -758,7 +758,7 @@
                                         </span>
                                         <input type="text" value="Thinprep" class="form-control" disabled="disabled">
                                     </div>
-                                </div> 
+                                </div>
 
                                 <div class="form-group">
                                     <div class="input-group">
@@ -768,19 +768,19 @@
                                         <input type="text" value="Papsmear" class="form-control" disabled="disabled">
                                     </div>
                                 </div>
-                    
+
 		    </div>
-		    
+
 		   </div>
 		  </div>
 	<!-- End Contact side-->
-	
+
 	<!-- General -->
            <div class="col-md-4">
 			<div class="box box-danger">
           <div class="box-header">
             <h3 class="box-title">General</h3>
-          </div>              
+          </div>
               <div class="box-body" style="width: 100% !important;">
                     <!--Patient Id Card-->
                     <div class="form-group">
@@ -981,8 +981,8 @@
 				<div class="box-header">
 					<h3 class="box-title"><?php echo @$disease;?></h3>
 				</div>
-	            <div class="box-body" style="width: 100% !important;">				  
-					  
+	            <div class="box-body" style="width: 100% !important;">
+
                     <div class="form-group">
                     <div class="input-group">
                         <div class="input-group-addon">
@@ -1071,20 +1071,20 @@
                         <input type="submit" class="form-control btn-primary" id="submit_edit" value="<?php echo @$create;?>">
                       </div>
                     </div>
-					  						
+
 			</div>
 		   </div>
 		  </div>
 	     <!-- End Desise-->
 		</div><!-- /.row -->
-                
+
                 <div class="row" id="visitor_view_form" style="display:none;">
 			<div class="col-xs-12">
 				<div class="box" style="padding:10px !important;">
 					<div class="box-body">
 						<div class="col-sm-12" style="text-align:center;"><h4><b> <?php echo @$h_visitor;?> : (<span id="p_code"></span>) </b></h4></div>
 					</div>
-					
+
 					<div class="box box-primary" style="padding:10px !important;">
 						<div class="box-body">
 							<div class="col-sm-4">
@@ -1101,7 +1101,7 @@
 								<p> <?php echo @$emergencyPhone;?> : <span id="v_emergencyPhone"></span></p>
 								<p> <?php echo @$address;?> : <span id="v_address"></span></p>
 							</div>
-							
+
 							<div class="col-sm-6" style="padding-left:70px;">
 								<div class="box-header">
 									<h3 class="box-title"><?php echo @$contact;?></h3>
@@ -1115,7 +1115,7 @@
 								<p> <?php echo @$bankCard2;?> : <span id="v_bankCard2"></span></p>
 								<p> <?php echo @$studentCard;?> : <span id="v_studentCard"></span></p>
 							</div>
-							
+
 							<div class="col-sm-2">
 								<div class="box-header">
 									<h3 class="box-title"><?php echo @$disease;?></h3>
@@ -1130,20 +1130,20 @@
 								<p><?php echo @$lung;?> : <span id="v_lung"></span></p>
 								<p><?php echo @$allergyAndPenicillin;?> : <span id="v_aap"></span></p>
 							</div>
-							
+
 						</div>
 					</div>
-					
+
                                         <div class="box box-primary" style="padding:10px !important;">
 						<div class="box-body" id="bhistory">
-                                                    
+
                                                 </div>
                                         </div>
-                                    
+
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="row" id="form_table">
 			<div class="col-xs-12">
 				<div class="box">
@@ -1184,7 +1184,7 @@
 									</table>
 									<div class="pull-left"><strong><?php echo @$c_total.' : ';?><span id="total_record"></span></strong></div>
 									<div class="pull-right"><strong><i class="fa fa-refresh" onclick="pagination();"></i></strong></div>
-									
+
 									<!-- Start Ppagination -->
 									<!--<ul class="pagination pagination-sm no-margin pull-right">
 										<li><span class="pg" id="pg0" onclick="pagination(`pg0`);">«</span></li>
@@ -1257,7 +1257,7 @@ $(document).ready(function(){
             var soc = String(url+dinput);
             $( '#patient_occupation' ).autocomplete({source: soc});
         });
-      
+
         $( "#patient_province" ).keypress(function(){
             var dinput = this.value;
             var url = <?php echo '"'.$base_url.'index.php/patients/province_auto_complete/"';?>;
@@ -1279,7 +1279,7 @@ $(document).ready(function(){
             var url = <?php echo '"'.$base_url.'index.php/patients/district_auto_complete/"';?>;
             var soc = String(url+dinput+'_'+prId);
             $( '#patient_district' ).autocomplete({source: soc});
-        
+
             if(event.keyCode == 13){
                 $.post("<?php echo $base_url;?>index.php/patients/get_district_json/"+dinput,function(data){
                     $.each(data, function(key,value){
@@ -1288,7 +1288,7 @@ $(document).ready(function(){
                     });
                 });
             }
-        });  
+        });
 
         $("#btn_create").click(function(){
             // genderCal();
@@ -1313,7 +1313,7 @@ function getSearch(){
         pagination(ids);
     }
 }
-          
+
 function getPatientList(mySearch,pageStart,pageLimit){
               $(document).ajaxStart(function(){
                   $("#wait").css("display", "block");
@@ -1322,7 +1322,7 @@ function getPatientList(mySearch,pageStart,pageLimit){
               var htmlView = '';
               var i = 0;
               var stRow = '';
-  
+
               $.post("<?php echo $base_url;?>index.php/patients/get_patient_list",{search_data: mySearch},
                   function(data){
                   $.each(data, function(key,value) {
@@ -1351,11 +1351,11 @@ function getPatientList(mySearch,pageStart,pageLimit){
                           htmlView += '</td>';
                       htmlView += '</tr>';
                   });
-                        
+
                   /*$("#patientList").append(htmlView);*/
                   $("#patientList").html(htmlView);
                   $("#total_record").html(totalRecord);
-              
+
                   $(document).ajaxComplete(function(){
                       $("#wait").css("display", "none");
                   });
@@ -1372,19 +1372,19 @@ function patientNeo(ids){
       window.location = "<?php echo $base_url;?>index.php/diagnostics";
     });
   }
-  
+
   function patientIpd(ids){
     $.post("<?php echo $base_url;?>index.php/patients/patient_ipd/"+ids,{patients_id: ids},function(data,status){
       window.location = "<?php echo $base_url;?>index.php/ipds";
     });
   }
-    
+
 function editPatient(ids){
         $('.disPatientNew').css("display","block");
         genderCal();
-     
+
      $('#msgs').css('display','none');
-     
+
      $('#form_row').css('display','block');
      $('#form_table').css('display','none');
      $('#submit_edit').val('Update');
@@ -1404,7 +1404,7 @@ function editPatient(ids){
                 }else{
                     $('#checkNeo').prop('checked', false);
                 }
-        
+
         $('#patient_id').val(ids);
         $('#patient_code').val(value.patient_code);
                                 $('#p_code').text(value.patient_code);
@@ -1442,7 +1442,7 @@ function editPatient(ids){
 
         $('#patient_dob').val($.datepicker.formatDate('dd-mm-yy', new Date(value.patient_dob)));
         $( "#patient_dob" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
-        
+
         $('#patient_phone').val(value.patient_phone);
         $('#emegency_phone').val(value.patient_emergency_phone);
         $('#patient_occupation').val(value.patient_occupation);
@@ -1460,13 +1460,13 @@ function editPatient(ids){
         $('#bank_card2').val(value.patient_bank_card2);
         $('#student_card').val(value.patient_student_card);
         $('#workstation').val(value.patient_workstation_id);
-        
+
         if(value.is_heart == '1'){
           $('#is_heart').prop('checked', true);
         }else{
           $('#is_heart').prop('checked', false);
         }
-        
+
         if(value.is_respiratory == '1'){
           $('#is_respiratory').prop('checked', true);
         }else{
@@ -1477,19 +1477,19 @@ function editPatient(ids){
         }else{
           $('#is_diabetes').prop('checked', false);
         }
-        
+
         if(value.is_digestive == '1'){
           $('#is_digestive').prop('checked', true);
         }else{
           $('#is_digestive').prop('checked', false);
         }
-        
+
         if(value.is_kidney == '1'){
           $('#is_kidney').prop('checked', true);
         }else{
           $('#is_kidney').prop('checked', false);
         }
-        
+
         if(value.is_endocrine == '1'){
           $('#is_endocrine').prop('checked', true);
         }else{
@@ -1510,25 +1510,25 @@ function editPatient(ids){
         }else{
           $('#is_aap').prop('checked', false);
         }
-        
+
         if(value.patient_pregnancy == '1'){
           $('#my_pregnancy').prop('checked', true);
         }else{
           $('#my_pregnancy').prop('checked', false);
         }
-        
+
         if(value.patient_pre_pregnancy == '1'){
           $('#my_pre_pregnancy').prop('checked', true);
         }else{
           $('#my_pre_pregnancy').prop('checked', false);
         }
-        
+
         if(value.patient_breastfeeding == '1'){
           $('#my_breastfeeding').prop('checked', true);
         }else{
           $('#my_breastfeeding').prop('checked', false);
         }
-        
+
         $('#other_disease').val(value.patient_disease);
         $('#patient_history').val(value.patient_desc);
         $('#pulse_rate').val(value.pulse_mm);
@@ -1536,11 +1536,11 @@ function editPatient(ids){
         $('#heart_rate').val(value.heart_rate_mm);
         $('#respiratory_rate').val(value.respirateory_rate_mm);
         $('#temperature').val(value.temperature_mm);
-      
+
       });
       $.post("<?php echo $base_url;?>index.php/patients/get_patient_watting_byid/"+ids,
         function(dataWaitting,status){
-          $.each(dataWaitting, function(key,waitValue) {          
+          $.each(dataWaitting, function(key,waitValue) {
             $('#waitting_id').val(waitValue.waitting_id);
             $('#storage_waitting_id').val(waitValue.waitting_id);
             $('#waitting_code').val(waitValue.waitting_code);
@@ -1557,7 +1557,7 @@ function editPatient(ids){
           });
               $('#waitting_new').prop('checked', false);
         });
-      
+
       genderCal();
      });
 }
@@ -1582,7 +1582,7 @@ function saveEdit(){
 
         var nssf_code = $('#nssf_code').val();
         var insurance_code = $('#insurance_code').val();
-        var id_poor_code = $('#id_poor_code').val();    
+        var id_poor_code = $('#id_poor_code').val();
 
         /*var patientAddress = $('#patient_address').val();*/
         var idCard = $('#id_card').val();
@@ -1595,7 +1595,7 @@ function saveEdit(){
         var studentCard = $('#student_card').val();
         var genderId = $('#gender_id').val();
         var statusId = $('#status_id').val();
-        
+
         var isHeart = $('#is_heart:checked').val();
         var isRespiratory = $('#is_respiratory:checked').val();
         var isDiabetes = $('#is_diabetes:checked').val();
@@ -1610,14 +1610,14 @@ function saveEdit(){
         var heart_rate = $('#heart_rate').val();
         var respiratory = $('#respiratory_rate').val();
         var temperature = $('#temperature').val();
-        
+
         var otherDisease = $('#other_disease').val();
         var myPregnancy = $('#my_pregnancy:checked').val();
         var prePregnancy = $('#my_pre_pregnancy:checked').val();
         var breastFeeding = $('#my_breastfeeding:checked').val();
-        
+
         var myHistory = $('#patient_history').val();
-        
+
         var district = $('#patient_district_id').val();
         var province = $('#patient_province_id').val();
 
@@ -1634,9 +1634,9 @@ function saveEdit(){
     }
         var waitting_code = $("#waitting_code").val();
         var waitting_examination = $("#waitting_examination").val();
-        var room_id = $("#room_id").val();  
-        var waitting_doctor = $("#waitting_doctor").val();  
-        var waitting_id = $("#waitting_id").val();    
+        var room_id = $("#room_id").val();
+        var waitting_doctor = $("#waitting_doctor").val();
+        var waitting_id = $("#waitting_id").val();
         // start Adult
         var opd = $('#opd:checked').val();
 
@@ -1722,15 +1722,15 @@ function saveEdit(){
         $('#msgs').css('display','block');
         /*pagination();*/
     });
-    
+
     $('#form_row').css('display','none');
     $('#form_table').css('display','block');
-    
+
     window.location = red;
 }
 function deletePatient(ids){
-    $.post("<?php echo $base_url;?>index.php/patients/delete_patient/"+ids,{patients_id: ids},function(data,status){}); 
-    pagination();            
+    $.post("<?php echo $base_url;?>index.php/patients/delete_patient/"+ids,{patients_id: ids},function(data,status){});
+    pagination();
 }
 function viewWindow(htms){
     var myWindow = window.open("", "MsgWindow", "width=9000, height=7000");
@@ -1761,7 +1761,7 @@ function pagination(){
         $('#pg3').text(parseInt(atId)+3);
       }else{
         atId = $("#"+ids+"").text();
-        
+
         if((parseInt(totalPage) - parseInt(atId)) <= 2){
           if((parseInt(totalPage) - parseInt(atId)) == 2){
             $('#pg2').removeClass('pg-active');
@@ -1774,11 +1774,11 @@ function pagination(){
           }else if((parseInt(totalPage) - parseInt(atId)) == 0){
             $('#pg1').removeClass('pg-active');
             $('#pg2').removeClass('pg-active');
-            $('#pg3').addClass('pg-active');        
+            $('#pg3').addClass('pg-active');
           }else{
             atId = $("#"+ids+"").text();
           }
-          
+
           $('#pg1').text(parseInt(totalPage) - 2);
           $('#pg2').text(parseInt(totalPage) - 1);
           $('#pg3').text(totalPage);
@@ -1788,27 +1788,27 @@ function pagination(){
           $('#pg3').text(parseInt(atId)+2);
         }
       }
-      
+
       var pdno = $('.pg-active').text();
       if(parseInt(pdno) == 1){
         $('#pg0').css('display','none');
       }else if(parseInt(pdno) > 1){
         $('#pg0').css('display','block');
-        
+
         if((parseInt(totalPage) - parseInt(pdno)) <= 2){
-          $('#pg4').css('display','none');      
+          $('#pg4').css('display','none');
         }else{
           $('#pg4').css('display','block');
         }
       }
-      
+
       if(parseInt(pageStartTop) > 0){
         var pageStart = 0;
       }else{
         var pageStart = (parseInt(pdno) - 1) * parseInt(pageLimit);
         pageStartTop = pageStart;
       }
-      
+
     }else{
       $('#pg0').css('display','none');
       $('#pg1').css('display','none');
@@ -1867,12 +1867,12 @@ function ageCals(age){
     var today = new Date();
     var yyyy = today.getFullYear() - parseInt(age);
     return yyyy;
-}      
+}
 /* *********************   Function History *********************** */
 function viewVisitor(ids){
     $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,function(data,status){
         $.each(data, function(key,value) {
-                                
+
             $('#p_code').html(value.patient_code);
             $('#kh_name').html(value.patient_kh_name);
             $('#en_name').html(value.patient_en_name);
@@ -1886,7 +1886,7 @@ function viewVisitor(ids){
             $('#v_assuranceCompany').html(value.patient_assurance_company);
             $('#v_motorCard').html(value.patient_motor_card);
             $('#v_carCard').html(value.patient_car_card);
-            
+
             $('#v_bankCard1').html(value.patient_bank_card1);
             $('#v_bankCard2').html(value.patient_bank_card2);
             $('#v_studentCard').html(value.patient_student_card);
@@ -1896,7 +1896,7 @@ function viewVisitor(ids){
                 }else{
                   $('#v_gender').html('Female');
                 }
-              
+
                 if(value.patient_status == '1'){
                   $('#v_status').html('Single');
                 }else{
@@ -1937,7 +1937,7 @@ function viewVisitor(ids){
                 }else{
                   $('#v_neuro_sys').html('Yes');
                 }
-                                    
+
                 var inDate = getFormateDateNoAge(value.visitors_in_date);
                 $('#bhistory').append(inDate+'<hr/>');
                 getDia(value.visitors_id);
@@ -1949,8 +1949,8 @@ function viewVisitor(ids){
     $('#visitor_view_form').css('display','block');
     $('#form_table').css('display','none');
     $('#form_row').css('display','none');
-                 
-}      
+
+}
 function getDia(ids){
     var i = 0;
     var htms = '<table id="tbl4" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="4" style="background: yellow;"> Diagnostic </td><tr style="background: #b9b9b5;"><td>Type</td><td>Diagnostic</td><td>Level</td><td>Description</td></tr></tr>';
@@ -1973,26 +1973,26 @@ function getDia(ids){
                     htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
                 htms += '</tr>';
             }
-        });                
+        });
         htms += '</table>';
         $('#bhistory').append(htms);
     });
 }
-        
+
 function getMedicine(ids){
     var i = 0;
     var htmlView = '<table id="tbl5" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="8" style="background: yellow;"> Medicine </td><tr style="background: #b9b9b5;"><td>កាលបរិច្ឆេទ</td><td>ឈ្មោះថ្នាំ</td><td>ចំនួន</td><td>តំលៃ</td><td>ព្រឹក</td><td>ថ្ងៃ</td><td>ល្ងាច</td><td>យប់</td></tr></tr>';
     $.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_list/"+ids,function (data,status){
         $.each(data, function(key,value) {
-            
+
             i = i + 1;
-                        
+
                   htmlView += '<tr class="bloom-row-2">';
                       htmlView += '<td  colspan="2" style="text-align:center !important;">Assign By</td>';
                       htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_from+'</td>';
                       htmlView += '<td  colspan="2" style="text-align:center !important;">Assign To</td>';
                       htmlView += '<td  colspan="3" style="text-align:center;">'+value.assign_to+'</td>';
-                  htmlView += '</tr>';                    
+                  htmlView += '</tr>';
                   htmlView += '<tr>';
                 htmlView += '<td  style="text-align:center !important;">'+$.datepicker.formatDate('dd-mm-yy', new Date(value.items_modified))+'</td>';
             if(value.forms_name == null || value.forms_name == ''){
@@ -2000,7 +2000,7 @@ function getMedicine(ids){
             }else{
                 htmlView += '<td  style="text-align:center !important;">'+value.products_name+'('+value.products_code+')-['+value.forms_name+']</td>';
             }
-          
+
                 htmlView += '<td  style="text-align:center !important;">'+ value.units_name+'</td>';
                 htmlView += '<td  style="text-align:center !important;">$'+value.items_prices+'</td>';
                 htmlView += '<td  style="text-align:center !important;">'+value.mediacines_am+'</td>';
@@ -2008,7 +2008,7 @@ function getMedicine(ids){
                 htmlView += '<td  style="text-align:center !important;">'+value.mediacines_pm+'</td>';
                 htmlView += '<td  style="text-align:center !important;">'+value.mediacines_nt+'</td>';
                 htmlView += '</tr>';
-            
+
             if(value.items_time != '' || value.items_detail != ''){
                 htmlView += '<tr>';
                 htmlView += '<td  colspan="2" style="text-align:center !important;">ពេល៖</td>';
@@ -2019,7 +2019,7 @@ function getMedicine(ids){
                 htmlView += '<td  colspan="6" style="text-align:center;">'+value.items_detail+'</td>';
                 htmlView += '</tr>';
             }
-                        
+
             if(value.forms_name == 'Erbium Yag Laser'){
                 htmlView += "<tr class='bloom-row'>";
                     htmlView += '<td colspan="4">Pulse With Us</td>';
@@ -2030,19 +2030,19 @@ function getMedicine(ids){
                     htmlView += '<td colspan="4">' + value.energy_mj + '</td>';
                 htmlView += "</tr>";
             }
-            
-        });    
+
+        });
         htmlView += "</table>";
         $('#bhistory').append(htmlView);
     });
 }
-        
+
 function getService(ids){
     var i = 0;
     var htmlView = '<table id="tbl6" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="13" style="background: yellow;"> Service </td></tr><tr style="background: #b9b9b5;"><td colspan="2">កាលបរិច្ឆេទ</td><td colspan="3">ឈ្មោះសេវាកម្ម</td><td colspan="2">តំលៃ</td><td colspan="2">បញ្ចុះ</td><td colspan="2">ចំនួន</td><td colspan="2">សរុប</td></tr>';
     $.post("<?php echo $base_url;?>index.php/diagnostics/get_service_list/"+ids,function (data,status){
         $.each(data, function(key,value) {
-    
+
             i = i + 1;
             htmlView += '<tr class="bloom-row-2">';
             htmlView += '<td  colspan="3" style="text-align:center !important;">Assign By</td>';
@@ -2050,7 +2050,7 @@ function getService(ids){
             htmlView += '<td  colspan="3" style="text-align:center !important;">Assign To</td>';
             htmlView += '<td  colspan="4" style="text-align:center;">'+value.assign_to+'</td>';
             htmlView += '</tr>';
-                        
+
             htmlView += "<tr>";
             htmlView += '<td colspan="2">'+ $.datepicker.formatDate('dd-mm-yy', new Date(value.items_modified)) +'</td>';
             if(value.forms_name == null || value.forms_name == ''){
@@ -2063,9 +2063,9 @@ function getService(ids){
             htmlView += '<td colspan="3">'+ value.items_qty +' '+ value.units_name + ' </td>';
               var amountPrice = (parseFloat(value.items_qty) * parseFloat(value.items_prices)) - parseFloat(value.items_discount);
             htmlView += '<td colspan="2">$'+ amountPrice.toFixed(2) +'</td>';
-            htmlView += "</tr>";        
+            htmlView += "</tr>";
             htmlView += "<tr><td colspan='5'>Descrition</td><td colspan='9'>"+ value.items_detail +"</td></tr>";
-            
+
             if(value.forms_name == 'Q-Switch Laser'){
                 htmlView += "<tr class='bloom-row'>";
                     htmlView += '<td colspan="2">Lens</td>';
@@ -2137,13 +2137,13 @@ function getService(ids){
                     htmlView += '<td colspan="2">' + value.no_of_treal + '</td>';
                 htmlView += "</tr>";
             }
-        
-        });                
+
+        });
         htmlView += "</table>";
         $('#bhistory').append(htmlView);
     });
 }
-        
+
 function getNote(ids){
     var i = 0;
     var htmlView = '<table id="tbl7" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="2" style="background: yellow;"> Note </td></tr>';
@@ -2166,7 +2166,7 @@ function newWaitting(){
         $('#waitting_id').val($('#storage_waitting_id').val());
         $('#waitting_code').val($('#old_waitting_id').val());
     }
-}  
+}
 // Start function enable & disable checke
 function checkNeoOpt(){
     if($("#checkNeo").is(':checked')){
@@ -2199,9 +2199,9 @@ function pediaIPD(){
 }
 function viewOptOpd(){
     if($("#opd").is(':checked')){
-        $('#openOptOpd').css('display','block');        
+        $('#openOptOpd').css('display','block');
     }else{
-        $('#openOptOpd').css('display','none');        
+        $('#openOptOpd').css('display','none');
     }
 }
 function viewOptIpd(){

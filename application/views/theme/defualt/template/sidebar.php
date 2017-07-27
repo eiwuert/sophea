@@ -38,6 +38,10 @@
                 echo '<a href="'.$base_url.'index.php/neonatals"><i class="fa fa-circle-o text-aqua"></i> <span>'.@$h_neonatal_add.'</span> </a>';
                 echo '</li>';
 
+                echo '<li class="'.@$ac_neonatal_visited.'">';
+                echo '<a href="'.$base_url.'index.php/neonatals/visited"><i class="fa fa-circle-o text-aqua"></i> <span> View All </span> </a>';
+                echo '</li>';
+
 								echo '<li class="'.@$ac_diagnostics.'">';
 									echo '<a href="'.$base_url.'index.php/diagnostics"><i class="fa fa-circle-o text-aqua"></i> '.@$h_diagnostic.' </a>';
 								echo '</li>';
@@ -118,15 +122,15 @@
 								echo '<li class="'.@$ac_o_opd_others.'">';
 									echo '<a href="'.$base_url.'index.php/diagnostics/o_opd_others"><i class="fa fa-circle-o text-aqua"></i> '.@$h_o_opd_others.' </a>';
 								echo '</li>';
-								echo '<li class="'.@$ac_o_icu.'">';
-									echo '<a href="'.$base_url.'index.php/diagnostics/o_icu"><i class="fa fa-circle-o text-aqua"></i> '.@$h_o_icu.' </a>';
+								echo '<li class="'.@$ac_o_cancer.'">';
+									echo '<a href="'.$base_url.'index.php/diagnostics/o_cancer"><i class="fa fa-circle-o text-aqua"></i> '.@$h_o_cancer.' </a>';
 								echo '</li>';
 							echo '</ul>';
 						//}
 					echo '</li>';
 				//}
 				//if(@$per_opd_adults == '1'){
-					echo '<li class="'.@$ac_i_delivery_normal.@$ac_i_c_section.@$ac_i_delivery_complication.@$ac_i_maternity.@$ac_i_cancer.@$ac_i_gyn.@$ac_i_surgery.@$ac_i_infertility.@$ac_i_orl.@$ac_i_ent.@$ac_i_dermatology.@$ac_i_bone.@$ac_i_digestive.@$ac_i_cardiaque.@$ac_i_opd_others. ' treeview">';
+					echo '<li class="'.@$ac_i_delivery_normal.@$ac_i_c_section.@$ac_i_delivery_complication.@$ac_i_maternity.@$ac_i_cancer.@$ac_i_gyn.@$ac_i_surgery.@$ac_i_infertility.@$ac_i_orl.@$ac_i_ent.@$ac_i_dermatology.@$ac_i_bone.@$ac_i_digestive.@$ac_i_cardiaque.@$ac_i_opd_others.@$ac_i_ipd_img. ' treeview">';
 						echo '<a href="#">';
 							echo '<i class="fa fa-user-md"></i> <span> '.@$h_ipd_adults.' </span> <i class="fa fa-angle-left pull-right"></i>';
 						echo '</a>';
@@ -176,6 +180,9 @@
 								echo '</li>';
 								echo '<li class="'.@$ac_i_ipd_others.'">';
 									echo '<a href="'.$base_url.'index.php/ipds/i_ipd_others"><i class="fa fa-circle-o text-aqua"></i> '.@$h_i_ipd_others.' </a>';
+								echo '</li>';
+								echo '<li class="'.@$ac_i_ipd_img.'">';
+									echo '<a href="'.$base_url.'index.php/ipds/i_ipd_img"><i class="fa fa-circle-o text-aqua"></i> '.@$h_i_ipd_img.' </a>';
 								echo '</li>';
 
 								echo '<li class="'.@$ac_i_general_med.'">';
@@ -485,7 +492,7 @@
 				//}
 
 				//if(@$per_products_and_services == '1'){
-					echo '<li class=" '.@$ac_categories.@$ac_types.@$ac_products.@$ac_units.@$ac_icd10s.@$ac_wards.@$ac_room.@$ac_patient_rooms.' treeview">';
+					echo '<li class=" '.@$ac_categories.@$ac_types.@$ac_products.@$ac_units.@$ac_icd10s.@$ac_wards.@$ac_room.@$ac_patient_rooms.@$ac_protocol.' treeview">';
 						echo '<a href="#">';
 							echo '<i class="fa fa-tags"></i> <span>'.@$h_product_and_service.'</span> <i class="fa fa-angle-left pull-right"></i>';
 						echo '</a>';
@@ -519,6 +526,10 @@
 									echo '<i class="fa fa-star"></i> <span> '.@$h_patient_rooms.' </span>';
 								echo '</a>';
 							echo '</li>';
+							echo '<li class="'.@$ac_protocol.'">';
+								echo '<a href="'.$base_url.'index.php/protocols"><i class="fa fa-circle-o text-aqua"></i> '.@$h_protocol.' </a>';
+							echo '</li>';
+
 						echo '</ul>';
 					echo '</li>';
 				//}

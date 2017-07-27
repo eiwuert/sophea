@@ -27,6 +27,7 @@
 		$patientId = $row->patient_id;
 		$visitorId = $row->visitors_id;
 		$visitorCode = $row->patient_code;
+		$visitors_patient_code = $row->visitors_patient_code;
 		$status = $row->visitors_status;
     $visitDate = date('d/m/Y', strtotime($row->visitors_in_date));
 		if($row->vneonatal_id > 0){
@@ -192,7 +193,7 @@
 			  <p> <?php echo @$name." : ".$visitorName;?><small class="label bg-red" id="visit_amount"></small></p>
 		      </div>
 		      <div class="col-sm-3">
-			  <p> <?php echo @$code." : ".$visitorCode;?></p>
+			  <p> <?php echo @$code." : ".$visitors_patient_code;?></p>
 		      </div>
 		      <div class="col-sm-3">
 			  <p> <?php echo @$gender." : ".$visitorGender;?></p>
@@ -232,7 +233,9 @@
                                 <th>No</th>
                                 <th>Diagnostic</th>
                                 <th>Level</th>
-                                <th>Detail</th>
+																<th>Detail</th>
+																<th>Ward</th>
+                                <th>Room</th>
                             </thead>
                             <tbody id="diags"></tbody>
                         </table>
@@ -487,6 +490,96 @@
 	<div class="box-body">
 	    <div class="box-group" id="accordion">
 	      <div class="panel box box-default">
+
+		    		<div class="box-header with-border bg-green align-center">
+							<h3 class="align-center box-title">
+							    Surgery Protocol
+							</h3>
+						</div>
+						<div class="panel-collapse collapse in">
+						    <div class="box-body">
+
+						    	<div class="col-sm-12">
+						            <table class="table table-bordered table-hover dataTable" style="margin-bottom: 5px !important;">
+						                <thead>
+						                    <th>No</th>
+						                    <th>Title</th>
+						                    <th>Date</th>
+						                    <th></th>
+						                </thead>
+						                <tbody id="surgeryProtocol">
+														</tbody>
+														<tfoot>
+																<tr>
+																			<td></td>
+																			<td style="text-align:center;">
+																					 <input type="text" id="protocol_title" style="text-align:center;" class="form-control cleanProt" placeholder="Protocol Title" onkeyup="autoProtocols();">
+																					 <input type="text" name="protocol_id" id="protocol_id" class="form-control cleanProt" style="display:none">
+																			</td>
+																			<td style="text-align:center;">
+																						<input class="form-control col-sm-12 cleanProt" type="text" placeholder="Date" id="protocol_date">
+																						<input type="text" name="ipd_protocol_id" id="ipd_protocol_id" class="form-control" style="display:none">
+																			</td>
+																			<td rowspan="7" style="text-align:center; vertical-align: middle;">
+																						<span class="handOver saveProtocolData" onclick="saveProtocolData();"><i class="fa fa-save action-btn primary"></i></span>
+																			</td>
+																</tr>
+																<tr>
+																			<td></td>
+																			<td colspan="2" style="text-align:center;">
+																				<div class="input-group col-sm-12 col-xs-12">
+																						<div class="input-group-addon"> Surgeon Name</div>
+																						<input type="text" name="surgeon" id="surgeonName" class="form-control cleanProt" onkeyup="autoSurgeonDoc();">
+																						<input type="text" name="surgeon_id" id="surgeonId" class="form-control cleanProt getProtoId" style="display:none">
+																				</div>
+																			</td>
+																</tr>
+																<tr>
+																			<td></td>
+																			<td colspan="2" style="text-align:center;">
+																				<div class="input-group col-sm-12 col-xs-12">
+																						<div class="input-group-addon"> Anesthesia Name </div>
+																						<input type="text" name="anesthesia" id="anesthesiaName" class="form-control cleanProt" onkeyup="autoAnesthesiaDoc();">
+																						<input type="text" name="anesthesia_id" id="anesthesiaId" class="form-control cleanProt getProtoId" style="display:none">
+																				</div>
+																			</td>
+																</tr>
+																<tr>
+																			<td></td>
+																			<td colspan="2" style="text-align:center;">
+																				<div class="input-group col-sm-12 col-xs-12">
+																							<div class="input-group-addon"> Anesthesia Name </div>
+																						<input type="text" name="surgeon_helper" id="surgeonHelperName" class="form-control cleanProt" onkeyup="autoSurgeonHelperDoc();">
+																						<input type="text" name="surgeon_helper_id" id="surgeonHelperId" class="form-control cleanProt getProtoId" style="display:none">
+																				</div>
+																			</td>
+																</tr>
+																<tr>
+																			<td></td>
+																			<td colspan="2" style="text-align:center;">
+																				<div class="input-group col-sm-12 col-xs-12">
+																						<div class="input-group-addon"> Neo Doctor Name </div>
+																						<input type="text" name="neo_doctor" id="neoDoctorName" class="form-control cleanProt" onkeyup="autoNeoDoc();">
+																						<input type="text" name="neo_doctor_id" id="neoDoctorId" class="form-control cleanProt getProtoId" style="display:none">
+																				</div>
+																			</td>
+																</tr>
+																<tr>
+																			<td></td>
+																			<td colspan="2" style="text-align:center;">
+																				<div class="input-group col-sm-12 col-xs-12">
+																						<div class="input-group-addon"> Midwife Name </div>
+																						<input type="text" name="midult" id="midultName" class="form-control cleanProt" onkeyup="autoMidultDoc();">
+																						<input type="text" name="midwife_id" id="midwife" class="form-control cleanProt getProtoId" style="display:none">
+																				</div>
+																			</td>
+																</tr>
+														</tfoot>
+						            </table>
+						        </div>
+
+						    </div>
+						</div>
 		<div class="box-header with-border bg-green align-center">
 		  <h3 class="align-center box-title">
 		      Diagnostic OUT
@@ -725,7 +818,7 @@
                             </div>
 
                         <div class="col-sm-12">
-                            <table class="myExample table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+	                            <table class="myExample table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
                                     <thead>
                                             <tr role="row">
                                                     <th style="width:20%;"><?php echo $date;?></th>
@@ -768,7 +861,7 @@
                                           Appoinment Doctor
                                     </div>
                                     <input name="doctor_name" class="form-control input-sm pull-right" id="doctorName">
-                            		<input type="hidden" name="doctor_id" id="doctorId" class="form-control">
+                            				<input type="hidden" name="doctor_id" id="doctorId" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -793,13 +886,10 @@
 </div>
 
 <div class="col-sm-4">
-        <br/>
-        <a href="<?php echo $base_url;?>index.php/patients/photo/<?php echo $patientId;?>" target="_blank"> <button class="btn btn-sm btn-default col-sm-12">View Patient Photo</button> </a>
-        <br/>
-        <table class="myExample table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
-            <tbody  id="v_id"></tbody>
-        </table>
-
+      <a href="<?php echo $base_url;?>index.php/patients/photo/<?php echo $patientId;?>" target="_blank"> <button class="btn btn-sm btn-default col-sm-12">View Patient Photo</button> </a><br/>
+      <table class="myExample table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
+          <tbody  id="v_id"></tbody>
+      </table>
 </div>
 
 <style>
@@ -845,7 +935,6 @@
 </style>
 <link rel="stylesheet" type="text/css" href="<?php echo $resources;?>plugins/datetimepicker/jquery.datetimepicker.css"/>
 <script src="<?php echo $resources;?>plugins/datetimepicker/build/jquery.datetimepicker.full.min.js"></script>
-
 <script>
 	var vid = <?php echo $visitorId;?>;
 	getViewSvipdList();
@@ -856,12 +945,23 @@
 	var out_dia1 = 0;
 	var out_dia2 = 0;
 	var pid = <?php echo $patientId;?>;
+	var vs_pcode = "<?php echo $visitors_patient_code;?>";
 	var came = 1;
 	$(document).ready(function(){
-			$('#appment').datetimepicker({format:'Y-m-d H:i'});
+			$( "#appment" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
+			$('#protocol_date').datetimepicker({format:'Y-m-d H:i:s'});
 			if($('#doctorId').val() == ''){
 				// $('.saveApp').prop( "disabled", true );
 			}
+			$("#surgeryProtocol").on('click','#updateDescProt',function(){
+						id = $(this).data('id');
+						desc = $(this).parent().parent().find("#descProtocol").val();
+						$.post("<?php echo $base_url;?>index.php/protocols/getEditDesc/"+id,{
+								desc: desc
+						},function(data, status) {
+								getProtocol();
+						});
+			});
 			$( '#doctorName' ).keypress(function(e){
 				    var dinput = this.value;
 				    var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
@@ -880,11 +980,10 @@
 	    });
 
 	    $( '#diagnostic').keyup(function(e){
-
-		    var dinput = this.value;
-		    var url = <?php echo '"'.$base_url.'index.php/icd10s/get_icd10_by_name_json/"';?>;
-		    var soc = String(url+dinput);
-		    $( '#diagnostic' ).autocomplete({source: soc});
+			    var dinput = this.value;
+			    var url = <?php echo '"'.$base_url.'index.php/icd10s/get_icd10_by_name_json/"';?>;
+			    var soc = String(url+dinput);
+			    $( '#diagnostic' ).autocomplete({source: soc});
 	    });
 	    $( '#diagnostic1' ).keyup(function(e){
 		    var dinput = this.value;
@@ -917,12 +1016,13 @@
 		    $( '#out_dia2' ).autocomplete({source: soc});
 	    });
 
+			getProtocol();
 	    getDia(vid);
 	    getMedicine(vid);
 	    getService(vid);
-	    getVisitTime(pid);
-            getNote(vid);
-            getAppoinment();
+	    getVisitTime(vs_pcode);
+	    getNote(vid);
+	    getAppoinment();
 	});
 
 	function autoForm(){
@@ -957,19 +1057,109 @@
 	    $( 'input:focus' ).autocomplete({source: soc});
 	    var res = $( 'input:focus' ).val().split("-");
 	    if(event.keyCode == 13){
-				$( '#mQty' ).val('1');
-				$( '#mPrice' ).val(res[3]);
-                $( '#mTime' ).val(res[4]);
+					$( '#mQty' ).val('1');
+					$( '#mPrice' ).val(res[3]);
+	        $( '#mTime' ).val(res[4]);
 	    }
-
-
 	}
 	function autoDoctor(){
 	    var dinput = $( 'input:focus' ).val();
 	    var url = <?php echo '"'.$base_url.'index.php/diagnostics/doctor_auto_complete/"';?>;
 	    var soc = String(url+dinput);
 	    $( 'input:focus' ).autocomplete({source: soc});
-	    var res = $( 'input:focus' ).val();
+	    var res = $( 'inpput:focus' ).val();
+	}
+	function autoSurgeonDoc(){
+			var dinput = $( 'input:focus' ).val();
+			var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
+			var soc = String(url+dinput);
+			$( 'input:focus' ).autocomplete({source: soc});
+			// var res = $( 'inpput:focus' ).val();
+			if(event.keyCode == 13){
+					$.post("<?php echo $base_url;?>index.php/users/get_doctor_json/"+dinput,function(data){
+							$.each(data, function(key,value) {
+								idDoctor = value.uid;
+									$( '#surgeonId' ).val(value.uid);
+							});
+					});
+			}
+	}
+	// Surgeon Protocol DN
+	function autoAnesthesiaDoc(){
+			var dinput = $( 'input:focus' ).val();
+			var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
+			var soc = String(url+dinput);
+			$( 'input:focus' ).autocomplete({source: soc});
+			// var res = $( 'inpput:focus' ).val();
+			if(event.keyCode == 13){
+					$.post("<?php echo $base_url;?>index.php/users/get_doctor_json/"+dinput,function(data){
+							$.each(data, function(key,value) {
+								idDoctor = value.uid;
+									$( '#anesthesiaId' ).val(value.uid);
+							});
+					});
+			}
+	}
+	function autoSurgeonHelperDoc(){
+			var dinput = $( 'input:focus' ).val();
+			var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
+			var soc = String(url+dinput);
+			$( 'input:focus' ).autocomplete({source: soc});
+			// var res = $( 'inpput:focus' ).val();
+			if(event.keyCode == 13){
+					$.post("<?php echo $base_url;?>index.php/users/get_doctor_json/"+dinput,function(data){
+							$.each(data, function(key,value) {
+								idDoctor = value.uid;
+									$( '#surgeonHelperId' ).val(value.uid);
+							});
+					});
+			}
+	}
+	function autoNeoDoc(){
+		var dinput = $( 'input:focus' ).val();
+		var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
+		var soc = String(url+dinput);
+		$( 'input:focus' ).autocomplete({source: soc});
+		// var res = $( 'inpput:focus' ).val();
+		if(event.keyCode == 13){
+				$.post("<?php echo $base_url;?>index.php/users/get_doctor_json/"+dinput,function(data){
+						$.each(data, function(key,value) {
+							idDoctor = value.uid;
+								$( '#neoDoctorId' ).val(value.uid);
+						});
+				});
+		}
+	}
+	function autoMidultDoc(){
+	    var dinput = $( 'input:focus' ).val();
+	    var url = <?php echo '"'.$base_url.'index.php/users/get_doctor_by_name_json/"';?>;
+	    var soc = String(url+dinput);
+	    $( 'input:focus' ).autocomplete({source: soc});
+	    // var res = $( 'inpput:focus' ).val();
+			if(event.keyCode == 13){
+					$.post("<?php echo $base_url;?>index.php/users/get_doctor_json/"+dinput,function(data){
+							$.each(data, function(key,value) {
+								idDoctor = value.uid;
+									$( '#midwife' ).val(value.uid);
+							});
+					});
+			}
+	}
+	function autoProtocols(){
+	    var dinput = $( 'input:focus' ).val();
+	    var url = <?php echo '"'.$base_url.'index.php/diagnostics/protocols_auto_complete/"';?>;
+	    var soc = String(url+dinput);
+	    $( 'input:focus' ).autocomplete({source: soc});
+
+			// var res = $( 'inpput:focus' ).val();
+			if(event.keyCode == 13){
+				$.post("<?php echo $base_url;?>index.php/diagnostics/get_protocol_json/"+dinput,function(data){
+					$.each(data, function(key,value) {
+						idProtocol = value.protocols_id;
+							$( '#protocol_id' ).val(value.protocols_id);
+					});
+				});
+			}
 	}
 
 	function autoService(){
@@ -1029,7 +1219,7 @@
 			getDia(vid);
 			getDia(vid);
 			getDia(vid);
-    			getVisitTime(pid);
+    	getVisitTime(vs_pcode);
 		});
 	}
 
@@ -1088,7 +1278,7 @@
                     getDia(vid);
                     getDia(vid);
                     getDia(vid);
-                    getVisitTime(vid);
+                    getVisitTime(vs_pcode);
                 });
 		}
 
@@ -1154,11 +1344,11 @@
 		    getViewSvipdList(vid);
 		});
 	}
-
-	function getVisitTime(ids){
+	function getVisitTime(vs_pcode){
 	    var i = 0;
-	    $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_list_by_patient_id/"+ids,function (data,status){
+	    $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_list_by_patient_id/"+vs_pcode,function (data,status){
 				var vid = 0;
+				var vs_pcode = '';
 				var vdate = '';
 				var htmlView = '';
 				var sr = '';
@@ -1176,7 +1366,6 @@
 				$.each(data, function(key,value) {
 		    		vid = parseInt(value.visitors_id);
 				    if(din == ''){
-							
 								i = i + 1;
 			          vsid = value.visitors_id;
 								din = value.visitors_in_date;
@@ -1194,7 +1383,6 @@
 		                pr = value.products_name;
 		            }
 				    }else if(din != value.visitors_in_date){
-
 		              htmlView = '<tr class="bloom-row"><td colspan="2" class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vsid+');">' + $.datepicker.formatDate('dd-mm-yy', new Date(din)) +'</td></tr>';
 		              htmlView += '<tr><td class="handOver"> D ' + diaLevel + ' </td>';
 		              htmlView += '<td>' + icd10Code + icd10Desc + detail + '</td></tr>';
@@ -1480,99 +1668,223 @@
 		/*viewRows('se_id');*/
 	    });
 	}
+	// start protocols
+	function getProtocol(){
+	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_protocol_list/"+vid,function (data,status){
+					var i = 0;
+			    var htmlView = '';
+					$.each(data, function(key,value) {
+					    i = i + 1;
+							dateProtocol = $.datepicker.formatDate('dd-mm-yy', new Date(value.vsipdpro_date));
+		                htmlView += '<tr class="bloom-row-2">';
+		                    htmlView += '<td rowspan="6" style="text-align:center;">'+i+'</td>';
+		                    htmlView += '<td style="text-align:center;">'+value.protocols_title	+'</td>';
+		                    htmlView += '<td style="text-align:center;">'+dateProtocol+'</td>';
+		                    htmlView += '<td style="text-align:center;">';
+			                    htmlView += '<span class="handOver" onclick="editProtocol('+value.vsipdpro_id+');"><i class="fa fa-edit action-btn primary"></i></span>';
+			                    htmlView += '<span class="handOver" onclick="deleteProtocol('+value.vsipdpro_id+');"><i class="fa fa-trash-o action-btn danger"></i></span>';
+		                    htmlView += '</td>';
+		                htmlView += '</tr>';
 
+		                htmlView += '<tr class="bloom-row-2">';
+		                    htmlView += '<td colspan="2">Surgeon Name: </td>';
+		                    htmlView += '<td style="text-align:center;">'+value.n_surgeon+'</td>';
+		                htmlView += '</tr>';
+		                htmlView += '<tr class="bloom-row-2">';
+		                    htmlView += '<td colspan="2">Anesthesia Name: </td>';
+		                    htmlView += '<td style="text-align:center;">'+value.n_anesthesia+'</td>';
+		                htmlView += '</tr>';
+		                htmlView += '<tr class="bloom-row-2">';
+		                    htmlView += '<td colspan="2">Surgeon Helper Name: </td>';
+		                    htmlView += '<td style="text-align:center;">'+value.n_surgeon_help+'</td>';
+		                htmlView += '</tr>';
+		                htmlView += '<tr class="bloom-row-2">';
+		                    htmlView += '<td colspan="2">Neo Doctor Name: </td>';
+		                    htmlView += '<td style="text-align:center;">'+value.n_neo+'</td>';
+		                htmlView += '</tr>';
+		                htmlView += '<tr class="bloom-row-2">';
+		                    htmlView += '<td colspan="2">Midult Name: </td>';
+		                    htmlView += '<td style="text-align:center;">'+value.n_midwife+'</td>';
+		                htmlView += '</tr>';
+
+		                htmlView += '<tr class="bloom-row-2">';
+												htmlView += '<td colspan="3" style="text-align:center;"><textarea id="descProtocol" style="width:100%" >'+value.protocols_desc+'</textarea></td>';
+		                    htmlView += '<td style="text-align:center;"><span data-id="'+value.vsipdpro_protocols_id+'" class="handOver" id="updateDescProt"><i class="fa fa-edit action-btn primary"></i></span></td>';
+		                htmlView += '</tr>';
+
+					});
+					$('#surgeryProtocol').html(htmlView);
+	    });
+	}
+
+	function editProtocol(vsipdpro_id){
+		 $.post("<?php echo $base_url;?>index.php/diagnostics/get_protocol_list_byid/"+vsipdpro_id,
+		 function(data,status){
+			$.each(data, function(key,value) {
+				dateProtocol = $.datepicker.formatDate('dd-mm-yy', new Date(value.vsipdpro_date+'T00:00:00'));
+					$('#protocol_title').val(value.protocols_title);
+					$('#protocol_id').val(value.vsipdpro_protocols_id);
+					$('#protocol_date').val(dateProtocol);
+					$('#ipd_protocol_id').val(vsipdpro_id);
+
+					$('#surgeonName').val(value.n_surgeon);
+					$('#surgeonId').val(value.vsipdpro_surgeon_doctor);
+
+					$('#anesthesiaName').val(value.n_anesthesia);
+					$('#anesthesiaId').val(value.vsipdpro_anesthesia_doctor);
+
+					$('#surgeonHelperName').val(value.n_surgeon_help);
+					$('#surgeonHelperId').val(value.vsipdpro_surgeon_help_doctor);
+
+					$('#neoDoctorName').val(value.n_neo);
+					$('#neoDoctorId').val(value.vsipdpro_neo_doctor);
+
+					$('#midultName').val(value.n_midwife);
+					$('#midwife').val(value.vsipdpro_midwife_doctor);
+			});
+		 });
+	}
+	function deleteProtocol(vsipdpro_id){
+				$.post("<?php echo $base_url;?>index.php/diagnostics/delete_protocol/"+vsipdpro_id,function() {
+						getProtocol();
+				});
+	}
+
+	function saveProtocolData(){
+			var protocolTitle = $('#protocol_title').val();
+	   	var protocolId = $('#protocol_id').val();
+			var protocolDate = $('#protocol_date').val();
+			var ipdProtocolId = $('#ipd_protocol_id').val();
+			if(ipdProtocolId == ''){
+					ipdProtocolId = 0;
+			}
+			var protocolSurgeon = $('#surgeonId').val();
+			var protocolAnesthesia = $('#anesthesiaId').val();
+			var protocolHelper = $('#surgeonHelperId').val();
+			var protocolNeoDoctor = $('#neoDoctorId').val();
+			var protocolMidult = $('#midwife').val();
+
+			if($('#getProtoId').val() !== "" || $('#getProtoId').val() > 0){
+					$.post("<?php echo $base_url;?>index.php/diagnostics/add_protocol/"+ipdProtocolId,{
+							visitorId: vid,
+							ipdProtocolId: ipdProtocolId,
+							protocolId: protocolId,
+							protocolDate: protocolDate,
+							protocolSurgeon: protocolSurgeon,
+							protocolAnesthesia: protocolAnesthesia,
+							protocolHelper: protocolHelper,
+							protocolNeoDoctor: protocolNeoDoctor,
+							protocolMidult: protocolMidult
+					},function(data, status) {
+							$('#surgeryProtocol').html('');
+							getProtocol();
+							$('.cleanProt').val('');
+					});
+			}
+	}
+
+	// start diagnostic OUT
 	function getDia(ids){
 	    var i = 0;
-            var htms = '';
+			var htms = '';
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_diagnostic_list/"+ids,function (data,status){
-		$.each(data, function(key,value) {
-		    i = i + 1;
+					$.each(data, function(key,value) {
+					    i = i + 1;
 
-		    if(i == 1){
-			$("#diagnostic").val(value.icd10_code + '_' + value.icd10_desc);
-			$("#diagnostic_level").val(value.diagnostics_level);
-			$("#desc_dia").val(value.diagnostics_detail);
-			dia = value.diagnostics_id;
+					    if(i == 1){
+										$("#diagnostic").val(value.icd10_code + '_' + value.icd10_desc);
+										$("#diagnostic_level").val(value.diagnostics_level);
+										$("#desc_dia").val(value.diagnostics_detail);
+										$("#ward1").val(value.diagnostics_ward);
+										$("#room1").val(value.diagnostics_room);
+										dia = value.diagnostics_id;
 
-                        htms += '<tr>';
-                            htms += '<td class="textLeft">1</td>';
-                            htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-                        htms += '</tr>';
-		    }
-		    if(i == 2){
-			$("#diagnostic1").val(value.icd10_code + '_' + value.icd10_desc);
-			$("#diagnostic1_level").val(value.diagnostics_level);
-			$("#desc_dia1").val(value.diagnostics_detail);
-			dia1 = value.diagnostics_id;
+			              htms += '<tr>';
+			                  htms += '<td class="textLeft">1</td>';
+			                  htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+												htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+												htms += '<td class="textLeft">'+value.wards_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.room_name+'</td>';
+			              htms += '</tr>';
+					    }
+					    if(i == 2){
+										$("#diagnostic1").val(value.icd10_code + '_' + value.icd10_desc);
+										$("#diagnostic1_level").val(value.diagnostics_level);
+										$("#desc_dia1").val(value.diagnostics_detail);
+										$("#ward2").val(value.diagnostics_ward);
+										$("#room2").val(value.diagnostics_room);
+										dia1 = value.diagnostics_id;
 
-                        htms += '<tr>';
-                            htms += '<td class="textLeft">2</td>';
-                            htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-                        htms += '</tr>';
-		    }
-		    if(i == 3){
-			$("#diagnostic2").val(value.icd10_code + '_' + value.icd10_desc);
-			$("#diagnostic2_level").val(value.diagnostics_level);
-			$("#desc_dia2").val(value.diagnostics_detail);
-			dia2 = value.diagnostics_id;
+			              htms += '<tr>';
+			                  htms += '<td class="textLeft">2</td>';
+			                  htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+												htms += '<td class="textLeft">'+value.wards_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.room_name+'</td>';
+			              htms += '</tr>';
+					    }
+					    if(i == 3){
+										$("#diagnostic2").val(value.icd10_code + '_' + value.icd10_desc);
+										$("#diagnostic2_level").val(value.diagnostics_level);
+										$("#desc_dia2").val(value.diagnostics_detail);
+										$("#ward3").val(value.diagnostics_ward);
+										$("#room3").val(value.diagnostics_room);
+										dia2 = value.diagnostics_id;
 
-                        htms += '<tr>';
-                            htms += '<td class="textLeft">3</td>';
-                            htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-                        htms += '</tr>';
-		    }
+			              htms += '<tr>';
+			                  htms += '<td class="textLeft">3</td>';
+			                  htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+												htms += '<td class="textLeft">'+value.wards_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.room_name+'</td>';
+			              htms += '</tr>';
+					    }
+			  			$('#diags').html(htms);
+					    if(i == 4){
+										$("#out_dia").val(value.icd10_code + '_' + value.icd10_desc);
+										$("#out_dia_level").val(value.diagnostics_level);
+										$("#out_dia_des").val(value.diagnostics_detail);
+										out_dia = value.diagnostics_id;
 
-                    $('#diags').html(htms);
+			              htms += '<tr>';
+			                  htms = '<td class="textLeft">1</td>';
+			                  htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+			              htms += '</tr>';
+					    }
+					    if(i == 5){
+										$("#out_dia1").val(value.icd10_code + '_' + value.icd10_desc);
+										$("#out_dia1_level").val(value.diagnostics_level);
+										$("#out_dia1_des").val(value.diagnostics_detail);
+										out_dia1 = value.diagnostics_id;
 
-		    if(i == 4){
-			$("#out_dia").val(value.icd10_code + '_' + value.icd10_desc);
-			$("#out_dia_level").val(value.diagnostics_level);
-			$("#out_dia_des").val(value.diagnostics_detail);
-			out_dia = value.diagnostics_id;
+			              htms += '<tr>';
+			                  htms += '<td class="textLeft">2</td>';
+			                  htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+			              htms += '</tr>';
+					    }
+					    if(i == 6){
+										$("#out_dia2").val(value.icd10_code + '_' + value.icd10_desc);
+										$("#out_dia2_level").val(value.diagnostics_level);
+										$("#out_dia2_des").val(value.diagnostics_detail);
+										out_dia2 = value.diagnostics_id;
 
-                        htms += '<tr>';
-                            htms = '<td class="textLeft">1</td>';
-                            htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-                        htms += '</tr>';
-		    }
-		    if(i == 5){
-			$("#out_dia1").val(value.icd10_code + '_' + value.icd10_desc);
-			$("#out_dia1_level").val(value.diagnostics_level);
-			$("#out_dia1_des").val(value.diagnostics_detail);
-			out_dia1 = value.diagnostics_id;
+			              htms += '<tr>';
+			                  htms += '<td class="textLeft">3</td>';
+			                  htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
+			                  htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
+			              htms += '</tr>';
+					    }
+							$('#diagOuts').html(htms);
 
-                        htms += '<tr>';
-                            htms += '<td class="textLeft">2</td>';
-                            htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-                        htms += '</tr>';
-		    }
-		    if(i == 6){
-			$("#out_dia2").val(value.icd10_code + '_' + value.icd10_desc);
-			$("#out_dia2_level").val(value.diagnostics_level);
-			$("#out_dia2_des").val(value.diagnostics_detail);
-			out_dia2 = value.diagnostics_id;
-
-                        htms += '<tr>';
-                            htms += '<td class="textLeft">3</td>';
-                            htms += '<td class="textLeft">'+value.icd10_code + '_' + value.icd10_desc+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_level+'</td>';
-                            htms += '<td class="textLeft">'+value.diagnostics_detail+'</td>';
-                        htms += '</tr>';
-		    }
-
-                    $('#diagOuts').html(htms);
-
-		});
+					});
 	    });
 	}
 
@@ -1810,57 +2122,55 @@
 		$('#md_id').html(htmlView);
 	    });
 	}
-
 	function saveData(){
-                var m_id = $('#m_medicine_id').val();
-		var v1 = $('#m_medicine').val();
-		var v2 = $('#mQty').val();
-		var v3 = $('#mPrice').val();
-		/*var dic = $('#mDiscount').val();*/
-                var dic = "0";
-		var doc = $('#mDoctor').val();
-		var frm = $('#m_form').val();
-		var usetime = $('#mTime').val();
-		var usedetail = $('#mDetail').val();
-		var ams = $('#mAm').val();
-		var afs = $('#mAf').val();
-		var pms = $('#mPm').val();
-		var nts = $('#mNt').val();
-
-		$.post("<?php echo $base_url;?>index.php/diagnostics/add_medicine/"+vid,{
-                    service_item_id: m_id,
-		    medicines: v1,
-		    qty: v2,
-		    price: v3,
-		    discount: dic,
-		    doctor: doc,
-		    usetime: usetime,
-		    usedetail: usedetail,
-		    frm: frm,
-		    amm: ams,
-		    afm: afs,
-		    pmm: pms,
-		    ntm: nts,
-                    order_no: $('#mOrder').val(),
-                    pulse_with_us: $('#spulse_with_us').val(),
-		    energy_mj: $('#senergy_mj').val()
-		},function(data, status) {
-		    $('#md_id').html('');
-		    getMedicine(vid);
-                    getVisitTime(pid);
-		});
+					var m_id = $('#m_medicine_id').val();
+					var v1 = $('#m_medicine').val();
+					var v2 = $('#mQty').val();
+					var v3 = $('#mPrice').val();
+					/*var dic = $('#mDiscount').val();*/
+					var dic = "0";
+					var doc = $('#mDoctor').val();
+					var frm = $('#m_form').val();
+					var usetime = $('#mTime').val();
+					var usedetail = $('#mDetail').val();
+					var ams = $('#mAm').val();
+					var afs = $('#mAf').val();
+					var pms = $('#mPm').val();
+					var nts = $('#mNt').val();
+				$.post("<?php echo $base_url;?>index.php/diagnostics/add_medicine/"+vid,{
+						service_item_id: m_id,
+				    medicines: v1,
+				    qty: v2,
+				    price: v3,
+				    discount: dic,
+				    doctor: doc,
+				    usetime: usetime,
+				    usedetail: usedetail,
+				    frm: frm,
+				    amm: ams,
+				    afm: afs,
+				    pmm: pms,
+				    ntm: nts,
+            order_no: $('#mOrder').val(),
+            pulse_with_us: $('#spulse_with_us').val(),
+				    energy_mj: $('#senergy_mj').val()
+				},function(data, status) {
+				    $('#md_id').html('');
+				    getMedicine(vid);
+		                    getVisitTime(vs_pcode);
+				});
 
 	}
 
 	function saveService(){
-                var m_id = $('#s_service_id').val();
-		var v1 = $('#m_service').val();
-		var v2 = $('#sQty').val();
-		var v3 = $('#sPrice').val();
-		var desc = $('#se_desc').val();
-		var frm = $('#s_form').val();
-		var doc = $('#sDoctor').val();
-		var dis = $('#sDiscount').val();
+				var m_id = $('#s_service_id').val();
+				var v1 = $('#m_service').val();
+				var v2 = $('#sQty').val();
+				var v3 = $('#sPrice').val();
+				var desc = $('#se_desc').val();
+				var frm = $('#s_form').val();
+				var doc = $('#sDoctor').val();
+				var dis = $('#sDiscount').val();
                 /*var dis = "0";*/
 
 		$.post("<?php echo $base_url;?>index.php/diagnostics/add_medicine/"+vid,{
@@ -1891,7 +2201,7 @@
 		},function() {
 		    $('#se_id').html('');
 		    getService(vid);
-                    getVisitTime(pid);
+                    getVisitTime(vs_pcode);
 		});
 
 	}
@@ -1907,7 +2217,7 @@
 		$.post("<?php echo $base_url;?>index.php/diagnostics/delete_service/"+ids,function() {
 		    $('#se_id').html('');
 		    getService(vid);
-                    getVisitTime(pid);
+                    getVisitTime(vs_pcode);
 		});
 	}
 
@@ -1915,7 +2225,7 @@
 		$.post("<?php echo $base_url;?>index.php/diagnostics/delete_service/"+ids,function() {
 		    $('#se_id').html('');
 		    getMedicine(vid);
-                    getVisitTime(pid);
+                    getVisitTime(vs_pcode);
 		});
 	}
 
@@ -2018,7 +2328,6 @@
 	    });
 	}
 
-
 	function addNote(){
 		var htmlView = '<tr>';
 			htmlView += '<td style="text-align:center;width:20%;">';
@@ -2029,17 +2338,13 @@
 		$('#clinic_id').append(htmlView);
 	}
 
-
 	function saveNote(){
-
 	    var c1 = $('#clinical_note').val();
-		$.post("<?php echo $base_url;?>index.php/diagnostics/add_note/"+vid,
-		{clinical: c1},function(data, status) {
-		    $('#clinic_id').html('');
-		    getNote(vid);
-
-		});
-
+			$.post("<?php echo $base_url;?>index.php/diagnostics/add_note/"+vid,
+			{clinical: c1},function(data, status) {
+			    $('#clinic_id').html('');
+			    getNote(vid);
+			});
 	}
 
 </script>

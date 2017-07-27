@@ -29,10 +29,10 @@
               <tr>
                   <td colspan="2" style="background:#f2dede"><center>OPD Result</center></td>
               </tr>
-              <?php foreach($service_report_opd as $value):?>
+              <?php foreach($service_report_opd as $key=>$val):?>
                       <tr>
-                          <td><?php echo $value[2]?></td>
-                          <td><?php echo (!empty($value[1]))? $value[1].' ដង' : ''?>​​</td>
+                          <td><?php echo $key?></td>
+                          <td><?php echo $val?>​​</td>
                       </tr>
               <?php endforeach ?>
               <?php endif ?>
@@ -41,10 +41,10 @@
               <tr>
                   <td colspan="2" style="background:#f2dede"><center>IPD Result</center></td>
               </tr>
-              <?php foreach($service_report_ipd as $value):?>
+              <?php foreach($service_report_ipd as $key=>$val):?>
                       <tr>
-                          <td><?php echo $value[2]?></td>
-                          <td><?php echo (!empty($value[1]))? $value[1].' នាក់' : ''?>់</td>
+                          <td><?php echo $key?></td>
+                          <td><?php echo $val?>​​</td>
                       </tr>
               <?php endforeach ?>
               <?php endif ?>

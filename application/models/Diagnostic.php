@@ -7,12 +7,12 @@ class Diagnostic extends Datastructure{
 
 	// Get Diagnostic By Visitor
 	function getDiagnosticListByVisitorId(){
-
 	    $select = "";
 	    $from = $this->getTblDiagnostic() ." AS di";
-	    $from .= " JOIN ". $this->getTblIcd10() ." AS ic ON ic.icd10_id = di.icd10_id";
+			$from .= " JOIN ". $this->getTblIcd10() ." AS ic ON ic.icd10_id = di.icd10_id";
+			$from .= " LEFT JOIN ". $this->getTblWard() ." AS wd ON wd.wards_id = di.diagnostics_ward";
+	    $from .= " LEFT JOIN ". $this->getTblRooms() ." AS rm ON rm.room_id = di.diagnostics_room";
 	    $where = " diagnostics_deleted = 0 AND visitors_id = ". $this->getVisitorId()." ORDER BY diagnostics_date";
-
 	    return $this->executeQuery($select, $from, $where);
 	}
 
@@ -158,7 +158,7 @@ class Diagnostic extends Datastructure{
 	//Array data for Insert and Update
 	function getArrayDataForUpdateServiceItem(){
 
-            $this->setArrayDataNothing();
+			$this->setArrayDataNothing();
 
 	    $this->setArrayData('visitors_id', $this->getVisitorId());
 	    $this->setArrayData('products_id', $this->getProductId());
@@ -243,16 +243,63 @@ class Diagnostic extends Datastructure{
 	    return $this->executeQuery($select, $from, $where);
 	}
 	function getVsipdListById(){
-		$select = "";
+			$select = "";
 	    $from = $this->getTblIpdVirtualSign();
 	    $where = " vsipd_id = ". $this->getId();
-
 	    return $this->executeQuery($select, $from, $where);
 	}
 	// Delete Visp
 	function deleteVsipd(){
 		$this->setArrayData("vsipd_deleted", "1");
 		$this->updateDataWhere($this->getTblIpdVirtualSign(), $this->getArrayData()," vsipd_id = ".$this->getId());
+	}
+	function getProtocolList(){
+			$select = " ipdptc.vsipdpro_id, ipdptc.vsipdpro_visitor_id, ipdptc.vsipdpro_protocols_id, ipdptc.vsipdpro_date, ipdptc.vsipdpro_surgeon_doctor, ipdptc.vsipdpro_anesthesia_doctor, ipdptc.vsipdpro_surgeon_help_doctor, ipdptc.vsipdpro_neo_doctor, ipdptc.vsipdpro_midwife_doctor, u_surgeon.`name` as n_surgeon, u_anesthesia.`name` as n_anesthesia, u_surgeon_help.`name` as n_surgeon_help, u_neo.`name` as n_neo, u_midwife.`name` as n_midwife, ptc.protocols_title, ptc.protocols_desc";
+			$from = $this->getTblIpdProtocol()." AS ipdptc";
+			$from.= " LEFT JOIN ".$this->getTblProtocol()." AS ptc ON ptc.protocols_id = ipdptc.vsipdpro_protocols_id";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_surgeon ON u_surgeon.uid = ipdptc.vsipdpro_surgeon_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_anesthesia ON u_anesthesia.uid = ipdptc.vsipdpro_anesthesia_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_surgeon_help ON u_surgeon_help.uid = ipdptc.vsipdpro_surgeon_help_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_neo ON u_neo.uid = ipdptc.vsipdpro_neo_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_midwife ON u_midwife.uid = ipdptc.vsipdpro_midwife_doctor";
+			$where = " ipdptc.vsipdpro_deleted = 0 AND ipdptc.vsipdpro_visitor_id = ". $this->getId();
+			return $this->executeQuery($select, $from, $where);
+	}
+	function getProtocolListById(){
+			$select = " ipdptc.vsipdpro_id, ipdptc.vsipdpro_visitor_id, ipdptc.vsipdpro_protocols_id, ipdptc.vsipdpro_date, ipdptc.vsipdpro_surgeon_doctor, ipdptc.vsipdpro_anesthesia_doctor, ipdptc.vsipdpro_surgeon_help_doctor, ipdptc.vsipdpro_neo_doctor, ipdptc.vsipdpro_midwife_doctor, u_surgeon.`name` as n_surgeon, u_anesthesia.`name` as n_anesthesia, u_surgeon_help.`name` as n_surgeon_help, u_neo.`name` as n_neo, u_midwife.`name` as n_midwife, ptc.protocols_title, ptc.protocols_desc";
+			$from = $this->getTblIpdProtocol()." AS ipdptc";
+			$from.= " LEFT JOIN ".$this->getTblProtocol()." AS ptc ON ptc.protocols_id = ipdptc.vsipdpro_protocols_id";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_surgeon ON u_surgeon.uid = ipdptc.vsipdpro_surgeon_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_anesthesia ON u_anesthesia.uid = ipdptc.vsipdpro_anesthesia_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_surgeon_help ON u_surgeon_help.uid = ipdptc.vsipdpro_surgeon_help_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_neo ON u_neo.uid = ipdptc.vsipdpro_neo_doctor";
+			$from.= " LEFT JOIN ".$this->getTblUser()." AS u_midwife ON u_midwife.uid = ipdptc.vsipdpro_midwife_doctor";
+			$where = " ipdptc.vsipdpro_id = ". $this->getId();
+			return $this->executeQuery($select, $from, $where);
+	}
+
+	function addProtocol(){
+			$this->insertData($this->getTblIpdProtocol(),$this->getProtocolArrayDatas());
+			return $this->db->last_query();
+	}
+	function updateProtocol(){
+			$this->updateDataWhere($this->getTblIpdProtocol(), $this->getProtocolArrayDatas(), " vsipdpro_id = " . $this->getId());
+	}
+	function deleteProtocol(){
+			$this->deleteDataWhere($this->getTblIpdProtocol(), " vsipdpro_id = ".$this->getId());
+	}
+	//Array data for Insert and Update
+	function getProtocolArrayDatas(){
+			$this->setArrayData('vsipdpro_visitor_id',$this->getVisitorId());
+	    $this->setArrayData('vsipdpro_protocols_id',$this->getProtocolId());
+	    $this->setArrayData('vsipdpro_date',$this->getDate());
+	    $this->setArrayData('vsipdpro_surgeon_doctor',$this->getProtocolSurgeon());
+	    $this->setArrayData('vsipdpro_anesthesia_doctor',$this->getProtocolAnesthesia());
+	    $this->setArrayData('vsipdpro_surgeon_help_doctor',$this->getProtocolHelper());
+      $this->setArrayData('vsipdpro_neo_doctor',$this->getProtocolNeoDoctor());
+	    $this->setArrayData('vsipdpro_midwife_doctor',$this->getProtocolMidult());
+
+	    return $this->getArrayData();
 	}
 }
 ?>

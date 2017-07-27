@@ -247,82 +247,78 @@
 	            });
         });
     }
-    function viewVisitor(ids){
-			alert('view this');
-			alert();
-			end();
-		$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
-				function(data,status){
-					$.each(data, function(key,value) {
-						$('#p_code').html(value.patient_code);
-						$('#kh_name').html(value.patient_kh_name);
-						$('#en_name').html(value.patient_en_name);
-						$('#v_address').html(value.patient_address);
-						$('#v_phone').html(value.patient_phone);
-						$('#v_emergencyPhone').html(value.patient_emergency_phone);
-						$('#v_occupation').html(value.patient_occupation);
-						$('#v_dob').html(value.patient_dob);
-						$('#v_idCard').html(value.patient_id_card);
-						$('#v_assuranceCard').html(value.patient_assurance_card);
-						$('#v_assuranceCompany').html(value.patient_assurance_company);
-						$('#v_motorCard').html(value.patient_motor_card);
-						$('#v_carCard').html(value.patient_car_card);
-
-						$('#v_bankCard1').html(value.patient_bank_card1);
-						$('#v_bankCard2').html(value.patient_bank_card2);
-						$('#v_studentCard').html(value.patient_student_card);
-						$('#v_assuranceCompany').html(value.patient_assurance_company);
-						if(value.patient_gender == 'm'){
-							$('#v_gender').html('Male');
-						}else{
-							$('#v_gender').html('Female');
-						}
-
-						if(value.patient_status == '1'){
-							$('#v_status').html('Single');
-						}else{
-							$('#v_status').html('Married');
-						}
-						if(value.is_heart == '0'){
-							$('#v_heart').html('No');
-						}else{
-							$('#v_heart').html('Yes');
-						}
-						if(value.is_respiratory == '0'){
-							$('#v_respiratory').html('No');
-						}else{
-							$('#v_respiratory').html('Yes');
-						}
-						if(value.is_diabetes == '0'){
-							$('#v_diabetes').html('No');
-						}else{
-							$('#v_diabetes').html('Yes');
-						}
-						if(value.is_digestive == '0'){
-							$('#v_digestive').html('No');
-						}else{
-							$('#v_digestive').html('Yes');
-						}
-						if(value.is_kedney == '0'){
-							$('#v_kidney').html('No');
-						}else{
-							$('#v_kidney').html('Yes');
-						}
-						if(value.is_endocrine == '0'){
-							$('#v_endocrine').html('No');
-						}else{
-							$('#v_endocrine').html('Yes');
-						}
-						if(value.is_neuro_sys == '0'){
-							$('#v_neuro_sys').html('No');
-						}else{
-							$('#v_neuro_sys').html('Yes');
-						}
-				});
-		 });
-		 $('#visitor_view_form').css('display','block');
-		 $('#form_table').css('display','none');
-    }
+    // function viewVisitor(ids){
+		// 			$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,
+		// 					function(data,status){
+		// 						$.each(data, function(key,value) {
+		// 							$('#p_code').html(value.patient_code);
+		// 							$('#kh_name').html(value.patient_kh_name);
+		// 							$('#en_name').html(value.patient_en_name);
+		// 							$('#v_address').html(value.patient_address);
+		// 							$('#v_phone').html(value.patient_phone);
+		// 							$('#v_emergencyPhone').html(value.patient_emergency_phone);
+		// 							$('#v_occupation').html(value.patient_occupation);
+		// 							$('#v_dob').html(value.patient_dob);
+		// 							$('#v_idCard').html(value.patient_id_card);
+		// 							$('#v_assuranceCard').html(value.patient_assurance_card);
+		// 							$('#v_assuranceCompany').html(value.patient_assurance_company);
+		// 							$('#v_motorCard').html(value.patient_motor_card);
+		// 							$('#v_carCard').html(value.patient_car_card);
+		//
+		// 							$('#v_bankCard1').html(value.patient_bank_card1);
+		// 							$('#v_bankCard2').html(value.patient_bank_card2);
+		// 							$('#v_studentCard').html(value.patient_student_card);
+		// 							$('#v_assuranceCompany').html(value.patient_assurance_company);
+		// 							if(value.patient_gender == 'm'){
+		// 								$('#v_gender').html('Male');
+		// 							}else{
+		// 								$('#v_gender').html('Female');
+		// 							}
+		// 							if(value.patient_status == '1'){
+		// 								$('#v_status').html('Single');
+		// 							}else{
+		// 								$('#v_status').html('Married');
+		// 							}
+		// 							if(value.is_heart == '0'){
+		// 								$('#v_heart').html('No');
+		// 							}else{
+		// 								$('#v_heart').html('Yes');
+		// 							}
+		// 							if(value.is_respiratory == '0'){
+		// 								$('#v_respiratory').html('No');
+		// 							}else{
+		// 								$('#v_respiratory').html('Yes');
+		// 							}
+		// 							if(value.is_diabetes == '0'){
+		// 								$('#v_diabetes').html('No');
+		// 							}else{
+		// 								$('#v_diabetes').html('Yes');
+		// 							}
+		// 							if(value.is_digestive == '0'){
+		// 								$('#v_digestive').html('No');
+		// 							}else{
+		// 								$('#v_digestive').html('Yes');
+		// 							}
+		// 							if(value.is_kedney == '0'){
+		// 								$('#v_kidney').html('No');
+		// 							}else{
+		// 								$('#v_kidney').html('Yes');
+		// 							}
+		// 							if(value.is_endocrine == '0'){
+		// 								$('#v_endocrine').html('No');
+		// 							}else{
+		// 								$('#v_endocrine').html('Yes');
+		// 							}
+		// 							if(value.is_neuro_sys == '0'){
+		// 								$('#v_neuro_sys').html('No');
+		// 							}else{
+		// 								$('#v_neuro_sys').html('Yes');
+		// 							}
+		// 					});
+		// 			 });
+		// 			 $('#visitor_view_form').css('display','block');
+		// 			 $('#form_table').css('display','none');
+    // }
 
     function saveEdit(){
 		var icd10Id = $('#icd10_id').val();

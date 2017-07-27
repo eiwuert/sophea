@@ -4,9 +4,9 @@
 	$visitorCode = '';
 	$visitorGender = '';
 	$visitorDob = '';
-	$visitorAge = date("Y") - date("Y", strtotime($visitorDob)); 
+	$visitorAge = date("Y") - date("Y", strtotime($visitorDob));
 	$leaveStatus = '';
-	
+
 	$dia = '';
 	$dia1 = '';
 	$dia2 = '';
@@ -14,17 +14,18 @@
 	$dia_id1 = '';
 	$dia_id2 = '';
 	$patientId = '';
-	
+
 	$cured = '';
 	$notCured = '';
 	$referedOut = '';
 	$died = '';
-	
+
 	$statuss = '';
-	
+
 	$i = 0;
 	foreach($visitor_info as $row){
 		$patientId = $row->patient_id;
+		$visitors_patient_code = $row->visitors_patient_code;
 		$visitorId = $row->visitors_id;
 		$visitorName = $row->patient_kh_name."(".$row->patient_en_name.")";
 		$visitorCode = $row->patient_code;
@@ -39,14 +40,14 @@
 		}else if($row->visitors_leave_status == '4'){
 		    $died = 'checked';
 		}
-		
+
 		if ($row->patient_gender != "m"){
 			$visitorGender = "Male" ;
 		}else{
 			$visitorGender = "Female" ;
 		}
 	}
-	
+
 ?>
 <div class="col-sm-8">
     <div class="row">
@@ -134,7 +135,7 @@
 			  <p> <?php echo @$name." : ".$visitorName;?><small class="label bg-red" id="visit_amount"></small></p>
 		      </div>
 		      <div class="col-sm-4">
-			  <p> <?php echo @$code." : ".$visitorCode;?></p>
+			  <p> <?php echo @$code." : ".$visitors_patient_code;?></p>
 		      </div>
 		      <div class="col-sm-2">
 			  <p> <?php echo @$gender." : ".$visitorGender;?></p>
@@ -160,7 +161,7 @@
 		</div>
 		<div class="panel-collapse collapse in">
 		  <div class="box-body">
-		      
+
 			<div class="col-sm-4">
 			    <div class="form-group">
 				<div class="input-group">
@@ -253,7 +254,7 @@
 		</div>
 		<div class="panel-collapse collapse in">
 		  <div class="box-body">
-		      
+
 			<div class="col-sm-12 box-tools pull-left" style="margin-bottom:5px;">
 			    <div class="input-group-btn">
 				    <button class="btn btn-sm btn-default" id="btn_create" onclick="addMedicine();"><i class="fa fa-plus-circle primary"></i> Add Medicine </button>
@@ -319,7 +320,7 @@
 					<th colspan="2"></th>
 				</tr>
 				<!--<tr role="row">
-					<th>Fitzpatrik</th>	
+					<th>Fitzpatrik</th>
 					<th>Fluence</th>
 					<th>Pulse Length</th>
 					<th>Frequency</th>
@@ -480,7 +481,7 @@
 	      </div>
 	    </div>
 	</div>
-    </div>		
+    </div>
     <?php }?>
 </div>
 <div class="col-sm-4">
@@ -513,7 +514,7 @@
 	      </div>
 	    </div>
 	</div>-->
-	
+
 		<h3 class="align-center box-title">
 		    Old Visit
 		</h3>
@@ -528,12 +529,12 @@
 			</thead>
 			<tbody  id="v_id"></tbody>
 		</table>
-	
+
 </div>
 
 <style>
     .bordered{
-	border: solid 1px #d2d6de !important;	
+	border: solid 1px #d2d6de !important;
     }
     .borderBottom{
 	border-bottom: 1px solid #d2d6de;
@@ -557,7 +558,7 @@
 	background: #FFF !important;
     }
     .handOver {
-	cursor: pointer; 
+	cursor: pointer;
 	cursor: hand;
     }
     #visit_amount{
@@ -566,6 +567,7 @@
 </style>
 <script>
 	var vid = <?php echo $visitorId;?>;
+	var vs_pcode = "<?php echo $visitors_patient_code;?>"
 	var dia = 0;
 	var dia1 = 0;
 	var dia2 = 0;
@@ -611,26 +613,26 @@
 		    var soc = String(url+dinput);
 		    $( '#out_dia2' ).autocomplete({source: soc});
 	    });
-	    
+
 	    getDia(vid);
 	    getMedicine(vid);
 	    getService(vid);
-	    getVisitTime(pid);
+	    getVisitTime(vs_pcode);
 	});
-	
+
 	function autoForm(){
 	    var dinput = $( 'input:focus' ).val();
 	    var url = <?php echo '"'.$base_url.'index.php/diagnostics/form_auto_complete/"';?>;
 	    var soc = String(url+dinput);
 	    $( 'input:focus' ).autocomplete({source: soc});
-	    
+
 	    if(event.keyCode == 13){
 		checkService();
 	    }
 
 	}
-	
-    
+
+
 	function autoMedicine(){
 	    var dinput = $( 'input:focus' ).val();
 	    var url = <?php echo '"'.$base_url.'index.php/products/product_auto_complete/"';?>;
@@ -642,20 +644,20 @@
 		$( '#mQty' ).val('1');
 		$( '#mPrice' ).val(res[3]);
 	    }
-	    
+
 
 	}
-	
+
 	function autoDoctor(){
 	    var dinput = $( 'input:focus' ).val();
 	    var url = <?php echo '"'.$base_url.'index.php/diagnostics/doctor_auto_complete/"';?>;
 	    var soc = String(url+dinput);
 	    $( 'input:focus' ).autocomplete({source: soc});
 	    var res = $( 'input:focus' ).val();
-	    
+
 
 	}
-	
+
 	function autoService(){
 	    var dinput = $( 'input:focus' ).val();
 	    var url = <?php echo '"'.$base_url.'index.php/products/service_auto_complete/"';?>;
@@ -679,7 +681,7 @@
 		var dianostic2 = $('#diagnostic2').val();
 		var dianostic2_level = $('#diagnostic2_level').val();
 		var dianostic2_de = $('#desc_dia2').val();
-		
+
 		$.post("<?php echo $base_url;?>index.php/diagnostics/add_dia/"+visitorId,{
 			dia: dianostic,
 			dia_id: dia,
@@ -695,10 +697,10 @@
 			dia2_level: dianostic2_level
 		},function(){});
 	}
-	
+
 	function saveOutDianostic(){
 		var visitorId = vid;
-		
+
 		var myStatus = '';
 		if(checkBoxSave($('#cure:checked').val()) == '0'){
 		    myStatus = '1';
@@ -712,9 +714,9 @@
 		if(checkBoxSave($('#death:checked').val()) == '0'){
 		    myStatus = '4';
 		}
-		
+
 		$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave_status/"+myStatus+"_"+visitorId,function (){});
-		
+
 		var dianostic = $('#out_dia').val();
 		var dianostic_level = $('#out_dia_level').val();
 		var dianostic_de = $('#out_dia_des').val();
@@ -724,8 +726,8 @@
 		var dianostic2 = $('#out_dia2').val();
 		var dianostic2_level = $('#out_dia2_level').val();
 		var dianostic2_de = $('#out_dia2_des').val();
-		
-		
+
+
 		$.post("<?php echo $base_url;?>index.php/diagnostics/add_dia/"+visitorId,{
 			dia: dianostic,
 			dia_id: out_dia,
@@ -740,49 +742,50 @@
 			dia2_de: dianostic2_de,
 			dia2_level: dianostic2_level
 		},function(){});
-		
+
 	}
-	
-	function getVisitTime(ids){
+
+	function getVisitTime(vs_pcode){
 	    var i = 0;
-	    $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_list_by_patient_id/"+ids,function (data,status){
-		var vid = 0;
-		var vdate = '';
-		var htmlView = '';
-		var sr = '';
-		var din = '';
-		$.each(data, function(key,value) {
-		    vid = parseInt(value.visitors_id);
-		    if(din == ''){
-			i = i + 1;
-			din = value.visitors_in_date;
-			sr = value.products_name;
-		    }else if(din != value.visitors_in_date){
-			    htmlView = '<tr><td class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vid+');">' + i +'</td>';
-			    htmlView += '<td>'+ $.datepicker.formatDate('dd-mm-yy', new Date(din)) +'</td>';
-			    htmlView += '<td>'+ sr +'</td></tr>';
-			    $('#v_id').append(htmlView);
+	    $.post("<?php echo $base_url;?>index.php/visitors/get_visitor_list_by_patient_id/"+vs_pcode,function (data,status){
+						var vid = 0;
+						var vs_pcode = '';
+						var vdate = '';
+						var htmlView = '';
+						var sr = '';
+						var din = '';
+						$.each(data, function(key,value) {
+						    vid = parseInt(value.visitors_id);
+						    if(din == ''){
+							i = i + 1;
+							din = value.visitors_in_date;
+							sr = value.products_name;
+						    }else if(din != value.visitors_in_date){
+							    htmlView = '<tr><td class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vid+');">' + i +'</td>';
+							    htmlView += '<td>'+ $.datepicker.formatDate('dd-mm-yy', new Date(din)) +'</td>';
+							    htmlView += '<td>'+ sr +'</td></tr>';
+							    $('#v_id').append(htmlView);
 
-			    /*htmlView += '<span class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vid+');"><i class="fa fa-search action-btn primary"></i></span>&nbsp;&nbsp;';*/
-			    /*startTrTd();
-				setTd(1);
-				setTd($.datepicker.formatDate('dd-mm-yy', new Date(value.visitors_in_date)));
-				setTd(sr);
-				setTd(htmlView);
-			    stopTrTd();*/
+							    /*htmlView += '<span class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vid+');"><i class="fa fa-search action-btn primary"></i></span>&nbsp;&nbsp;';*/
+							    /*startTrTd();
+								setTd(1);
+								setTd($.datepicker.formatDate('dd-mm-yy', new Date(value.visitors_in_date)));
+								setTd(sr);
+								setTd(htmlView);
+							    stopTrTd();*/
 
-			    htmlView = '';
-			    i = i + 1;
-			    vid = parseInt(value.visitors_id);
-			    sr = value.products_name;
-			    din = value.visitors_in_date;
+							    htmlView = '';
+							    i = i + 1;
+							    vid = parseInt(value.visitors_id);
+							    sr = value.products_name;
+							    din = value.visitors_in_date;
 
-			}else{
-			    sr = sr + "," + value.products_name;
-			}
-		});
+							}else{
+							    sr = sr + "," + value.products_name;
+							}
+						});
 		/*viewRows('v_id');*/
-		
+
 		htmlView = '<tr><td class="handOver" title="<?php echo @$view;?>" onclick="viewOldPrescription('+vid+');">' + i +'</td>';
 		htmlView += '<td>'+ $.datepicker.formatDate('dd-mm-yy', new Date(din)) +'</td>';
 		if(isNaN(sr)){
@@ -790,20 +793,20 @@
 		}else{
 		    htmlView += '<td>'+ sr +'</td></tr>';
 		}
-		
+
 		$('#v_id').append(htmlView);
-		
+
 		came = parseInt(came) + i;
 		$("#visit_amount").text(" "+ i.toString());
 	    });
 	}
-	
+
 	function getMedicine(ids){
 	    var i = 0;
 	    var htmlView = '';
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_list/"+ids,function (data,status){
 		$.each(data, function(key,value) {
-		    
+
 		    i = i + 1;
 
 		    htmlView += '<tr>';
@@ -814,7 +817,7 @@
 			}else{
 			    htmlView += '<td  style="text-align:center !important;">'+value.products_name+'('+value.products_code+')-['+value.forms_name+']</td>';
 			}
-			
+
 			htmlView += '<td  style="text-align:center !important;">'+value.items_qty+' '+ value.units_name+'</td>';
 			htmlView += '<td  style="text-align:center !important;">$'+value.items_prices+'</td>';
 			htmlView += '<td  style="text-align:center !important;">$'+value.items_discount+'</td>';
@@ -828,7 +831,7 @@
 			    htmlView += '<span class="handOver" title="<?php echo @$delete;?>" onclick="deleteMedicine('+ value.service_items_id +');"><i class="fa fa-trash-o action-btn danger"></i></span>';
 			htmlView += '</td>';
 		    htmlView += '</tr>';
-		    
+
 		    if(value.items_time != '' || value.items_detail != ''){
 			htmlView += '<tr>';
 			    htmlView += '<td  colspan="2" style="text-align:center !important;">ពេល៖</td>';
@@ -837,27 +840,27 @@
 			    htmlView += '<td  colspan="4" style="text-align:center;">'+value.items_detail+'</td>';
 			htmlView += '</tr>';
 		    }
-		    
+
 		});
-		
+
 		$('#md_id').html(htmlView);
 		addMedicine();
 	    });
 	}
-	
+
 	function getService(ids){
 	    var i = 0;
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_service_list/"+ids,function (data,status){
 		$.each(data, function(key,value) {
-		    
+
 		    i = i + 1;
-		    
+
 		    var htmlView = '';
 		    var hts = '';
 		    htmlView += '<span class="handOver" title="<?php echo @$edit;?>" onclick="editService('+ value.service_items_id +');"><i class="fa fa-edit action-btn primary"></i></span>&nbsp;&nbsp;';
 		    htmlView += '<span class="handOver" title="<?php echo @$delete;?>" onclick="deleteService('+ value.service_items_id +');"><i class="fa fa-trash-o action-btn danger"></i></span>';
 
-		    
+
 		    hts = "<tr>";
 			hts += '<td colspan="1">'+ i +'</td>';
 			hts += '<td colspan="2">'+ $.datepicker.formatDate('dd-mm-yy', new Date(value.items_modified)) +'</td>';
@@ -872,10 +875,10 @@
 			hts += '<td colspan="2">'+ value.name +'</td>';
 			hts += '<td colspan="2">'+ htmlView +' </td>';
 		    hts += "</tr>";
-		    
+
 		    hts += "<tr><td colspan='5'>Descrition</td><td colspan='8'>"+ value.items_detail +"</td></tr>";
 		    $('#se_id').append(hts);
-		    
+
 		    if(value.forms_name == 'Erbium Yag Laser'){
 			hts = "<tr class='bloom-row'>";
 			    hts += '<td colspan="6">Pulse With Us</td>';
@@ -885,8 +888,8 @@
 			    hts += '<td colspan="6">' + value.pulse_with_us + '</td>';
 			    hts += '<td colspan="7">' + value.energy_mj + '</td>';
 			hts += "</tr>";
-			
-			
+
+
 		    }else if(value.forms_name == 'Q-Switch Laser'){
 			hts = "<tr class='bloom-row'>";
 			    hts += '<td colspan="2">Lens</td>';
@@ -958,9 +961,9 @@
 			    hts += '<td colspan="2">' + value.no_of_treal + '</td>';
 			hts += "</tr>";
 		    }
-		    
+
 		    $('#se_id').append(hts);
-		    
+
 		    /*if(value.fitzpatrik != '' || value.fluence != '' || value.pulse_length != '' || value.frequency != '' || value.mode != '' || value.no_of_treal != '' || value.lens != '' || value.spot_size != '' || value.cut_off_filter != '' || value.pulse_train != '' || value.pause_length != '' || value.pulse_with_us != '' || value.energy_mj != ''){
 			hts = "<tr class='bloom-row'>";
 			    hts += '<td>' + value.fitzpatrik + '</td>';
@@ -977,22 +980,22 @@
 			    hts += '<td>' + value.pulse_with_us + '</td>';
 			    hts += '<td>' + value.energy_mj + '</td>';
 			hts += "</tr>";
-			
+
 			$('#se_id').append(hts);
 		    }*/
 		});
-		
+
 		addService();
 		/*viewRows('se_id');*/
 	    });
 	}
-	
+
 	function getDia(ids){
 	    var i = 0;
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_diagnostic_list/"+ids,function (data,status){
 		$.each(data, function(key,value) {
 		    i = i + 1;
-		    
+
 		    if(i == 1){
 			$("#diagnostic").val(value.icd10_code + '_' + value.icd10_desc);
 			$("#diagnostic_level").val(value.diagnostics_level);
@@ -1029,11 +1032,11 @@
 			$("#out_dia2_des").val(value.diagnostics_detail);
 			out_dia2 = value.diagnostics_id;
 		    }
-		    
+
 		});
 	    });
 	}
-	
+
 	function addService(){
 		var htmlView = '<tr>';
 		    htmlView += '<td  colspan="1" style="text-align:center;"><input type="text" id="s_form" style="text-align:center;" class="form-control" placeholder="Form" onkeyup="autoForm();"></td>';
@@ -1045,7 +1048,7 @@
 		    htmlView += '<td  colspan="1" style="text-align:center;">';
 			    htmlView += '<span class="handOver" onclick="saveService();"><i class="fa fa-save action-btn primary"></i></span>';
 		htmlView += '</td></tr>';
-		
+
 		/*htmlView += "<tr class='bloom-row'>";
 		    htmlView +=  '<td><input type="text" id="sfitzpatrik" value=""  style="text-align:center;" class="form-control"></td>';
 		    htmlView +=  '<td><input type="text" id="sfluence" value=""  style="text-align:center;" class="form-control"></td>';
@@ -1061,12 +1064,12 @@
 		    htmlView +=  '<td><input type="text" id="spulse_with_us" value=""  style="text-align:center;" class="form-control"></td>';
 		    htmlView +=  '<td><input type="text" id="senergy_mj" value=""  style="text-align:center;" class="form-control"></td>';
 		htmlView +=  "</tr>";*/
-		
+
 		htmlView += '<tr><td colspan="13"><input type="text" id="se_desc" value="" placeholder="Descrition" style="text-align:left;" class="form-control"></td></tr>';
-		
+
 		$('#se_id').append(htmlView);
 	}
-	
+
 	function checkService(){
 	    var htmlView = '';
 	    if($('#s_form').val() == 'Erbium Yag Laser'){
@@ -1093,7 +1096,7 @@
 		    htmlView +=  '<td colspan="2"><input type="text" id="sfluence" value="" placeholder="Fluence" style="text-align:left;" class="form-control"></td>';
 		    htmlView +=  '<td><input type="text" id="sno_of_treal" value="" placeholder="Treat" style="text-align:left;" class="form-control"></td>';
 		htmlView +=  "</tr>";
-		
+
 	    }else if($('#s_form').val() == 'Anti Aging Treatment'){
 		htmlView += "<tr>";
 		    htmlView +=  '<td colspan="2"><input type="text" id="slens" value="" placeholder="Lens" style="text-align:center;" class="form-control"></td>';
@@ -1103,7 +1106,7 @@
 		    htmlView +=  '<td colspan="2"><input type="text" id="sspot_size" value="" placeholder="Spot Size" style="text-align:center;" class="form-control"></td>';
 		    htmlView +=  '<td colspan="2"><input type="text" id="sno_of_treal" value="" placeholder="Treat" style="text-align:center;" class="form-control"></td>';
 		htmlView +=  "</tr>";
-    
+
 	    }else if($('#s_form').val() == 'Diode Laser'){
 		htmlView += "<tr>";
 		    htmlView +=  '<td colspan="2"><input type="text" id="sfitzpatrik" value="" placeholder="Fitzpartrik" style="text-align:left;" class="form-control"></td>';
@@ -1114,10 +1117,10 @@
 		    htmlView +=  '<td colspan="2"><input type="text" id="sno_of_treal" value="" placeholder="Treat" style="text-align:left;" class="form-control"></td>';
 		htmlView +=  "</tr>";
 	    }
-	    
+
 	    $('#se_id').append(htmlView);
 	}
-	
+
 	function addMedicine(){
 		var htmlView = '<tr>';
 			htmlView += '<td  colspan="2" style="text-align:center;"><input type="text" id="m_form" style="text-align:center;" class="form-control" placeholder="Form" onkeyup="autoForm();"></td>';
@@ -1133,19 +1136,19 @@
 			htmlView += '<td style="text-align:center;">';
 				htmlView += '<span class="handOver" onclick="saveData();"><i class="fa fa-save action-btn primary"></i></span>';
 		    htmlView += '</td></tr>';
-		
+
 		htmlView += '<tr>';
 		    htmlView += '<td  colspan="2" style="text-align:center !important;">ពេល៖</td>';
 		    htmlView += '<td  colspan="4" style="text-align:center;"><input type="text" id="mTime" value=""  style="text-align:center;" class="form-control"></td>';
 		    htmlView += '<td  colspan="2" style="text-align:center !important;">បរិយាយ៖</td>';
 		    htmlView += '<td  colspan="4" style="text-align:center;"><input type="text" id="mDetail" value=""  style="text-align:center;" class="form-control"></td>';
 		htmlView += '</tr>';
-		
+
 		$('#md_id').append(htmlView);
 	}
-	
+
 	function saveData(){
-	    
+
 		var v1 = $('#m_medicine').val();
 		var v2 = $('#mQty').val();
 		var v3 = $('#mPrice').val();
@@ -1158,7 +1161,7 @@
 		var afs = checkBoxSave($('#mAf:checked').val());
 		var pms = checkBoxSave($('#mPm:checked').val());
 		var nts = checkBoxSave($('#mNt:checked').val());
-		
+
 		$.post("<?php echo $base_url;?>index.php/diagnostics/add_medicine/"+vid,{
 		    medicines: v1,
 		    qty: v2,
@@ -1176,11 +1179,11 @@
 		    $('#md_id').html('');
 		    getMedicine(vid);
 		});
-		
+
 	}
-	
+
 	function saveService(){
-	    
+
 		var v1 = $('#m_service').val();
 		var v2 = $('#sQty').val();
 		var v3 = $('#sPrice').val();
@@ -1188,7 +1191,7 @@
 		var frm = $('#s_form').val();
 		var doc = $('#sDoctor').val();
 		var dis = $('#sDiscount').val();
-		
+
 		$.post("<?php echo $base_url;?>index.php/diagnostics/add_medicine/"+vid,{
 		    medicines: v1,
 		    qty: v2,
@@ -1214,35 +1217,35 @@
 		    $('#se_id').html('');
 		    getService(vid);
 		});
-		
+
 	}
-	
+
 	function deleteService(ids){
 		$.post("<?php echo $base_url;?>index.php/diagnostics/delete_service/"+ids,function() {
 		    $('#se_id').html('');
 		    getService(vid);
 		});
 	}
-	
+
 	function deleteMedicine(ids){
 		$.post("<?php echo $base_url;?>index.php/diagnostics/delete_service/"+ids,function() {
 		    $('#se_id').html('');
 		    getMedicine(vid);
 		});
 	}
-	
+
 	function printFrm(ids){
 	    $.post("<?php echo $base_url;?>index.php/prescriptions/view_form/"+ids+"_"+vid,function (data,status){
 		viewWindow(data);
 	    });
 	}
-	
+
 	function printRcp(ids){
 	    $.post("<?php echo $base_url;?>index.php/prescriptions/receipt_form/"+ids+"_"+vid,function (data,status){
 		viewWindow(data);
 	    });
 	}
-	
+
 	function viewOldPrescription(ids){
 	    $("#old_diagnostic_form").css('display','block');
 	    $.post("<?php echo $base_url;?>index.php/diagnostics/view_pres/"+ids,function(data,status){
@@ -1250,18 +1253,18 @@
 	    });
 	    $("#diagnostic_form").css('display','none');
 	}
-	
+
 	function viewWindow(htms){
             var myWindow = window.open("", "MsgWindow", "width=9000, height=7000");
             myWindow.document.open("text/html", "replace");
             myWindow.document.write(htms);
             myWindow.document.close();
 	}
-	
+
 	/*function checkForm(formId = ''){
-	    
+
 	}*/
-	
+
 	function checkBox(values){
 	    if(values != 1){
 		return "checked";
@@ -1269,7 +1272,7 @@
 		return "";
 	    }
 	}
-	
+
 	function checkBoxSave(values){
 	    if(parseInt(values) != 1){
 		return "1";
@@ -1277,7 +1280,7 @@
 		return "0";
 	    }
 	}
-	
+
 	function checkChecked(values){
 	    var str = checkBox(values);
 	    if(str == "checked"){
@@ -1286,8 +1289,5 @@
 		return "<i class='fa fa-times danger'></i>";
 	    }
 	}
-	
+
 </script>
-
-
-

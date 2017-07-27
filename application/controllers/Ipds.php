@@ -778,7 +778,7 @@ class Ipds extends Securities {
           $this->restData($datas);
       }
 
-         function i_ipd_others() {
+    	function i_ipd_others() {
           // Check Session
           $this->checkSession();
 
@@ -813,6 +813,47 @@ class Ipds extends Securities {
 
           $this->VisitorModel->setSearch($this->getPost('search_data'));
           $this->VisitorModel->setI_ipd_others();
+          $this->VisitorModel->setStart('0');
+          $this->VisitorModel->setLimit('0');
+          $datas = $this->VisitorModel->getAllVisitorOpd();
+          $this->restData($datas);
+      }
+
+			function i_ipd_img() {
+          // Check Session
+          $this->checkSession();
+
+            $this->setSession('assign_to', $this->getSession('user_id'));
+            $data = array();
+
+            // Get Item Per Page
+
+            $data['item_per_page'] = $this->getSysConfig();
+
+            // Get Count All Visitor
+            $data['rediUrl'] = "i_ipd_img";
+            $data['rediTitle'] = $this->Lang('i_ipd_img');
+            $data['jq_get_list'] = "get_i_ipd_img_list";
+            $this->VisitorModel->setI_img();
+            $data['totals'] = $this->VisitorModel->getCountVisitorOpd();
+
+            // Get Translate Word to View
+            $data = $this->getTranslate($data);
+
+            // Load View
+            $this->LoadView('template/header',$data);
+            $this->LoadView('template/topmenu');
+            $this->LoadView('template/sidebar');
+            $this->LoadView('ipds/list');
+            $this->LoadView('template/footer');
+      }
+
+      function get_i_ipd_img_list(){
+          // Check Session
+          $this->checkSession();
+
+          $this->VisitorModel->setSearch($this->getPost('search_data'));
+          $this->VisitorModel->setI_img();
           $this->VisitorModel->setStart('0');
           $this->VisitorModel->setLimit('0');
           $datas = $this->VisitorModel->getAllVisitorOpd();
@@ -1226,12 +1267,13 @@ class Ipds extends Securities {
   function get_n_chNeoSimpleIcu_list(){
       // Check Session
       $this->checkSession();
+      $neoOnly = '1';
 
       $this->VisitorModel->setSearch($this->getPost('search_data'));
       $this->VisitorModel->setP_chNeoSimpleIcu();
       $this->VisitorModel->setStart('0');
       $this->VisitorModel->setLimit('0');
-      $datas = $this->VisitorModel->getAllVisitorOpd();
+      $datas = $this->VisitorModel->getAllVisitorOpd($neoOnly);
       $this->restData($datas);
   }
 
@@ -1268,12 +1310,13 @@ class Ipds extends Securities {
   function get_n_chNeoComplicatedIcu_list(){
       // Check Session
       $this->checkSession();
+      $neoOnly = '1';
 
       $this->VisitorModel->setSearch($this->getPost('search_data'));
       $this->VisitorModel->setP_chNeoComplicatedIcu();
       $this->VisitorModel->setStart('0');
       $this->VisitorModel->setLimit('0');
-      $datas = $this->VisitorModel->getAllVisitorOpd();
+      $datas = $this->VisitorModel->getAllVisitorOpd($neoOnly);
       $this->restData($datas);
   }
 
@@ -1313,12 +1356,13 @@ class Ipds extends Securities {
   function get_p_chNeoSimpleIcu_list(){
       // Check Session
       $this->checkSession();
+			$neoOnly = 0;
 
       $this->VisitorModel->setSearch($this->getPost('search_data'));
       $this->VisitorModel->setP_chNeoSimpleIcu();
       $this->VisitorModel->setStart('0');
       $this->VisitorModel->setLimit('0');
-      $datas = $this->VisitorModel->getAllVisitorOpd();
+      $datas = $this->VisitorModel->getAllVisitorOpd($neoOnly);
       $this->restData($datas);
   }
 
@@ -1355,12 +1399,13 @@ class Ipds extends Securities {
   function get_p_chNeoComplicatedIcu_list(){
       // Check Session
       $this->checkSession();
+			$neoOnly = 0;
 
       $this->VisitorModel->setSearch($this->getPost('search_data'));
       $this->VisitorModel->setP_chNeoComplicatedIcu();
       $this->VisitorModel->setStart('0');
       $this->VisitorModel->setLimit('0');
-      $datas = $this->VisitorModel->getAllVisitorOpd();
+      $datas = $this->VisitorModel->getAllVisitorOpd($neoOnly);
       $this->restData($datas);
   }
 

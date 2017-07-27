@@ -36,6 +36,7 @@ class Securities extends CI_Controller {
             $this->load->model("Waitting","WaittingModel");
             $this->load->model("Patient_room","PatientRoomModel");
             $this->load->model("Neonatal","NeonatalModel");
+            $this->load->model("Protocol","ProtocolModel");
 
             // Load Helper
             $this->load->helper ( "url" );
@@ -454,6 +455,7 @@ class Securities extends CI_Controller {
 	          $data['h_receptionist'] = $this->Lang('receptionist');
 		        $data['h_neonatal_add'] = $this->Lang('neonatal_add');
 	          $data['h_appoinment'] = $this->Lang('appoinment');
+	    			$data['h_protocol'] = $this->Lang('protocol');
 
         $data['h_ipd'] = $this->Lang('ipd');
         $data['h_opd'] = $this->Lang('opd');
@@ -496,7 +498,7 @@ class Securities extends CI_Controller {
             $data['h_o_digestive'] = $this->Lang('o_digestive');
             $data['h_o_cardiaque'] = $this->Lang('o_cardiaque');
             $data['h_o_opd_others'] = $this->Lang('o_opd_others');
-            $data['h_o_icu'] = $this->Lang('o_icu');
+            $data['h_o_cancer'] = $this->Lang('o_cancer');
         $data['h_ipd_adults'] = $this->Lang('ipd_adults');
             $data['h_i_delivery_normal'] = $this->Lang('i_delivery_normal');
             $data['h_i_c_section'] = $this->Lang('i_c_section');
@@ -512,7 +514,8 @@ class Securities extends CI_Controller {
             $data['h_i_bone'] = $this->Lang('i_bone');
             $data['h_i_digestive'] = $this->Lang('i_digestive');
             $data['h_i_cardiaque'] = $this->Lang('i_cardiaque');
-            $data['h_i_ipd_others'] = $this->Lang('i_ipd_others');
+						$data['h_i_ipd_others'] = $this->Lang('i_ipd_others');
+            $data['h_i_ipd_img'] = $this->Lang('i_ipd_img');
             $data['h_i_general_med'] = $this->Lang('i_general_med');
             $data['h_i_general_surgery'] = $this->Lang('i_general_surgery');
             $data['h_i_eye'] = $this->Lang('i_eye');
@@ -877,7 +880,7 @@ class Securities extends CI_Controller {
         }
 
 				function getServiceOption(){
-						return array('0' => '-- --',
+						return array('0' => 'All',
 	                        '1' => 'OPD Adult',
 	                        '2'=>'IPD Adult',
 	                        '3'=>'Support Service',
@@ -889,6 +892,20 @@ class Securities extends CI_Controller {
 	                        '9'=>'Neo Transfer',
 	                        '10'=>'Neo Gold');
 				}
+				// combine main key and value result array
+				function arrResultByKey($mainTitle,$result){
+		        // main array
+		        $arrResultByKey = array();
+		        foreach($mainTitle as $key => $value){
+		            // $arrResultByKey[$value].=$key;
+		            if(array_key_exists($key, $result)){
+		                $arrResultByKey[$value]= $result[$key];
+		            }else{
+		                $arrResultByKey[$value] = "";
+		            }
+		        }
+		        return $arrResultByKey;
+		    }
 
 }
 

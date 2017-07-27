@@ -9,18 +9,18 @@
 
 	<!-- Main content -->
 	<section class="content">
-		
+
 		<div class="row" id="msgs" style="display: none;">
 		    <div class="alert alert-success alert-dismissible">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 			<h4><i class="icon fa fa-check"></i> Save Sucessfull!</h4>
 		    </div>
 		</div>
-	    
+
 		<div class="row">
 			<div class="col-xs-12" id="form_row" style="display: none;">
 				<div class="box" style="padding: 10px !important;">
-						
+
 						<br/>
 							<!--Unit Name-->
 						  	<div class="form-group">
@@ -32,7 +32,7 @@
 								  <input type="text" name="waitting_id" id="waitting_id" style="display:none;">
 								</div>
 						  	</div>
-						  
+
 						  	<!-- Desc -->
 							<div class="form-group">
 								<div class="input-group">
@@ -65,8 +65,8 @@
 								<div class="input-group-addon">
 								    <input type="checkbox" value="1" id="waitting_open">
 								</div>
-								<input type="text" value="Waitting Open" class="form-control">  
-							    </div>			      
+								<input type="text" value="Waitting Open" class="form-control">
+							    </div>
 							</div>
 
 							<div class="form-group">
@@ -86,17 +86,17 @@
 								  		<input type="text" name="waitting_date" id="waitting_date" class="form-control">
 							      </div>
 							</div>
-						  						  
+
 						  	<!-- Submit -->
 							<div class="form-group">
 								<div class="input-group">
 								  <input type="submit" class="form-control btn-primary" id="submit_edit" value="<?php echo @$create;?>">
 								</div>
 							</div>
-			</div><!-- /.box -->			  	
+			</div><!-- /.box -->
 			</div><!-- /.col -->
 		</div><!-- /.row -->
-		
+
 		<div class="row" id="form_table">
 			<div class="col-xs-12">
 				<div class="box">
@@ -140,7 +140,7 @@
 										<tbody id="typeList"></tbody>
 									</table>
 									<div class="pull-left"><strong><?php echo @$c_total.' : '.@$totals;?></strong></div>
-									
+
 									<!-- Start Ppagination -->
 									<!-- <ul class="pagination pagination-sm no-margin pull-right" id="pagination">
 										<li><span class="pg" id="pg0" onclick="pagination(`pg0`);">«</span></li>
@@ -170,7 +170,7 @@
     	$( "#waitting_date" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
         pagination();
     });
-    
+
     function getSearch(){
         var e = event.keyCode;
         if(e == 13){
@@ -181,7 +181,7 @@
             pagination(ids);
         }
     }
-    
+
  	// $("#btn_create").click(function(){
 	// 	$('#msgs').css('display','none');
 	// 	$('#form_row').css('display','block');
@@ -189,14 +189,14 @@
 	// 	$('#title_name').html('/ Create');
 	// 	$('#waitting_code').val("<?php echo $generate_num_waitting?>");
 	// });
-	
+
 	//insert Data
     $("#submit_edit").click(function(){
 		saveEdit();
 	});
-    
+
     function getTypeList(mySearch,pageStart,pageLimit){
-        
+
         $(document).ajaxStart(function(){
             $("#wait").css("display", "block");
         });
@@ -232,7 +232,7 @@
    					showGender = "ប្រុស";
    				}
    				if(value.wards_code !== null){
-   					showWard = value.wards_code;
+   					showWard = value.wards_desc;
    				}else{
    					showWard = '';
    				}
@@ -240,17 +240,17 @@
    					showName = value.name;
    				}else{
    					showName = '';
-   				}   				
+   				}
 				if(value.patient_kh_name !== null){
    					showPatientKhName = value.patient_kh_name;
    				}else{
    					showPatientKhName = '';
-   				}   				
+   				}
 				if(value.patient_code !== null){
    					showPatientCode = value.patient_code;
    				}else{
    					showPatientCode = '';
-   				} 				
+   				}
 				if(value.room_name !== null){
    					showRoomName = value.room_name;
    				}else{
@@ -280,9 +280,9 @@
                         htmlView +='<a href="#" title="<?php echo @$delete;?>"><i class="fa fa-trash-o action-btn danger" onclick="deleteWaitting(' + value.waitting_id + ');"></i></a>';
                     htmlView += '</td>';
                 htmlView += '</tr>';
-            });            
+            });
             $("#typeList").html(htmlView);
-            
+
             $(document).ajaxComplete(function(){
                 $("#wait").css("display", "none");
             });
@@ -294,7 +294,7 @@
     	var isCheckOut = 0;
     	$.post("<?php echo $base_url;?>index.php/waittings/view_print/"+id,{chw:isCheckOut},function (data,status){
 			viewWindow(data);
-	    });         
+	    });
     }
     function viewWindow(htms){
             var myWindow = window.open("", "MsgWindow", "width=9000, height=7000");
@@ -302,10 +302,10 @@
             myWindow.document.write(htms);
             myWindow.document.close();
 	}
-	
+
 	function checkOutWaitting(ids){
-		$.post("<?php echo $base_url;?>index.php/waittings/update_id_out/"+ids,{waitting_id: ids},function(data,status){});   
-	    pagination();          
+		$.post("<?php echo $base_url;?>index.php/waittings/update_id_out/"+ids,{waitting_id: ids},function(data,status){});
+	    pagination();
     }
 
     function editWaitting(ids){
@@ -332,16 +332,16 @@
 		       });
 		});
     }
-    
+
     function saveEdit(){
 		var waittingId = $('#waitting_id').val();
 		var waittingCode = $('#waitting_code').val();
-		var waittingExamination = $('#waitting_examination').val();		
-		var waittingPatientId = $('#patient_id').val();		
+		var waittingExamination = $('#waitting_examination').val();
+		var waittingPatientId = $('#patient_id').val();
 		var waittingDate = $('#waitting_date').val();
-		var waittingOpen = $('#waitting_open').val();	
-		var waittingDoctor = $('#waitting_doctor').val();	
-		var waittingRoom = $('#room_id').val();	
+		var waittingOpen = $('#waitting_open').val();
+		var waittingDoctor = $('#waitting_doctor').val();
+		var waittingRoom = $('#room_id').val();
 		$.post("<?php echo $base_url;?>index.php/waittings/save_waitting",{
 		    waitting_id: waittingId,
 		    waitting_code: waittingCode,
@@ -370,25 +370,25 @@
 		});
 	}
     function deleteWaitting(ids){
-	    $.post("<?php echo $base_url;?>index.php/waittings/delete_waitting/"+ids,{waitting_id: ids},function(data,status){}); 
-	    pagination();            
+	    $.post("<?php echo $base_url;?>index.php/waittings/delete_waitting/"+ids,{waitting_id: ids},function(data,status){});
+	    pagination();
     }
-    
+
     function viewWindow(htms){
             var myWindow = window.open("", "MsgWindow", "width=9000, height=7000");
             myWindow.document.open("text/html", "replace");
             myWindow.document.write(htms);
             myWindow.document.close();
     }
-    
+
     /* Jquery Pagination */
     function pagination(ids){
-		
+
 		/* Past Variable from Controller [totalRecord, Item Per Page] */
 		var totalRecord = <?php echo $totals;?>;
 		var pageLimit = <?php echo $item_per_page;?>;
 		var totalPage = Math.ceil(parseInt(totalRecord)/parseInt(pageLimit));
-		
+
 		//alert(totalPage);
 		if(parseInt(totalRecord) > parseInt(pageLimit)){
 			var atId = '';
@@ -406,7 +406,7 @@
 				$('#pg3').text(parseInt(atId)+3);
 			}else{
 				atId = $("#"+ids+"").text();
-				
+
 				if((parseInt(totalPage) - parseInt(atId)) <= 2){
 					if((parseInt(totalPage) - parseInt(atId)) == 2){
 						$('#pg2').removeClass('pg-active');
@@ -419,11 +419,11 @@
 					}else if((parseInt(totalPage) - parseInt(atId)) == 0){
 						$('#pg1').removeClass('pg-active');
 						$('#pg2').removeClass('pg-active');
-						$('#pg3').addClass('pg-active');				
+						$('#pg3').addClass('pg-active');
 					}else{
 						atId = $("#"+ids+"").text();
 					}
-					
+
 					$('#pg1').text(parseInt(totalPage) - 2);
 					$('#pg2').text(parseInt(totalPage) - 1);
 					$('#pg3').text(totalPage);
@@ -433,15 +433,15 @@
 					$('#pg3').text(parseInt(atId)+2);
 				}
 			}
-			
+
 			var pdno = $('.pg-active').text();
 			if(parseInt(pdno) == 1){
 				$('#pg0').css('display','none');
 			}else if(parseInt(pdno) > 1){
 				$('#pg0').css('display','block');
-				
+
 				if((parseInt(totalPage) - parseInt(pdno)) <= 2){
-					$('#pg4').css('display','none');			
+					$('#pg4').css('display','none');
 				}else{
 					$('#pg4').css('display','block');
 				}
@@ -452,7 +452,7 @@
 				var pageStart = (parseInt(pdno) - 1) * parseInt(pageLimit);
 				pageStartTop = pageStart;
 			}
-			
+
 		}else{
 			$('#pg0').css('display','none');
 			$('#pg1').css('display','none');
@@ -464,5 +464,5 @@
 		/*  Post 3 parameter [ strSearch, Start, Limit]*/
 		getTypeList(mySearch,pageStart,pageLimit);
 	}
-    
+
 </script>

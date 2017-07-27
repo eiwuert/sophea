@@ -225,22 +225,27 @@
 										</div>
 							</div>
 						</div><!-- /.box-body -->
-						<div style="float:left; width:100%; overflow:auto">
+						<div style="float:left; width:100%; overflow:auto" class='col-sm-12 col-xs-12'>
                 <marquee behavior="scroll" style="padding-top:10px" scrolldelay="500" scrollamount="50">
-                      <div style="font-size: 24px; color:red">
-                        មន្ទីរពេទ្យសម្ភពសោភាហ្គោល មានផ្តល់សេវាពិនិត្យពិគ្រោះនិងព្យាបាល ជំងឺកុមារនិងទារកដែលទើបកើតដោយគ្រូពេទ្យឯកទេសមានបទពិសោធន៍ ច្រើនឆ្នាំនៅមន្ទីរពេទ្យគន្ឋាបុប្ផា ។
-                      </div>
-                      <div style="font-size: 24px;">
+                      <span style="font-size: 40px; color:red">
+                        មន្ទីរពេទ្យសម្ភពសោភាហ្គោល មានផ្តល់សេវាពិនិត្យពិគ្រោះនិងព្យាបាល ជំងឺកុមារនិងទារកដែលទើបកើតដោយគ្រូពេទ្យឯកទេសមានបទពិសោធន៍ ច្រើនឆ្នាំនៅមន្ទីរពេទ្យគន្ឋបុប្ផា ។
+                      </span>
+                      <span style="font-size: 40px;">
                           <b>ផ្ដល់ជូនជាពិសេសការបញ្ចុះតំលៃចំពោះ :<b>
-                          <b>+</b> ស៊ីធីស្កេន​ (CT scan) = <span style="color:blue">70$</span> (ពីមុន<span style="color:red; text-decoration:line-through">100$</span>) &nbsp;&nbsp;&nbsp;&nbsp;
-                          <b>+</b> ស៊ីធីស្កេន​ (CT scan) + ចាក់ថ្នាំ​​ = <span style="color:blue">120$</span> (ពីមុន<span style="color:red; text-decoration:line-through">150$</span>) &nbsp;&nbsp;&nbsp;&nbsp;
-                          ​​ មានផ្ដល់សេវាប្រកបដោយគុណភាព ជាច្រើន &nbsp;&nbsp;&nbsp;&nbsp;
+                          <b>*</b> ស៊ីធីស្កេន​ (CT scan) = <span style="color:blue">70$</span> (ពីមុន<span style="color:red; text-decoration:line-through">100$</span>) &nbsp;&nbsp;&nbsp;&nbsp;
+                          <b>*</b> ស៊ីធីស្កេន​ (CT scan) + ចាក់ថ្នាំ​​ = <span style="color:blue">120$</span> (ពីមុន<span style="color:red; text-decoration:line-through">150$</span>) &nbsp;&nbsp;&nbsp;&nbsp;
+                          <b>*</b> មន្ទីរពេទ្យសម្ភពសោភាហ្គោល មានផ្តល់សេវាព្យាបាលដោយអូសូន (Ozone I.V Therapy) ដែលជាការព្យាបាលដោយប្រសិទ្ឋិភាព សុវត្ថភាព ដើម្បីការពារ ការរីកលូតលាស់ កាត់បន្ថយនិងសម្លាប់កោសិការមហារីនៅក្នុងរាង្គកាយមនុស្ស ។ លើសពីនេះការព្យាបាលដោយអូសូន (Ozone I.V Therapy) អាចកាត់បន្ថយស្រ្តេស (Stress) ជំងឺបេះដូង ជំងឺស្បែក ពង្រឹងប្រព័ន្ឋការពារក្នុងរាង្គកាយ បង្កើនថាមពល និងនាំអោយមានសុខភាពល្អ អាយុវែង។ &nbsp;&nbsp;&nbsp;&nbsp;
+                          <b>*</b> មន្ទីរ េពទ្យ េសាភា េយីង ខំ្ញុ មាន េសវា ពិនិត្យ ជំងឺ ទូទៅ និង វះកាត់ េរាគ ស្រី្ត និង វះកាត់ទូទៅ េដាយ ការ េចាះ េដាយ សាស្រ្តាចារ្យ និង េវជ្ជបណ្ឌិត ជំនាញ សញ្ញាប័្រតពីប្រ េទសបារាំង។ លោកអ្នកនិងទទួលបានការយកចិត្តទុកដាក់ ប្រកបដោយគុណធម៍ និង ទំនុកចិត្តយ៉ាងកក់ក្តៅ។ សូមទំនាក់ទំនងលេខ 023 223872/ 023 223873/ 097 9700080 &nbsp;&nbsp;&nbsp;&nbsp;
+                           មានផ្ដល់សេវាប្រកបដោយគុណភាព ជាច្រើន &nbsp;&nbsp;&nbsp;&nbsp;
                            សូមទំនាក់ទំនង​ 023 223 873 &nbsp;&nbsp;&nbsp;&nbsp;
                            សូមអរគុណ។
-                      </div>
-                      <div style="font-size: 24px; color:red">
+
+                           មន្ទីរ េពទ្យ េសាភា េយីង ខំ្ញុ មាន េសវា ពិនិត្យ ជំងឺ ទូទៅ និង វះកាត់ េរាគ ស្រី្ត និង វះកាត់ទូទៅ េដាយ ការ េចាះ េដាយ សាស្រ្តាចារ្យ និង េវជ្ជបណ្ឌិត ជំនាញ សញ្ញាប័្រតពីប្រ េទសបារាំង។ លោកអ្នកនិងទទួលបានការយកចិត្តទុកដាក់ ប្រកបដោយគុណធម៍ និង ទំនុកចិត្តយ៉ាងកក់ក្តៅ។ សូមទំនាក់ទំនងលេខ 023 223872/ 023 223873/ 097 9700080
+
+                      </span>
+                      <span style="font-size: 40px; color:red">
                           សូមថ្លៃងអំណរគុណចំពោះការមកទទួលសេវាថែទាំព្យាបាល​ នៅមន្ទីរពេទ្យសម្ភពសោភា​ !
-                      </div>
+                      </span>
               </marquee>
 						</div>
 				</div><!-- /.box -->

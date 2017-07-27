@@ -29,14 +29,16 @@ class Datastructure extends Dao{
 	private $tbl_district = "districts";
 	private $tbl_province = "provinces";
 	private $tbl_session = "sessions";
-        private $tbl_clinical_notes = "clinical_notes";
-        private $tbl_appoinment = "appoinments";
+  private $tbl_clinical_notes = "clinical_notes";
+  private $tbl_appoinment = "appoinments";
 	private $tbl_workstation = "work_station";
 	private $tbl_rooms = "rooms";
 	private $tbl_waitting = "waitting";
 	private $tbl_patient_room = "patient_room";
 	private $tbl_ipd_virtual_sign = "ipd_virtual_sign";
 	private $tbl_neonatal = "neonatal";
+	private $tbl_protocols = "protocols";
+	private $tbl_ipd_protocol = "ipd_protocol";
 	// *************** View Name ********************
 	// *************** Table Column *****************
 	// =============== Unit =========================
@@ -95,6 +97,7 @@ class Datastructure extends Dao{
 	// =============== Patient =========================
 	private $patientId = '';
 	private $roomId = '';
+	private $bookingDate = '';
 	private $patientCode = '';
 	private $patientKhName = '';
 	private $patientEnName = '';
@@ -185,13 +188,20 @@ class Datastructure extends Dao{
 	private $pulseWithUs = '';
 	private $energyMj = '';
 
-        private $assignPer = '0';
-        private $acceptPer = '0';
-        private $assignUid = '';
-        private $acceptUid = '';
+  private $assignPer = '0';
+  private $acceptPer = '0';
+  private $assignUid = '';
+  private $acceptUid = '';
 
-        private $chartStorageRoom = '';
-        private $patientRoom = '';
+  private $protocol_id = '';
+  private $protocol_surgeon = '';
+  private $protocol_anesthesia = '';
+  private $protocol_surgeon_helper = '';
+  private $protocol_neo_doctor = '';
+  private $protocol_midwidfe = '';
+
+  private $chartStorageRoom = '';
+  private $patientRoom = '';
 
 	// --------------- General Key ------------------
 	private $keyId = '';
@@ -363,6 +373,13 @@ class Datastructure extends Dao{
 	        // Define Table neonatal
 	function getTblNeonatal(){
 		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_neonatal);
+	}
+			// Define Table protoocols
+	function getTblProtocol(){
+		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_protocols);
+	}		// Define Table protoocols
+	function getTblIpdProtocol(){
+		return $this->getTblPre($this->tbl_pre."1_", $this->tbl_ipd_protocol);
 	}
 
 
@@ -715,12 +732,19 @@ class Datastructure extends Dao{
 	public function getPatientId(){
 		return $this->patientId;
 	}
-	// Patient Id
+	// Room Id
 	public function setRoomId($value){
 		$this->roomId = $value;
 	}
 	public function getRoomId(){
 		return $this->roomId;
+	}
+	// Booking Date
+	public function setBookingDate($value){
+		$this->bookingDate = $value;
+	}
+	public function getBookingDate(){
+		return $this->bookingDate;
 	}
 
 	// Patient Code
@@ -1201,7 +1225,7 @@ class Datastructure extends Dao{
 			public function setO_opd_others(){
 				$this->visitorStatus = '29';
 			}
-			public function setO_icu(){
+			public function setO_cancer(){
 				$this->visitorStatus = '30';
 			}
 
@@ -1275,6 +1299,9 @@ class Datastructure extends Dao{
 			}
 			public function setI_icu_ob(){
 				$this->visitorStatus = '58';
+			}
+			public function setI_img(){
+				$this->visitorStatus = '59';
 			}
 
 
@@ -1702,6 +1729,49 @@ class Datastructure extends Dao{
 	}
 	public function getAcceptUid(){
 	    return $this->acceptUid;
+	}
+	// ==========protocol=========
+				// protocol id
+	public function setProtocolId($value){
+	    $this->protocol_id = $value;
+	}
+	public function getProtocolId(){
+	    return $this->protocol_id;
+	}
+				// protocol surgeon
+	public function setProtocolSurgeon($value){
+	    $this->protocol_surgeon = $value;
+	}
+	public function getProtocolSurgeon(){
+	    return $this->protocol_surgeon;
+	}
+				// protocol anesthesia
+	public function setProtocolAnesthesia($value){
+	    $this->protocol_anesthesia = $value;
+	}
+	public function getProtocolAnesthesia(){
+	    return $this->protocol_anesthesia;
+	}
+				// protocol surgeon helper
+	public function setProtocolHelper($value){
+	    $this->protocol_surgeon_helper = $value;
+	}
+	public function getProtocolHelper(){
+	    return $this->protocol_surgeon_helper;
+	}
+				// protocol Neo doctor
+	public function setProtocolNeoDoctor($value){
+	    $this->protocol_neo_doctor = $value;
+	}
+	public function getProtocolNeoDoctor(){
+	    return $this->protocol_neo_doctor;
+	}
+				// protocol midwife
+	public function setProtocolMidult($value){
+	    $this->protocol_midwidfe = $value;
+	}
+	public function getProtocolMidult(){
+	    return $this->protocol_midwidfe;
 	}
 
 	// =========== User =================

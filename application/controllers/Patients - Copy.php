@@ -15,13 +15,13 @@ class Patients extends Securities {
 			// Menu Active
 		$data['ac_patients'] = 'active';
 
-            // Get Item Per Page 
+            // Get Item Per Page
 	    $data['item_per_page'] = $this->getSysConfig();
 
 	    // Get Count All Product
 	    $data['totals'] = $this->PatientModel->getCountPatient();
-            
-            // Define Gender Cambo 
+
+            // Define Gender Cambo
 	    $data['genderCambo'][0] = "Female";
 	    $data['genderCambo'][1] = "Male";
             // Define Status Cambo
@@ -30,10 +30,10 @@ class Patients extends Securities {
     	$this->WorkstationModel->setStart(0);
     	$this->WorkstationModel->setLimit(0);
     	$query_workstation = $this->WorkstationModel->getAllWorkstation();
-    	$data['drop_workshop'] = $this->queryDropDownMenu($query_workstation,$label_id='',$label_name='',$id='workstation_id',$value='workstation_name',$value2='');	
+    	$data['drop_workshop'] = $this->queryDropDownMenu($query_workstation,$label_id='',$label_name='',$id='workstation_id',$value='workstation_name',$value2='');
 
     	// generate for code waitting
-    	$data['generate_num_waitting'] = $this->WaittingModel->genNumber();			
+    	$data['generate_num_waitting'] = $this->WaittingModel->genNumber();
         // waitting Form
         $this->RoomModel->setStart(0);
         $this->RoomModel->setLimit(0);
@@ -52,7 +52,7 @@ class Patients extends Securities {
 
 //        $data['born_on'] = array('y' => 'Year','m' => 'Month','d'=>'Day');
 
-            // Get Translate Word to View 
+            // Get Translate Word to View
             $data = $this->getTranslate($data);
             // Load View
             $this->LoadView('template/header',$data);
@@ -61,7 +61,7 @@ class Patients extends Securities {
             $this->LoadView('patients/list');
             $this->LoadView('template/footer');
         }
-        
+
         // Upload File
 	public function photo() {
 
@@ -73,16 +73,16 @@ class Patients extends Securities {
             if(is_dir($this->getBasePath().'/photos/'.$this->getUrlSegment3()) == FALSE){
                 mkdir($this->getBasePath().'/photos/'.$this->getUrlSegment3(), 0777, true);
             }
-            
+
             // Menu Active
             $data['ac_patients'] = 'active';
             $data['pid'] = $this->getUrlSegment3();
             $data['photoList'] = scandir($this->getBasePath().'/photos/'.$this->getUrlSegment3());
             $data['photoDir'] = $this->getResources().'/uploads/'.$this->getCompanyId().'/photos/'. $this->getUrlSegment3();
-            
-            // Get Translate Word to View 
+
+            // Get Translate Word to View
             $data = $this->getTranslate($data);
-           
+
             // Load View
             $this->LoadView('template/header',$data);
             $this->LoadView('template/topmenu');
@@ -94,7 +94,7 @@ class Patients extends Securities {
         public function delphoto(){
             // Check Session
 	    $this->checkSession();
-            
+
             $imgs = explode('_', $this->getUrlSegment3());
             unlink($this->getBasePath().'/photos/'.$imgs[0].'/'.$imgs[1]);
             redirect('patients/photo/'.$imgs[0]);
@@ -105,37 +105,37 @@ class Patients extends Securities {
 	    // Check Session
 	    $this->checkSession();
             $upload_path = $this->getBasePath().'photos/';
-            
+
             move_uploaded_file($_FILES["userfile"]["tmp_name"], $upload_path.$this->getUrlSegment3().'/'.$this->getCurrentDatetimeString().'.png');
-            
+
             redirect('patients/photo/'.$this->getUrlSegment3());
-            
+
         }
-	
+
 	// Define Index of Unit Fucntion
 	public function visited() {
-	    
+
 	    // Check Session
 	    $this->checkSession();
-             
+
             $data = array();
             // Menu Active
             $data['ac_viewall'] = 'active';
-            
-            // Define Gender Cambo 
+
+            // Define Gender Cambo
 	    $data['genderCambo'][0] = "Female";
 	    $data['genderCambo'][1] = "Male";
-            
-            // Define Status Cambo 
+
+            // Define Status Cambo
 	    $data['statusCambo'][0] = "Sigle";
 	    $data['statusCambo'][1] = "Married";
-	    
+
 	    	$this->WorkstationModel->setStart(0);
 	    	$this->WorkstationModel->setLimit(0);
 	    	$query_workstation = $this->WorkstationModel->getAllWorkstation();
 	    	$data['drop_workshop'] = $this->queryDropDownMenu($query_workstation,$label_id='',$label_name='',$id='workstation_id',$value='workstation_name',$value2='');
 
-                // Get Translate Word to View 
+                // Get Translate Word to View
                 $data = $this->getTranslate($data);
     		// waitting Form
     		$data['generate_num_waitting'] = $this->WaittingModel->genNumber();
@@ -152,7 +152,7 @@ class Patients extends Securities {
 	        $this->WardModel->setStart(0);
 	        $this->WardModel->setLimit(0);
 	        $query_user = $this->UserModel->getAllUser();
-	        $data['drop_user'] = $this->queryDropDownMenu($query_user,$label_id='0',$label_name='-- --',$id='uid',$value='username',$value2='');           
+	        $data['drop_user'] = $this->queryDropDownMenu($query_user,$label_id='0',$label_name='-- --',$id='uid',$value='username',$value2='');
 
             // Load View
             $this->LoadView('template/header',$data);
@@ -161,7 +161,7 @@ class Patients extends Securities {
             $this->LoadView('patients/list_visited');
             $this->LoadView('template/footer');
         }
-        
+
         function save_patient(){
 
 		// Check Session
@@ -194,18 +194,18 @@ class Patients extends Securities {
 		$this->PatientModel->setWorkstation($this->getPost('workstation_id'));
 
 		$this->PatientModel->setNssfCode($this->getPost('nssf_code'));
-		$this->PatientModel->setInsuranceCode($this->getPost('insurance_code'));		
+		$this->PatientModel->setInsuranceCode($this->getPost('insurance_code'));
 		$this->PatientModel->setIdPoorCode($this->getPost('id_poor_code'));
 
 		$this->PatientModel->setDistrict($this->getPost('patient_district'));
 		$this->PatientModel->setProvince($this->getPost('patient_province'));
-		
+
 		$this->PatientModel->setPulseRate($this->getPost('pulse'));
 		$this->PatientModel->setHeartRate($this->getPost('heart'));
 		$this->PatientModel->setBloodPressure($this->getPost('blood_pressure'));
 		$this->PatientModel->setRespiratoryRate($this->getPost('respiratory'));
 		$this->PatientModel->setTemperature($this->getPost('temperature'));
-	 
+
 		$this->PatientModel->setPatientStatus($this->getPost('status_id'));
 		// waitting
 	   	$this->WaittingModel->setId($this->getPost('waitting_id'));
@@ -223,11 +223,11 @@ class Patients extends Securities {
 		if($this->getPost('pregnancy') == '1'){
 			$this->PatientModel->setPregnancy('1');
 		}
-		
+
 		if($this->getPost('pre_pregnancy') == '1'){
 			$this->PatientModel->setPrePregnancy('1');
 		}
-		
+
 		if($this->getPost('breast_feeding') == '1'){
 			$this->PatientModel->setBreastFeeding('1');
 		}
@@ -237,11 +237,11 @@ class Patients extends Securities {
 		}else{
 			$this->PatientModel->setPatientGender('m');
 		}
-		
+
 		if($this->getPost('is_heart') == '1'){
 			$this->PatientModel->setIsHeart('1');
 		}
-		
+
 		if($this->getPost('is_diabetes') == '1'){
 			$this->PatientModel->setIsDiabetes('1');
 		}
@@ -260,22 +260,22 @@ class Patients extends Securities {
 		if($this->getPost('is_endocrine') == '1'){
 			$this->PatientModel->setIsEndocrine('1');
 		}
-		
+
 		if($this->getPost('is_neuro_sys') == '1'){
 			$this->PatientModel->setIsNeuroSys('1');
 		}
-		
+
 		if($this->getPost('is_lung') == '1'){
 			$this->PatientModel->setIsLung('1');
 		}
 		if($this->getPost('is_aap') == '1'){
 			$this->PatientModel->setIsAllergy('1');
 		}
-		
+
 		if($this->getPost('insurance') == '1'){
 			$this->PatientModel->setInsurance($this->getPost('insurance'));
 		}
-		
+
 		if($this->getPost('id_poor') == '1'){
 		        $this->PatientModel->setIdPoor($this->getPost('id_poor'));
 		}
@@ -290,230 +290,230 @@ class Patients extends Securities {
 			$this->VisitorModel->setPatientId($this->PatientModel->getPatientIdByCode());
 
 					// start Adult
-					if($this->getPost('opd') == 1){	
+					if($this->getPost('opd') == 1){
 					    $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					    $this->VisitorModel->setVisitorEnrol();
 					    $this->VisitorModel->add();
 					}
-							// if($this->getPost('o_delivery_normal') == 1){	
+							// if($this->getPost('o_delivery_normal') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_delivery_normal();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_c_section') == 1){	
+							// if($this->getPost('o_c_section') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_c_section();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_delivery_complication') == 1){	
+							// if($this->getPost('o_delivery_complication') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_delivery_complication();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_maternity') == 1){	
+							// if($this->getPost('o_maternity') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_maternity();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_medicine') == 1){	
+							// if($this->getPost('o_medicine') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_medicine();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_gyn') == 1){	
+							// if($this->getPost('o_gyn') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_gyn();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_surgery') == 1){	
+							// if($this->getPost('o_surgery') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_surgery();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_infertility') == 1){	
+							// if($this->getPost('o_infertility') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_infertility();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_orl') == 1){	
+							// if($this->getPost('o_orl') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_orl();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_ent') == 1){	
+							// if($this->getPost('o_ent') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_ent();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_dermatology') == 1){	
+							// if($this->getPost('o_dermatology') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_dermatology();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_bone') == 1){	
+							// if($this->getPost('o_bone') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_bone();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_digestive') == 1){	
+							// if($this->getPost('o_digestive') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_digestive();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_cardiaque') == 1){	
+							// if($this->getPost('o_cardiaque') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_cardiaque();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_ipd_others') == 1){	
+							// if($this->getPost('o_ipd_others') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setO_ipd_others();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('o_icu') == 1){	
+							// if($this->getPost('o_cancer') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
-							//     $this->VisitorModel->setO_icu();
+							//     $this->VisitorModel->setO_cancer();
 							//     $this->VisitorModel->add();
 							// }
-					// if($this->getPost('ipd') == 1){	
+					// if($this->getPost('ipd') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setVisitorStay();
 					//     $this->VisitorModel->add();
 					// }
-							// if($this->getPost('i_maternity') == 1){	
+							// if($this->getPost('i_maternity') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_maternity();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_medicine') == 1){	
+							// if($this->getPost('i_medicine') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_medicine();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_gyn') == 1){	
+							// if($this->getPost('i_gyn') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_gyn();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_surgery') == 1){	
+							// if($this->getPost('i_surgery') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_surgery();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_infertility') == 1){	
+							// if($this->getPost('i_infertility') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_infertility();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_orl') == 1){	
+							// if($this->getPost('i_orl') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_orl();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_ent') == 1){	
+							// if($this->getPost('i_ent') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_ent();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_dermatology') == 1){	
+							// if($this->getPost('i_dermatology') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_dermatology();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_bone') == 1){	
+							// if($this->getPost('i_bone') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_bone();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_digestive') == 1){	
+							// if($this->getPost('i_digestive') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_digestive();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_cardiaque') == 1){	
+							// if($this->getPost('i_cardiaque') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_cardiaque();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('i_ipd_others') == 1){	
+							// if($this->getPost('i_ipd_others') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setI_ipd_others();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('parmacy') == 1){	
+							// if($this->getPost('parmacy') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setParmacy();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('echo_ovaries') == 1){	
+							// if($this->getPost('echo_ovaries') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setEcho_ovaries();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('echoMaternity') == 1){	
+							// if($this->getPost('echoMaternity') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setEchoMaternity();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('obExamine') == 1){	
+							// if($this->getPost('obExamine') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setObExamine();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('anc') == 1){	
+							// if($this->getPost('anc') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setAnc();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('ivg') == 1){	
+							// if($this->getPost('ivg') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setIvg();
 							//     $this->VisitorModel->add();
 							// }
-							// if($this->getPost('perine') == 1){	
+							// if($this->getPost('perine') == 1){
 							//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 							//     $this->VisitorModel->setPerine();
 							//     $this->VisitorModel->add();
 							// }
-							
+
 
 					// start Support Service
-					// if($this->getPost('labo') == 1){	
+					// if($this->getPost('labo') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setLabo();
 					//     $this->VisitorModel->add();
 					// }
-					// if($this->getPost('xray') == 1){	
+					// if($this->getPost('xray') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setXray();
 					//     $this->VisitorModel->add();
 					// }
-					// if($this->getPost('ctscan') == 1){	
+					// if($this->getPost('ctscan') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setCtscan();
 					//     $this->VisitorModel->add();
 					// }
-					// if($this->getPost('anapat') == 1){	
+					// if($this->getPost('anapat') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setAnapat();
 					//     $this->VisitorModel->add();
 					// }
-					// if($this->getPost('hpv') == 1){	
+					// if($this->getPost('hpv') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setHpv();
 					//     $this->VisitorModel->add();
 					// }
-					// if($this->getPost('colpo') == 1){	
+					// if($this->getPost('colpo') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setColpo();
 					//     $this->VisitorModel->add();
 					// }
-					// if($this->getPost('thinprep') == 1){	
+					// if($this->getPost('thinprep') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setThinprep();
 					//     $this->VisitorModel->add();
 					// }
-					// if($this->getPost('papsmear') == 1){	
+					// if($this->getPost('papsmear') == 1){
 					//     $this->logs('3',$this->PatientModel->getPatientIdByCode());
 					//     $this->VisitorModel->setPapsmear();
 					//     $this->VisitorModel->add();
@@ -532,7 +532,7 @@ class Patients extends Securities {
 //     $this->VisitorModel->add();
 //     redirect('diagnostics');
 // }
-                        
+
             		//mkdir($this->getBasePath().'photos/', 0777, true);
 		}else{
 			$this->PatientModel->update();
@@ -556,25 +556,25 @@ class Patients extends Securities {
 			/*if ($count_code > 0) {
 				redirect ( 'patients/edit/' . $id );
 			}*/
-			
+
             // Write Log
             //$this->logs('3', 'Try to access application with user: '.$this->getPost('unit_name').' / '.$this->getPost('unit_desc'));
-            
-	}  
+
+	}
 
 		// Set Neo
 	function patient_neo(){
 	    // Check Session
-	    $this->checkSession();	    
+	    $this->checkSession();
 	    $this->NeonatalModel->setPatientId($this->getUrlSegment3());
 	    $this->NeonatalModel->add();
-	}  
+	}
         // Set Visitor Opd
 	function patient_pharm(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->VisitorModel->setPatientId($this->getUrlSegment3());
 	    $this->VisitorModel->setVisitorPharmacy();
 	    $this->VisitorModel->getVisitorStayDate($this->getCurrentDatetime());
@@ -583,81 +583,81 @@ class Patients extends Securities {
 
 	// Set Visitor Opd
 	function patient_opd(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
 	    // update patient opd checked
 	    $this->PatientModel->setId($this->getUrlSegment3());
 		$this->PatientModel->updatePatientReady();
-	    
+
 	    $this->VisitorModel->setPatientId($this->getUrlSegment3());
 	    $this->VisitorModel->setVisitorEnrol();
 	    $this->VisitorModel->getVisitorStayDate($this->getCurrentDatetime());
 	    $this->VisitorModel->add();
 	}
-        
-        
+
+
 
 	// Set Visitor Ipd
 	function patient_ipd(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
 	    // update patient ipd checked
 	    $this->PatientModel->setId($this->getUrlSegment3());
 	    $this->PatientModel->updatePatientReady();
-	    
+
 	    $this->VisitorModel->setPatientId($this->getUrlSegment3());
 	    $this->VisitorModel->setVisitorStayDate($this->getCurrentDatetime());
 	    $this->VisitorModel->setVisitorStay();
 	    $this->VisitorModel->add();
 	}
-        
-        function get_patient_list(){  
-	    
+
+        function get_patient_list(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setSearch($this->getPost('search_data'));
 	    /*$this->PatientModel->setStart($this->getPost('page_start'));
 	    $this->PatientModel->setLimit($this->getPost('page_limit'));*/
             $datas = $this->PatientModel->getAllPatient();
-	    
+
             $this->restData($datas);
 	}
-	
-	function get_patient_visited_list(){  
-	    
+
+	function get_patient_visited_list(){
+
 	    // Check Session
 	    $this->checkSession();
-            
+
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
             $this->VisitorModel->setVisitorStatusSearch($this->getPost('ipd').','.$this->getPost('opd').','.$this->getPost('pharm'));
             $datas = $this->VisitorModel->getAllVisited();
-	    
+
             $this->restData($datas);
 	}
-		
-	// Delete Patients 
+
+	// Delete Patients
         function delete_patient(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-            
+
             $this->PatientModel->setId($this->getUrlSegment3());
             $this->PatientModel->delete();
-            
+
             // Write Log in to log file
             $this->logs('3', 'Delete '.$this->getUrlSegment1().' Patient From List');
             $this->logs('4', 'Delete '.$this->getUrlSegment1().' Patient From List');
         }
-	
+
 	// #################### JSON DATA ####################### //
-	
+
 	function get_count_patient(){
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $datas = $this->PatientModel->getCountAllPatient();
 	    $this->restData($datas);
 	}
@@ -668,17 +668,17 @@ class Patients extends Securities {
 	    $datas = $this->PatientModel->getCountAllPatientView();
 	    $this->restData($datas);
 	}
-		
-	function get_patient_info_by_id_json(){ 
-	    
+
+	function get_patient_info_by_id_json(){
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
             $this->PatientModel->setId($this->getUrlSegment3());
             $datas = $this->PatientModel->getEditPatientById();
             $this->restData($datas);
 	}
-	
+
 	function get_patient_watting_byid(){
 	    // Check Session
 	    $this->checkSession();
@@ -686,30 +686,30 @@ class Patients extends Securities {
         $datas = $this->PatientModel->getWaittingPatientById();
         $this->restData($datas);
 	}
-	
+
 	function get_patient_id_by_code(){
-	    
+
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setPatientCode(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getPatientIdByCode();
             $this->restData($datas);
 	}
-	
+
 	function occupation_auto_complete(){
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setSearch(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getSearchByName();
             $this->restData($datas);
 	}
-		
+
 	function patient_auto_complete(){
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setName(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getPatientInfoByName();
             $this->restData($datas);
@@ -718,66 +718,66 @@ class Patients extends Securities {
 	function get_patient_json(){
 		// Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setSearch(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getPatientInfo();
             $this->restData($datas);
 	}
-	
+
 	function district_auto_complete(){
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $arr = explode("_", urldecode($this->getUrlSegment3()));
-	    
+
 	    $this->PatientModel->setSearch($arr[0]);
 	    $this->PatientModel->setId($arr[1]);
 	    $datas = $this->PatientModel->getSearchDistrict();
             $this->restData($datas);
-	    
+
 	    $this->logs('3', 'Province ID '.$arr[1]);
 	}
-	
+
 	function province_auto_complete(){
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setSearch(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getSearchProvince();
             $this->restData($datas);
 	}
-	
+
 	function get_district_json(){
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setSearch(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getDistrictInfo();
             $this->restData($datas);
 	}
-	
+
 	function get_province_json(){
 	    // Check Session
 	    $this->checkSession();
-	    
+
 	    $this->PatientModel->setSearch(urldecode($this->getUrlSegment3()));
 	    $datas = $this->PatientModel->getProvinceInfo();
             $this->restData($datas);
 	}
 	// update room to patient by waitting form
-	function updateRoomPatient(){   
+	function updateRoomPatient(){
 	    $this->PatientModel->setRoomId($this->getPost('waitting_room'));
 	    $this->PatientModel->setId($this->getPost('waitting_patient_id'));
 	    $datas = $this->PatientModel->updateRoomPatient();
 	}
-        
+
         // #################### Translate ####################### //
         // Translate to View
         function getTranslate($data = null){
-            
+
             // Define Default Language from Security to view
             @$data = $this->defTranslation($data);
-            
+
             // Translate
             $data['edit'] = $this->Lang('update');
             $data['delete'] = $this->Lang('delete');
@@ -807,7 +807,7 @@ class Patients extends Securities {
             $data['idCard'] = $this->Lang('id_card');
 		$data['lang_nssf_code'] = $this->Lang('nssf_code');
 		$data['lang_insurance_code'] = $this->Lang('insurance_code');
-		$data['lang_id_poor_code'] = $this->Lang('id_poor_code');            
+		$data['lang_id_poor_code'] = $this->Lang('id_poor_code');
             $data['assuranceCard'] = $this->Lang('assurance_card');
             $data['assuranceCompany'] = $this->Lang('assurance_company');
             $data['motorCard'] = $this->Lang('motor_card');
@@ -852,7 +852,7 @@ class Patients extends Securities {
 
             return $data;
         }
-        
+
 	// function family_auto_complete(){
 	//     // Check Session
 	//     $this->checkSession();

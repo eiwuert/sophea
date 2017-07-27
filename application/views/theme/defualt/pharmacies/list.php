@@ -172,7 +172,7 @@
 					    <th width="25%">ឈ្មោះថ្មាំ</th>
 					    <th width="27%">ពណ៌នា</th>
 					    <th width="10%">ចំនួន</th>
-                                            <th width="10%">បញ្ចុះ</th>
+              <th width="10%">បញ្ចុះ</th>
 					    <th width="15%">តម្លៃ</th>
 					</tr>
 				    </thead>
@@ -202,7 +202,7 @@
 					    <th width="5%">លេខ</th>
 					    <th width="25%">សេវា</th>
 					    <th width="37%">ពណ៌នា</th>
-                                            <th width="10%">បញ្ចុះ</th>
+              <th width="10%">បញ្ចុះ</th>
 					    <th width="13%">តម្លៃ</th>
 					</tr>
 				    </thead>
@@ -312,19 +312,17 @@
     var patientId = "";
     var discount = 0;
     $(document).ready(function(){
-	$('#searchPatient').removeClass("has-error");
-	$('#errMsg').css("display","none");
-	$('#pharm_row').css('display','none');
-	$('#form_row').css('display','none');
-	$('#form_table').css('display','block');
+				$('#searchPatient').removeClass("has-error");
+				$('#errMsg').css("display","none");
+				$('#pharm_row').css('display','none');
+				$('#form_row').css('display','none');
+				$('#form_table').css('display','block');
         getVisitorList();
-
         $('#inButtonPrint').click(function() {
             printInvoice(visitId);
         });
     });
-
-     function getSearch(){
+    function getSearch(){
         var e = event.keyCode;
         if(e == 13){
             var ids = "";
@@ -332,13 +330,11 @@
             addPatient(vals.split("=")[0]);
         }
     }
-
     $("#btn_create").click(function(){
 	    $('#pharm_row').css('display','block');
 	    $('#form_row').css('display','none');
 	    $('#form_table').css('display','none');
     });
-
     function autoMedicine(){
 				var dinput = $( 'input:focus' ).val();
 				var url = <?php echo '"'.$base_url.'index.php/products/product_auto_complete/"';?>;
@@ -351,74 +347,68 @@
 				    $( '#mPrice' ).val(res[3]);
 				}
     }
-
     function autoPatient(){
-	var dinput = $( 'input:focus' ).val();
-	var url = <?php echo '"'.$base_url.'index.php/patients/patient_auto_complete/"';?>;
-	var soc = String(url+dinput);
-	$( 'input:focus' ).autocomplete({source: soc});
-	var res = $( 'input:focus' ).val().split("=");
-	if(event.keyCode == 13){
-	    var ids = '';
-	    $.post("<?php echo $base_url;?>index.php/patients/get_patient_id_by_code/" + res[0],function (data){
-		if(parseInt(data) > 0){
-		    patientId = data.toString();
-		    $.post("<?php echo $base_url;?>index.php/patients/patient_pharm/" + data);
-		    addPatient(data);
-		    addMedicine();
-		    $('#searchPatient').removeClass("has-error");
-		    $('#errMsg').css("display","none");
-		}else{
-		    $('#searchPatient').addClass("has-error");
-		    $('#errMsg').css("display","block");
-		}
-	    });
-	}
+				var dinput = $( 'input:focus' ).val();
+				var url = <?php echo '"'.$base_url.'index.php/patients/patient_auto_complete/"';?>;
+				var soc = String(url+dinput);
+				$( 'input:focus' ).autocomplete({source: soc});
+				var res = $( 'input:focus' ).val().split("=");
+				if(event.keyCode == 13){
+				    var ids = '';
+				    $.post("<?php echo $base_url;?>index.php/patients/get_patient_id_by_code/" + res[0],function (data){
+					if(parseInt(data) > 0){
+					    patientId = data.toString();
+					    $.post("<?php echo $base_url;?>index.php/patients/patient_pharm/" + data);
+					    addPatient(data);
+					    addMedicine();
+					    $('#searchPatient').removeClass("has-error");
+					    $('#errMsg').css("display","none");
+					}else{
+					    $('#searchPatient').addClass("has-error");
+					    $('#errMsg').css("display","block");
+					}
+				    });
+				}
     }
-
     function addPatient(code){
-	$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_id_by_patient_json/" + code,function (data){
-	    visitId = data.toString();
-	    $.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/" + data);
-	});
+				$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_id_by_patient_json/" + code,function (data){
+				    visitId = data.toString();
+				    $.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/" + data);
+				});
     }
-
     function getMedicine(vid){
-	var i = 0;
-	var htmlView = '';
-	$.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_list/"+vid,function (data,status){
-	    $.each(data, function(key,value) {
-		i = i + 1;
-		htmlView = '<span class="handOver" title="<?php echo @$delete;?>" onclick="deleteMedicine('+ value.service_items_id +');"><i class="fa fa-trash action-btn danger"></i></span>';
-		var totalss =(parseFloat(value.items_qty)*parseFloat(value.items_prices)) - parseFloat(value.items_discount);
-		startTrTd();
-		    setTd(htmlView);
-		    setTd(i);
-		    setTd(value.products_name);
-		    setTd(value.items_qty);
-		    setTd(value.items_prices);
-		    setTd(value.items_discount);
-		    setTd(totalss);
-		stopTrTd();
-	    });
-	    viewRows("pharm_his");
-	    addMedicine();
-	});
+				var i = 0;
+				var htmlView = '';
+				$.post("<?php echo $base_url;?>index.php/diagnostics/get_medicine_list/"+vid,function (data,status){
+				    $.each(data, function(key,value) {
+								i = i + 1;
+								htmlView = '<span class="handOver" title="<?php echo @$delete;?>" onclick="deleteMedicine('+ value.service_items_id +');"><i class="fa fa-trash action-btn danger"></i></span>';
+								var totalss =(parseFloat(value.items_qty)*parseFloat(value.items_prices)) - parseFloat(value.items_discount);
+								startTrTd();
+								    setTd(htmlView);
+								    setTd(i);
+								    setTd(value.products_name);
+								    setTd(value.items_qty);
+								    setTd(value.items_prices);
+								    setTd(value.items_discount);
+								    setTd(totalss);
+								stopTrTd();
+				    });
+				    viewRows("pharm_his");
+				    addMedicine();
+				});
     }
-
     function addMedicine(){
-	    var htmlView = '<tr>';
-			htmlView += '<td  colspan="3" style="text-align:center;"><input type="text" id="m_medicine" style="text-align:center;" class="form-control" onkeyup="autoMedicine();"></td>';
-			htmlView += '<td style="text-align:center;"><input type="text" id="mQty" value=""  style="text-align:center;" class="form-control"></td>';
-			htmlView += '<td style="text-align:center;"><input type="text" id="mPrice" value=""  style="text-align:center;" class="form-control"></td>';
-			htmlView += '<td style="text-align:center;"><input type="text" id="mDiscount" value="0"  style="text-align:center;" class="form-control"></td>';
-			htmlView += '<td style="text-align:center;">';
-			htmlView += '<span class="handOver" onclick="saveData();"><i class="fa fa-save action-btn primary"></i></span>';
-			htmlView += '</td></tr>';
-
-	    $('#pharm_his').append(htmlView);
+		    var htmlView = '<tr>';
+				htmlView += '<td  colspan="3" style="text-align:center;"><input type="text" id="m_medicine" style="text-align:center;" class="form-control" onkeyup="autoMedicine();"></td>';
+				htmlView += '<td style="text-align:center;"><input type="text" id="mQty" value=""  style="text-align:center;" class="form-control"></td>';
+				htmlView += '<td style="text-align:center;"><input type="text" id="mPrice" value=""  style="text-align:center;" class="form-control"></td>';
+				htmlView += '<td style="text-align:center;"><input type="text" id="mDiscount" value="0"  style="text-align:center;" class="form-control"></td>';
+				htmlView += '<td style="text-align:center;">';
+				htmlView += '<span class="handOver" onclick="saveData();"><i class="fa fa-save action-btn primary"></i></span>';
+				htmlView += '</td></tr>';
+		    $('#pharm_his').append(htmlView);
     }
-
     function saveData(){
 	    var v1 = $('#m_medicine').val();
 	    var v2 = $('#mQty').val();
@@ -456,7 +446,7 @@
 				    },function(data,status){
 						$.each(data, function(key,value) {
 
-								if(value.neonatal_id !== ''){
+								if(value.neonatal_id !== null){
 										var pay_code = value.neonatal_code;
 										var pay_kh_name = value.neonatal_en_name;
 										var pay_register_date = value.neonatal_date_in;
@@ -473,7 +463,7 @@
 
 											var visitorStatus = value.visitors_status;
 											var opdArr = ['1','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','69','70','71','72','73','74','75','76','77','78','79','80','81','82','83','84','104','105','86','87','88','89','90','91','92','93','94','96','98','99','100','101','107'];
-											var ipdArr = ['2','36','37','38','51','52','53','54','55','56','57','58','39','40','41','42','43','44','45','46','47','48','49','50','108','109'];
+											var ipdArr = ['2','36','37','38','51','52','53','54','55','56','57','58','39','40','41','42','43','44','45','46','47','48','49','50','59','108','109'];
 											if($.inArray(visitorStatus, opdArr) > -1){
 												status = "Enrol";
 											}else if($.inArray(visitorStatus, ipdArr) > -1){
@@ -483,10 +473,13 @@
 											}
 											htmlView += '<td>' + status + '</td>';
 											htmlView += '<td style="text-align:center;">';
+													if($.inArray(visitorStatus, ipdArr) > -1){
+															htmlView +='<span class="handOver"><i class="fa fa-info action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
+													}
 											    htmlView +='<span class="handOver" onclick="payInvoice(' + value.visitors_id + ');"><i class="fa fa-money action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
 											    htmlView +='<span class="handOver" onclick="printInvoice(' + value.visitors_id + ');"><i class="fa fa-print action-btn primary"></i></span>&nbsp;&nbsp;&nbsp;';
 											    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.patient_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp;&nbsp;';
-								          htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+								          htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ',\'' + value.visitors_patient_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
 											htmlView += '</td>';
 							  htmlView += '</tr>';
 						});
@@ -498,36 +491,34 @@
     }
 
     //visitor Leave
-    function visitorLeave(ids){
-				$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){getVisitorList();});
+    function visitorLeave(ids, code){
+				$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+code,{visitor_patient_code: code},function(data,status){getVisitorList();});
     }
 
     function loadPayHis(){
 				var htmlView = '';
 				var i = 0;
 				var hpaid = 0;
-	$.post("<?php echo $base_url;?>index.php/pharmacies/get_visitor_payment_history/"+visitId,function(data){
-		$.each(data, function(key,value) {
-                    var paidAmount = 0;
-                    if(!isNaN(value.payments_amount)){
-                        paidAmount = value.payments_amount;
-                    }
+				$.post("<?php echo $base_url;?>index.php/pharmacies/get_visitor_payment_history/"+visitId,function(data){
+							$.each(data, function(key,value) {
+                  var paidAmount = 0;
+                  if(!isNaN(value.payments_amount)){
+                      paidAmount = value.payments_amount;
+                  }
 
-                    discount = parseFloat(discount) + parseFloat(value.payments_discount);
-
-		    hpaid = parseFloat(hpaid) + (parseFloat(paidAmount)- parseFloat(value.payments_discount));
-		    i = i + 1;
-		    htmlView += '<tr>';
-				htmlView += '<td>' + i + '</td>';
-				htmlView += '<td>' + value.payments_date + '</td>';
-        htmlView += '<td>' + value.payments_discount + '</td>';
-				htmlView += '<td>' + value.payments_amount + '</td>';
-				htmlView += '<td>' + value.payments_note + '</td>';
-		    htmlView += '</tr>';
-		});
-
-		mainPaid = hpaid;
-		$("#pay_his").html(htmlView);
+					        discount = parseFloat(discount) + parseFloat(value.payments_discount);
+							    hpaid = parseFloat(hpaid) + (parseFloat(paidAmount)- parseFloat(value.payments_discount));
+							    i = i + 1;
+							    htmlView += '<tr>';
+									htmlView += '<td>' + i + '</td>';
+									htmlView += '<td>' + value.payments_date + '</td>';
+					        htmlView += '<td>' + value.payments_discount + '</td>';
+									htmlView += '<td>' + value.payments_amount + '</td>';
+									htmlView += '<td>' + value.payments_note + '</td>';
+							    htmlView += '</tr>';
+							});
+							mainPaid = hpaid;
+							$("#pay_his").html(htmlView);
         });
     }
 
@@ -572,77 +563,71 @@
     }
 
     function frm_data(vid){
+				loadPayHis();
+				$('#totalAmount').val("");
+				$('#payment_amount').val("");
+				$('#remain_amount').val("");
+				$('#payment_desc').val("");
 
-	loadPayHis();
+				var total = 0;
+				var discounts = 0;
+				var hts1 = '';
+				var hts2 = '';
+				var i = 0;
+				var j = 0;
+				visitId = vid;
+				$('#visitor_id').val(vid);
+				$.post("<?php echo $base_url;?>index.php/prescriptions/get_form_pay_data/10_"+vid,function (data){
+				    $.each(data, function(key,value) {
+								total += (parseFloat(value.items_qty) * parseFloat(value.items_prices));
+								discounts += parseFloat(value.items_discount);
+								if(value.types_id == '2'){
+								    i = i + 1;
+								    hts1 += '<tr>';
+												hts1 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="deleteItem('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span>&nbsp;&nbsp;&nbsp;<span title="<?php echo @$edit;?>" onclick="editMedicine('+ value.service_items_id +');"><i class="fa fa-edit primary"></i></span></td>';
+									      /*hts1 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="deleteItem('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span></td>';*/
+												hts1 += '<td class="myCenter">'+i+'</td>';
+												hts1 += '<td class="myLeft">'+value.products_name+'</td>';
+												hts1 += '<td class="myLeft">'+value.items_detail+'</td>';
+												hts1 += '<td class="myLeft"><span id="lblMQty">'+value.items_qty+'</span><input type="text" id="mQty" style="text-align:center; display: none;" class="form-control"></td>';
+												hts1 += '<td class="myLeft">'+value.items_discount+'$</td>';
+									      hts1 += '<td class="myLeft">'+(parseFloat(value.items_qty) * parseFloat(value.items_prices)).toFixed(2)+'$</td>';
+								    hts1 += '</tr>';
+								}else{
+								    j = j + 1;
+								    hts2 += '<tr>';
+								        hts2 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="editMedicine('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span>&nbsp;&nbsp;&nbsp;<span title="<?php echo @$edit;?>" onclick="editMedicine('+ value.service_items_id +');"><i class="fa fa-edit primary"></i></span></td>';
+												/*hts2 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="deleteItem('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span></td>';*/
+												hts2 += '<td class="myCenter">'+j+'</td>';
+												hts2 += '<td class="myLeft">'+value.products_name+'</td>';
+												hts2 += '<td class="myLeft">'+value.items_detail+'</td>';
+									                        hts2 += '<td class="myLeft">'+value.items_discount+'$</td>';
+												hts2 += '<td class="myLeft">'+(parseFloat(value.items_qty) * parseFloat(value.items_prices))+'$</td>';
+								    hts2 += '</tr>';
+								}
+				    });
 
-	$('#totalAmount').val("");
-	$('#payment_amount').val("");
-	$('#remain_amount').val("");
-	$('#payment_desc').val("");
+				    hts2 += '<tr class="myTopBorder">';
+								hts2 += '<td colspan="5" class="myRight myBold">សរុប: </td>';
+								hts2 += '<td class="myLeft myBold">'+(parseFloat(total)).toFixed(2)+'$</td>';
+				    hts2 += '</tr>';
 
-	var total = 0;
-	var discounts = 0;
-	var hts1 = '';
-	var hts2 = '';
-	var i = 0;
-	var j = 0;
-	visitId = vid;
+				    hts2 += '<tr>';
+								hts2 += '<td colspan="5" class="myRight myBold">បញ្ចុះតម្លៃ: </td>';
+								hts2 += '<td class="myLeft myBold">'+(parseFloat(discounts) + parseFloat(discount)).toFixed(2)+'$</td>';
+				    hts2 += '</tr>';
 
-	$('#visitor_id').val(vid);
+				    hts2 += '<tr>';
+								hts2 += '<td colspan="5" class="myRight myBold">សរុប: </td>';
+								hts2 += '<td class="myLeft myBold">'+(parseFloat(total) - (parseFloat(discounts) + parseFloat(discount))).toFixed(2)+'$</td>';
+				    hts2 += '</tr>';
 
+						mainTotal = parseFloat(total) - (parseFloat(mainPaid) + (parseFloat(discounts) + parseFloat(discount)));
 
-	$.post("<?php echo $base_url;?>index.php/prescriptions/get_form_pay_data/10_"+vid,function (data){
-	    $.each(data, function(key,value) {
-		total += (parseFloat(value.items_qty) * parseFloat(value.items_prices));
-		discounts += parseFloat(value.items_discount);
-		if(value.types_id == '2'){
-		    i = i + 1;
-		    hts1 += '<tr>';
-			hts1 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="deleteItem('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span>&nbsp;&nbsp;&nbsp;<span title="<?php echo @$edit;?>" onclick="editMedicine('+ value.service_items_id +');"><i class="fa fa-edit primary"></i></span></td>';
-                        /*hts1 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="deleteItem('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span></td>';*/
-			hts1 += '<td class="myCenter">'+i+'</td>';
-			hts1 += '<td class="myLeft">'+value.products_name+'</td>';
-			hts1 += '<td class="myLeft">'+value.items_detail+'</td>';
-			hts1 += '<td class="myLeft"><span id="lblMQty">'+value.items_qty+'</span><input type="text" id="mQty" style="text-align:center; display: none;" class="form-control"></td>';
-			hts1 += '<td class="myLeft">'+value.items_discount+'$</td>';
-                        hts1 += '<td class="myLeft">'+(parseFloat(value.items_qty) * parseFloat(value.items_prices)).toFixed(2)+'$</td>';
-		    hts1 += '</tr>';
-		}else{
-		    j = j + 1;
-		    hts2 += '<tr>';
-                        hts2 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="editMedicine('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span>&nbsp;&nbsp;&nbsp;<span title="<?php echo @$edit;?>" onclick="editMedicine('+ value.service_items_id +');"><i class="fa fa-edit primary"></i></span></td>';
-			/*hts2 += '<td class="myCenter handOver"><span title="<?php echo @$delete;?>" onclick="deleteItem('+ value.service_items_id +');"><i class="fa fa-trash danger"></i></span></td>';*/
-			hts2 += '<td class="myCenter">'+j+'</td>';
-			hts2 += '<td class="myLeft">'+value.products_name+'</td>';
-			hts2 += '<td class="myLeft">'+value.items_detail+'</td>';
-                        hts2 += '<td class="myLeft">'+value.items_discount+'$</td>';
-			hts2 += '<td class="myLeft">'+(parseFloat(value.items_qty) * parseFloat(value.items_prices))+'$</td>';
-		    hts2 += '</tr>';
-		}
-
-	    });
-
-	    hts2 += '<tr class="myTopBorder">';
-		hts2 += '<td colspan="5" class="myRight myBold">សរុប: </td>';
-		hts2 += '<td class="myLeft myBold">'+(parseFloat(total)).toFixed(2)+'$</td>';
-	    hts2 += '</tr>';
-
-	    hts2 += '<tr>';
-		hts2 += '<td colspan="5" class="myRight myBold">បញ្ចុះតម្លៃ: </td>';
-		hts2 += '<td class="myLeft myBold">'+(parseFloat(discounts) + parseFloat(discount)).toFixed(2)+'$</td>';
-	    hts2 += '</tr>';
-
-	    hts2 += '<tr>';
-		hts2 += '<td colspan="5" class="myRight myBold">សរុប: </td>';
-		hts2 += '<td class="myLeft myBold">'+(parseFloat(total) - (parseFloat(discounts) + parseFloat(discount))).toFixed(2)+'$</td>';
-	    hts2 += '</tr>';
-
-	    mainTotal = parseFloat(total) - (parseFloat(mainPaid) + (parseFloat(discounts) + parseFloat(discount)));
-
-	    $('#m_med').html(hts1);
-	    $('#m_ser').html(hts2);
-	    $('#totalAmount').val(mainTotal.toFixed(2)+'$');
-	});
+				    $('#m_med').html(hts1);
+				    $('#m_ser').html(hts2);
+				    $('#totalAmount').val(mainTotal.toFixed(2)+'$');
+				});
     }
 
     function payInvoice(ids){
@@ -679,22 +664,20 @@
 					var paidAmount = $('#payment_amount').val();
 					var discountAmount = $('#discount_amount').val();
 					var paidDesc = $('#payment_desc').val();
-
-						/*alert(paidAmount+":"+paidDesc+":"+visitId);*/
-						$.post("<?php echo $base_url;?>index.php/pharmacies/paid_service/"+visitId,{amount: paidAmount, discount: discountAmount, desc: paidDesc},function(data) {
-						    if(mainTotal == 0){
-							$('#form_row').css('display','block');
-							$('#pharm_row').css('display','none');
-							$('#form_table').css('display','none');
-						    }else{
-							$('#form_row').css('display','none');
-							$('#pharm_row').css('display','none');
-							$('#form_table').css('display','block');
-						    }
-
-						    /*getVisitorList();*/
-					            payInvoice(visitId);
-						});
+					/*alert(paidAmount+":"+paidDesc+":"+visitId);*/
+					$.post("<?php echo $base_url;?>index.php/pharmacies/paid_service/"+visitId,{amount: paidAmount, discount: discountAmount, desc: paidDesc},function(data) {
+						  if(mainTotal == 0){
+									$('#form_row').css('display','block');
+									$('#pharm_row').css('display','none');
+									$('#form_table').css('display','none');
+					    }else{
+									$('#form_row').css('display','none');
+									$('#pharm_row').css('display','none');
+									$('#form_table').css('display','block');
+					    }
+					    /*getVisitorList();*/
+							payInvoice(visitId);
+					});
     }
 
 </script>

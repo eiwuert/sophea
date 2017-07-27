@@ -80,7 +80,7 @@ class Visitors extends Securities {
 	    $this->VisitorModel->update();
 
 	    $this->PatientModel->setId($this->getPost('patient_id'));
-		$this->PatientModel->updatePatientReady();
+			$this->PatientModel->updatePatientReady();
 	}
 
 	// Delete Product
@@ -101,7 +101,7 @@ class Visitors extends Securities {
 	function get_visitor_list_by_patient_id(){
 	    // Check Session
 	    $this->checkSession();
-	    $this->VisitorModel->setPatientId($this->getUrlSegment3());
+	    $this->VisitorModel->setCode($this->getUrlSegment3());
 	    $datas = $this->VisitorModel->getPatientVisit();
 	    $this->restData($datas);
 	}
@@ -161,8 +161,6 @@ class Visitors extends Securities {
       $datas = $this->PatientModel->getPatientById();
       $this->restData($datas);
 	}
-
-
 
   function get_visitor_history_by_id_json(){
 	    // Check Session

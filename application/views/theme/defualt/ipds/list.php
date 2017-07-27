@@ -187,25 +187,24 @@
         $(document).ajaxStart(function(){
             $("#wait").css("display", "block");
         });
-		var status = '';
+				var status = '';
         var htmlView = '';
         var i = 0;
         var stRow = '';
         var jq_get_list = "<?php echo $jq_get_list ?>";
         $.post("<?php echo $base_url;?>index.php/ipds/"+jq_get_list,{
-			search_data: mySearch,
-			page_start: pageStart,
-			page_limit: pageLimit
-			},function(data,status){
+						search_data: mySearch,
+						page_start: pageStart,
+						page_limit: pageLimit
+						},function(data,status){
             $.each(data, function(key,value) {
-
-            	 if(value.neonatal_id !== null){
-            	 	v_name = value.neonatal_en_name;
-            	 	v_code = value.neonatal_code;
-            	 }else{
-            	 	v_name = value.patient_kh_name;
-            		v_code = value.patient_code;
-            	 }
+									if(value.neonatal_id !== null){
+										 v_name = value.neonatal_en_name;
+										 v_code = value.neonatal_code;
+									}else{
+										 v_name = value.patient_kh_name;
+										 v_code = value.patient_code;
+									}
 
                 	htmlView += '<tr ' + stRow + '>';
                     htmlView += '<td>' + v_code + '</td>';
@@ -218,10 +217,11 @@
                     }
                     htmlView += '<td>' + status + '</td>';
                     htmlView += '<td style="text-align:center;">';
+												// htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-edit action-btn primary" onclick="editPatient(89);"></i></a>&nbsp;&nbsp; ';
                         htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
                         htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
                         htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.patient_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
-                        htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+                        htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
                     htmlView += '</td>';
                 htmlView += '</tr>';
             });
@@ -328,8 +328,8 @@
 		$('#form_table').css('display','block');
     }
     //visitor Leave
-    function visitorLeave(ids){
-		$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+ids,{visitor_id: ids},function(data,status){});
+    function visitorLeave(ids, code){
+		$.post("<?php echo $base_url;?>index.php/visitors/visitor_leave/"+code,{visitor_code: code},function(data,status){});
 		pagination();
     }
 

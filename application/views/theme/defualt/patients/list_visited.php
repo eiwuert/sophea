@@ -254,10 +254,10 @@
                             <?php echo $h_waitting_number;?>
                           </div>
                           <input type="text" name="waitting_code" id="waitting_code" class="form-control">
-                          <input type="hidden" name="waitting_id" id="waitting_id">
-                          <input type="hidden" name="storage_waitting_id" id="storage_waitting_id">
-                          <input type="hidden" name="new_waitting_code" id="new_waitting_code">
-                          <input type="hidden" name="old_waitting_code" id="old_waitting_code">
+													<input type="hidden" name="waitting_id" id="waitting_id">
+													<input type="hidden" name="storage_waitting_id" id="storage_waitting_id">
+													<input type="hidden" name="new_waitting_code" id="new_waitting_code">
+													<input type="hidden" name="old_waitting_code" id="old_waitting_code">
                         </div>
                     </div>
 
@@ -272,10 +272,10 @@
 
                     <div class="form-group">
                         <div class="input-group">
-                            <div class="input-group-addon">
-                                <?php echo @$room.' ID';?>
-                            </div>
-                                <?php echo form_dropdown('room_id', @$drop_room,'','class="form-control" id="room_id"');?>
+                          <div class="input-group-addon">
+                            <?php echo $doctor.' '.$name;?>
+                          </div>
+                          <?php echo form_dropdown('waitting_doctor', @$drop_user,'','class="form-control" id="waitting_doctor"');?>
                         </div>
                     </div>
 
@@ -285,7 +285,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="b_opd_booking" onclick="b_opd_booking()" value="1">
+                                          <input name="formCheck[]" type="checkbox" class="disp_room" id="b_opd_booking" onclick="b_opd_booking()" value="1">
                                         </span>
                                         <input type="text" value="OPD Booking" class="form-control" disabled="disabled">
                                     </div>
@@ -293,7 +293,7 @@
                                 <div class="form-group">
                                     <div class="input-group">
                                         <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="b_ipd_booking" onclick="b_ipd_booking()" value="1">
+                                          <input name="formCheck[]" type="checkbox" class="disp_room" id="b_ipd_booking" onclick="b_ipd_booking()" value="1">
                                         </span>
                                         <input type="text" value="IPD Booking" class="form-control" disabled="disabled">
                                     </div>
@@ -307,6 +307,14 @@
                                                 <?php echo form_dropdown('room_id', @$drop_room,'','class="form-control" id="room_id"');?>
                                         </div>
                                     </div>
+																		<div class="form-group">
+								                          <div class="input-group">
+								                                <div class="input-group-addon">
+								                                      <?php echo @$date_in;?>
+								                                </div>
+								                                <input type="text" name="booking_date_in" id="booking_date_in" data-date-format='yy-mm-dd' class="form-control">
+								                          </div>
+								                    </div>
                                 </div>
 
 			<!-- end watiiting from -->
@@ -326,36 +334,38 @@
                     <div class="form-group">
                         <div class="input-group">
                           <span class="input-group-addon">
-                              <input type="checkbox" id="checkNeo" class="displayChBox" value="1" >
+                              <input type="checkbox" id="checkNeo" class="displayChBox" value="1" onclick="performChNeo()">
                           </span>
                           <input type="text" value="Check NEO" class="form-control" disabled="disabled">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" id="chNeoOpd" value="1">
-                            </span>
-                            <input type="text" value="Neo OPD" class="form-control" disabled="disabled">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" id="chNeoSimpleIcu" value="1">
-                            </span>
-                            <input type="text" value="Neo Simple ICU" class="form-control" disabled="disabled">
-                        </div>
-                    </div>
+										<div id="openChNeo" style="display: none; padding-left: 38px;">
+					                    <div class="form-group">
+					                        <div class="input-group">
+					                            <span class="input-group-addon">
+					                              <input type="checkbox" id="chNeoOpd" value="1">
+					                            </span>
+					                            <input type="text" value="Neo OPD" class="form-control" disabled="disabled">
+					                        </div>
+					                    </div>
+					                    <div class="form-group">
+					                        <div class="input-group">
+					                            <span class="input-group-addon">
+					                              <input type="checkbox" id="chNeoSimpleIcu" value="1">
+					                            </span>
+					                            <input type="text" value="Neo Simple ICU" class="form-control" disabled="disabled">
+					                        </div>
+					                    </div>
 
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">
-                              <input type="checkbox" id="chNeoComplicatedIcu" value="1">
-                            </span>
-                            <input type="text" value="Neo Complicated ICU" class="form-control" disabled="disabled">
-                        </div>
-                    </div>
+					                    <div class="form-group">
+					                        <div class="input-group">
+					                            <span class="input-group-addon">
+					                              <input type="checkbox" id="chNeoComplicatedIcu" value="1">
+					                            </span>
+					                            <input type="text" value="Neo Complicated ICU" class="form-control" disabled="disabled">
+					                        </div>
+					                    </div>
+										</div>
                     <!-- <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">
@@ -569,7 +579,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span class="input-group-addon">
-                                              <input name="formCheck[]" type="checkbox" id="o_icu" value="1">
+                                              <input name="formCheck[]" type="checkbox" id="o_cancer" value="1">
                                             </span>
                                             <input type="text" value="ICU" class="form-control" disabled="disabled">
                                         </div>
@@ -769,6 +779,14 @@
                                               <input name="formCheck[]" type="checkbox" id="i_cardiaque" value="1">
                                             </span>
                                             <input type="text" value="Cardiaque" class="form-control" disabled="disabled">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                              <input name="formCheck[]" type="checkbox" id="i_ipd_img" value="1">
+                                            </span>
+                                            <input type="text" value="IMG" class="form-control" disabled="disabled">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -1018,61 +1036,38 @@
                   <div class="box-header">
                     <h3 class="box-title">Pediatric</h3>
                   </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="pe_opd_ped" value="1">
-                                        </span>
-                                        <input type="text" value="OPD Ped" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="pe_ped_ipd" value="1">
-                                        </span>
-                                        <input type="text" value="Ped IPD" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="pe_ped_frencectomy" value="1">
-                                        </span>
-                                        <input type="text" value="Ped Frencectomy" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="pe_ped_circumcision" value="1">
-                                        </span>
-                                        <input type="text" value="Ped Circumcision" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-
-                  <div class="box-header">
-                    <h3 class="box-title">Booking</h3>
-                  </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="b_opd_booking" value="1">
-                                        </span>
-                                        <input type="text" value="OPD Booking" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="input-group">
-                                        <span class="input-group-addon">
-                                          <input name="formCheck[]" type="checkbox" id="b_ipd_booking" value="1">
-                                        </span>
-                                        <input type="text" value="IPD Booking" class="form-control" disabled="disabled">
-                                    </div>
-                                </div>
-
-
-
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <span class="input-group-addon">
+                                        <input name="formCheck[]" type="checkbox" id="pe_opd_ped" value="1">
+                                      </span>
+                                      <input type="text" value="OPD Ped" class="form-control" disabled="disabled">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <span class="input-group-addon">
+                                        <input name="formCheck[]" type="checkbox" id="pe_ped_ipd" value="1">
+                                      </span>
+                                      <input type="text" value="Ped IPD" class="form-control" disabled="disabled">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <span class="input-group-addon">
+                                        <input name="formCheck[]" type="checkbox" id="pe_ped_frencectomy" value="1">
+                                      </span>
+                                      <input type="text" value="Ped Frencectomy" class="form-control" disabled="disabled">
+                                  </div>
+                              </div>
+                              <div class="form-group">
+                                  <div class="input-group">
+                                      <span class="input-group-addon">
+                                        <input name="formCheck[]" type="checkbox" id="pe_ped_circumcision" value="1">
+                                      </span>
+                                      <input type="text" value="Ped Circumcision" class="form-control" disabled="disabled">
+                                  </div>
+                              </div>
 		    </div>
 
 		   </div>
@@ -1525,11 +1520,12 @@
 <script>
 var pageStartTop = '0';
 var baseUrl = <?php echo '"'.$base_url.'index.php/"';?>;
-
+var newWaittingCode = <?php echo $generate_num_waitting?>;
 $(document).ready(function(){
         pagination();
         $( "#patient_dob" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
         $( "#patient_date_in" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
+				$( "#booking_date_in" ).datepicker({dateFormat: "dd-mm-yy",changeYear:true,changeMonth:true,yearRange: "1965:2030"});
 
         $('#nssf').click(function(){
             if ($(this).is(':checked')) {
@@ -1626,7 +1622,7 @@ function getSearch(){
 	    $('#form_row').css('display','block');
 	    $('#form_table').css('display','none');
 	    $('#title_name').html('/ Create');
-	    $('#waitting_code').val("<?php echo $generate_num_waitting?>");
+	    $('#waitting_code').val(newWaittingCode);
     });
 
 	//insert Data
@@ -1805,6 +1801,9 @@ function editPatient(ids){
         $('#student_card').val(value.patient_student_card);
         $('#workstation').val(value.patient_workstation_id);
 
+				$('#room_id').val(value.patient_room);
+				$('#booking_date_in').val($.datepicker.formatDate('dd-mm-yy', new Date(value.patient_booking_date)));
+
         if(value.is_heart == '1'){
           $('#is_heart').prop('checked', true);
         }else{
@@ -1888,10 +1887,13 @@ function editPatient(ids){
 							$.each(optService, function(key,osVal) {
 										if(osVal.visitors_status == 104){
 												$('#b_opd_booking').prop('checked', true);
+												$('#roomBooking').css('display','block');
 										}else if(osVal.visitors_status == 105){
 												$('#b_ipd_booking').prop('checked', true);
+												$('#roomBooking').css('display','block');
 										}else if(osVal.visitors_status == 106){
 												$('#checkNeo').prop('checked', true);
+										    $('#openChNeo').css('display','block');
 										}else if(osVal.visitors_status == 107){
 												$('#setP_chNeoOpd').prop('checked', true);
 										}else if(osVal.visitors_status == 108){
@@ -1963,7 +1965,7 @@ function editPatient(ids){
 												$('#o_opd_others').prop('checked', true);
 										    $('#openOptOpd').css('display','block');
 										}else if(osVal.visitors_status == 30){
-												$('#o_icu').prop('checked', true);
+												$('#o_cancer').prop('checked', true);
 										    $('#openOptOpd').css('display','block');
 										}else if(osVal.visitors_status == 2){
 	// IPD SELECTED
@@ -2037,6 +2039,9 @@ function editPatient(ids){
 										    $('#openOptOpd').css('display','block');
 										}else if(osVal.visitors_status == 50){
 												$('#i_ipd_others').prop('checked', true);
+										    $('#openOptOpd').css('display','block');
+										}else if(osVal.visitors_status == 59 && osVal.neonatal_id == null){
+												$('#i_ipd_img').prop('checked', true);
 										    $('#openOptOpd').css('display','block');
 										}else if(osVal.visitors_status == 69){
 	// Start support service
@@ -2112,6 +2117,7 @@ function editPatient(ids){
 												$('#roomBooking').css('display','block');
 										}else if(osVal.visitors_status == 106){
 	// Neo and Children
+
 												$('#checkNeo').prop('checked', true);
 										}else if(osVal.visitors_status == 107){
 												$('#chNeoOpd').prop('checked', true);
@@ -2123,24 +2129,26 @@ function editPatient(ids){
 							});
 					});
 
-      $.post("<?php echo $base_url;?>index.php/patients/get_patient_watting_byid/"+ids,
-        function(dataWaitting,status){
+      $.post("<?php echo $base_url;?>index.php/patients/get_patient_watting_byid/"+ids,function(dataWaitting,status){
+					$('#waitting_code').val(newWaittingCode);
+					$('#new_waitting_code').val(newWaittingCode);
+
           $.each(dataWaitting, function(key,waitValue) {
-            $('#waitting_id').val(waitValue.waitting_id);
-            $('#storage_waitting_id').val(waitValue.waitting_id);
-            $('#waitting_code').val(waitValue.waitting_code);
-            $('#waitting_examination').val(waitValue.waitting_examination);
-            $('#room_id').val(waitValue.waitting_room);
-            $('#waitting_doctor').val(waitValue.waitting_doctor);
-            $('#new_waitting_code').val(<?php echo $generate_num_waitting?>);
-                $('#old_waitting_code').val(waitValue.waitting_code);
-            if(waitValue.waitting_open == 1){
-                  $('#waitting_open').prop('checked', true);
-               }else{
-                  $('#waitting_open').prop('checked', false);
-               }
+		            $('#waitting_id').val(waitValue.waitting_id);
+		            $('#storage_waitting_id').val(waitValue.waitting_id);
+		            $('#waitting_code').val(waitValue.waitting_code);
+		            $('#waitting_examination').val(waitValue.waitting_examination);
+		            // $('#room_id').val(waitValue.waitting_room);
+		            $('#waitting_doctor').val(waitValue.waitting_doctor);
+		            // $('#new_waitting_code').val(newWaittingCode);
+		            $('#old_waitting_code').val(waitValue.waitting_code);
+		            if(waitValue.waitting_open == 1){
+	                  $('#waitting_open').prop('checked', true);
+               	}else{
+                  	$('#waitting_open').prop('checked', false);
+               	}
           });
-              $('#waitting_new').prop('checked', false);
+          $('#waitting_new').prop('checked', false);
         });
 
       genderCal();
@@ -2219,7 +2227,7 @@ function saveEdit(){
         }
         var waitting_code = $("#waitting_code").val();
         var waitting_examination = $("#waitting_examination").val();
-        var room_id = $("#room_id").val();
+        // var room_id = $("#room_id").val();
         var waitting_doctor = $("#waitting_doctor").val();
         var waitting_id = $("#waitting_id").val();
 
@@ -2256,7 +2264,7 @@ function saveEdit(){
             var o_digestive = $('#o_digestive:checked').val();
             var o_cardiaque = $('#o_cardiaque:checked').val();
             var o_opd_others = $('#o_opd_others:checked').val();
-            var o_icu = $('#o_icu:checked').val();
+            var o_cancer = $('#o_cancer:checked').val();
         var ipd = $('#ipd:checked').val();
             var i_delivery_normal = $('#i_delivery_normal:checked').val();
             var i_c_section = $('#i_c_section:checked').val();
@@ -2281,6 +2289,7 @@ function saveEdit(){
             var i_digestive = $('#i_digestive:checked').val();
             var i_cardiaque = $('#i_cardiaque:checked').val();
             var i_ipd_others = $('#i_ipd_others:checked').val();
+            var i_ipd_img = $('#i_ipd_img:checked').val();
 
         // Support SERVICE
         var labo = $('#labo:checked').val();
@@ -2320,6 +2329,8 @@ function saveEdit(){
         // Booking
         var b_opd_booking = $('#b_opd_booking:checked').val();
         var b_ipd_booking = $('#b_ipd_booking:checked').val();
+				var room_id = $("#room_id").val();
+				var booking_date_in = $("#booking_date_in").val();
 
     $.post("<?php echo $base_url;?>index.php/patients/save_patient",{
         patient_id: patientId,
@@ -2410,7 +2421,7 @@ function saveEdit(){
             o_digestive:o_digestive,
             o_cardiaque:o_cardiaque,
             o_opd_others:o_opd_others,
-            o_icu:o_icu,
+            o_cancer:o_cancer,
         ipd: ipd,
             i_delivery_normal:i_delivery_normal,
             i_c_section:i_c_section,
@@ -2435,6 +2446,7 @@ function saveEdit(){
             i_digestive : i_digestive,
             i_cardiaque : i_cardiaque,
             i_ipd_others : i_ipd_others,
+            i_ipd_img : i_ipd_img,
 
         x_ray_overay: x_ray_overay,
         dna: dna,
@@ -2480,12 +2492,14 @@ function saveEdit(){
         // Booking
         b_opd_booking: b_opd_booking,
         b_ipd_booking: b_ipd_booking,
+				room_id: room_id,
+				booking_date_in: booking_date_in,
 
         // waitting
         waitting_open : waitting_open,
         waitting_code : waitting_code,
         waitting_examination : waitting_examination,
-        room_id : room_id,
+        // room_id : room_id,
         waitting_doctor : waitting_doctor,
         waitting_id: waitting_id
     },function(data){
@@ -2936,7 +2950,18 @@ function newWaitting(){
         $('#waitting_code').val($('#new_waitting_code').val());
     }else{
         $('#waitting_id').val($('#storage_waitting_id').val());
-        $('#waitting_code').val($('#old_waitting_id').val());
+				if($('#old_waitting_code').val() == ''){
+					$('#waitting_code').val($('#new_waitting_code').val());
+				}else{
+					$('#waitting_code').val($('#old_waitting_code').val());
+				}
+    }
+}
+function performChNeo(){
+    if($("#checkNeo").is(':checked')){
+        $('#openChNeo').css('display','block');
+    }else{
+        $('#openChNeo').css('display','none');
     }
 }
 // Start function enable & disable checke
@@ -2980,20 +3005,17 @@ function onDisplayChBox(){
 function offDisplayChBox(){
     $(".displayChBox").attr("disabled", false);
 }
-function b_opd_booking(){
-    if($("#b_opd_booking").is(':checked')){
-        $('#roomBooking').css('display','block');
-    }else{
-        $('#roomBooking').css('display','none');
-    }
-}
-function b_ipd_booking(){
-    if($("#b_ipd_booking").is(':checked')){
-        $('#roomBooking').css('display','block');
-    }else{
-        $('#roomBooking').css('display','none');
-    }
 
-}
+$(function(){
+		$('.disp_room').click(function(){
+				opdBooking = $('#b_opd_booking:checked').val();
+				ipdBooking = $('#b_ipd_booking:checked').val();
+				if(opdBooking == 1 || ipdBooking == 1){
+		        $('#roomBooking').css('display','block');
+				}else{
+		        $('#roomBooking').css('display','none');
+				}
+		});
+});
 // End function enable & disable checke
 </script>

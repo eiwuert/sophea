@@ -6,7 +6,7 @@ include_once 'Datastructure.php';
 
 // Define Unit Class
 class User extends Datastructure{
-	
+
 	// Get All Unit
 	function getAllUser($search = '', $start = '0' , $limit = '0') {
             $select = '';
@@ -16,7 +16,7 @@ class User extends Datastructure{
                 $where .= " username LIKE '%".$search."%' AND";
             }
             $where .= " user_deleted = 0";
-            
+
             // Check If Limit
             if($limit != '0' || $start != '0'){
 				if($start == '1'){
@@ -24,29 +24,29 @@ class User extends Datastructure{
 				}
 				$where .= " LIMIT ".$start.", ".$limit;
             }
-            
+
             return $this->executeQuery($select, $from, $where);
 	}
-        
+
         // Get Role List
         function getUserList(){
             $from = $this->getTblUser() ." AS us ";
-            $from .= " JOIN ".$this->getTblRole() . " AS rl ON us.roles_id = rl.roles_id"; 
-            
+            $from .= " JOIN ".$this->getTblRole() . " AS rl ON us.roles_id = rl.roles_id";
+
             return $this->executeQuery("", $from , " user_deleted = 0");
         }
-        
+
         // Get Role List
         function getUserInfoById(){
-            
+
             return $this->executeQuery("", $this->getTblUser() , " user_deleted = 0 AND uid = ".$this->getId());
         }
-        
+
         // Get Role List
         function getRoleList(){
             return $this->executeQuery("", $this->getTblRole(), " roles_deleted = 0");
         }
-        
+
         // Get Role Info by ID
         function getRoleById(){
                 return $this->executeQuery("", $this->getTblRole() , " roles_deleted = 0 AND roles_id = ".$this->getId());
@@ -59,17 +59,15 @@ class User extends Datastructure{
         function deleteUser(){
                 $this->updateData($this->getTblUser(), array('user_deleted' => "1"), 'uid', $this->getId());
         }
-	
+
 	// Get User Autor Complete
 	function getUserInfoByName(){
-	    
 	    $select = " CONCAT( `name` , '-', `phone`) AS value";
 	    $from = $this->getTblUser();
-	    $where = " user_deleted = 0 AND ( name LIKE '".$this->getName()."%' OR phone LIKE '".$this->getName()."%' )";
-	    
+	    $where = " user_deleted = 0 AND ( name LIKE '".$this->getName()."%' OR phone LIKE '".$this->getName()."%' COLLATE utf8_bin)";
 	    return $this->executeQuery($select, $from, $where);
 	}
-	
+
 	// Get User ID
 	function getUserIdByNameAndPhone(){
 	    $result = $this->executeQuery('uid', $this->getTblUser(), " user_deleted = 0 AND name = '". $this->getName() ."' AND phone = '". $this->getPhone() ."'");
@@ -77,37 +75,37 @@ class User extends Datastructure{
 		return $row->uid;
 	    }
 	}
-	
+
 	// Check Login
 	function checkLogins($username,$password,$hospitalCode){
             $select = "";
             $from = " ".$this->getTblUser()." AS us";
             $from .= " JOIN ".$this->getTblHospital()." AS ht ON ht.hospital_id = us.hospital_id";
             $where = " username = '".$username."' AND hospital_code = '".$hospitalCode."'";
-            
+
             $info = $this->executeQuery($select, $from, $where);
             foreach ($info as $row){
                 if($row->password == $password){
                     return $info;
                 }
             }
-            
+
             return NULL;
         }
-        
+
         // Add User
         function add(){
             $this->insertData($this->getTblUser(), $this->getArrayUser());
         }
-        
+
         // Update User
         function update(){
             $this->updateDataWhere($this->getTblUser(), $this->getArrayUser()," uid = ".$this->getId());
         }
-        
+
         // User Data
         function getArrayUser(){
-            
+
             $this->setArrayData("uid", $this->getId());
             $this->setArrayData("username", $this->getUsername());
             $this->setArrayData("hospital_id", $this->getSession("hospitalId"));
@@ -124,39 +122,39 @@ class User extends Datastructure{
             $this->setArrayData("status", $this->getStatus());
             $this->setArrayData("work_place", $this->getWorkplace());
             $this->setArrayData("note", $this->getDesc());
-            
+
             return $this->getArrayData();
         }
-        
+
         // Get Roler Permission List
         function getRolePermission(){
             return $this->executeQuery("", $this->getTblRolePermission(), " roles_id =".$this->getId());
         }
-        
+
         // Get Roler Permission True
         function getRolePermissionTrue(){
             return $this->executeQuery("", $this->getTblRolePermission(), " permissions_action = 1 AND roles_id =".$this->getId());
         }
-        
-        // Check Permission Section 
+
+        // Check Permission Section
         function getCheckPermissionSection(){
             $info = $this->executeQuery(" permissions_action", $this->getTblRolePermission(), " permissions_section = '".$this->getPermissionSection()."' AND roles_id =".$this->getId());
             foreach ($info as $row) {
                 return $row->permissions_action;
             }
         }
-        
+
         // Count Permission Section
         function getCountPermissionSection(){
             return $this->getCountWhere($this->getTblRolePermission(), " roles_id = ".$this->getId()." AND permissions_section = '".$this->getPermissionSection()."'");
         }
-        
+
         // Update Role Permission
         function updateRolePermission(){
             $this->setArrayData('permissions_action', $this->getSubject());
             $this->updateDataWhere($this->getTblRolePermission(), $this->getArrayData(), " roles_id = ".$this->getId()." AND permissions_section = '".$this->getPermissionSection()."'");
         }
-        
+
         // Add Role Permission
         function addRolePermission(){
             $this->setArrayData('permissions_action', $this->getSubject());
@@ -170,15 +168,15 @@ class User extends Datastructure{
             $this->setArrayData('hospital_id', $this->getHospitalId());
             $this->setArrayData('roles_name', $this->getName());
             $this->setArrayData('roles_desc', $this->getDesc());
-            
+
             $this->insertData($this->getTblRole(), $this->getArrayData());
         }
-        
+
         // Update Role
         function updateRole(){
             $this->setArrayData('roles_name', $this->getName());
             $this->setArrayData('roles_desc', $this->getDesc());
-            
+
             $this->updateDataWhere($this->getTblRole(), $this->getArrayData(), ' roles_id ='.$this->getId());
         }
 
@@ -194,7 +192,7 @@ class User extends Datastructure{
                 $where .= " (name LIKE '%".$this->getUsername()."%') AND ";
             }
             $where .= " user_deleted = 0";
-            
+
             return $this->executeQuery($select, $from, $where);
         }
         function getUsersInfo(){
@@ -203,6 +201,6 @@ class User extends Datastructure{
             $where = " name ='".$this->getSearch()."'";
             return $this->executeQuery($select, $from, $where);
         }
-        
+
 }
 ?>

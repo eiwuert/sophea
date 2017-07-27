@@ -10,7 +10,7 @@
 		<br/>
 	    <table class="table">
 	    	<?php foreach($svipd_info as $key=>$value):?>
-		    	<?php 
+		    	<?php
 		    		$p_dob = date("Y", strtotime($value->patient_dob));
 		    		$year_today = date('Y');
 		    		$yearOld = ($year_today - $p_dob);
@@ -23,10 +23,10 @@
 		  		<tr>
 		  			<th>លេខរងចាំ</th>
 		  			<td><?php echo $value->waitting_code?></td>
-		  		</tr>	  		
+		  		</tr>
 		  		<tr>
 		  			<th>ពិនិត្យផ្នែក</th>
-		  			<td><?php echo $value->wards_code?></td>
+		  			<td><?php echo $value->wards_desc?></td>
 		  		</tr>
 		  		<tr>
 		  			<th>លេខកូដអ្នកជំងឺ</th>
@@ -47,7 +47,7 @@
 
 		  		<tr>
 		  			<th>ឈ្មោះគ្រូពេទ្យ</th>
-		  			<td><?php echo $value->waitting_doctor?></td>
+		  			<td><?php echo $value->name?></td>
 		  		</tr>
 
 	    	<?php endforeach ?>
@@ -78,11 +78,11 @@
 	    	<tr>
 	    		<td>- </td>
 	    		<td></td>
-	    	</tr>	
+	    	</tr>
 	    	<tr>
 	    		<td><span class="pull-right">សរុប:</span></td>
 	    		<td></td>
-	    	</tr>	
+	    	</tr>
 	    </table>
 	</body>
 	<div style="text-align: right">ថ្ងៃទី <?php echo date("j")?>​​ ខែ <?php echo date("F")?> ឆ្នាំ <?php echo date("Y")?></div>
@@ -123,5 +123,5 @@
 		 	window.close();
 		 });
 	</script>
-	
+
 </html>

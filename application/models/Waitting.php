@@ -15,21 +15,11 @@ class Waitting extends Datastructure{
             $from .= " LEFT JOIN ". $this->getTblRooms() ." ON ".$this->getTblRooms().".room_id = ".$this->getTblWaitting().".waitting_room";
             $from .= " LEFT JOIN ". $this->getTblWard() ." ON ".$this->getTblWard().".wards_id = ".$this->getTblWaitting().".waitting_examination";
             $from .= " LEFT JOIN ". $this->getTblUser() ." ON ".$this->getTblUser().".uid = ".$this->getTblWaitting().".waitting_doctor";
-
             $where = '';
             if($this->getSearch() <> '' || $this->getSearch() != ''){
                 $where .= " waitting_name LIKE '%".$this->getSearch()."%' AND";
             }
             $where .= " waitting_deleted = 0 AND waitting_id_out = 0 ORDER BY waitting_code ASC";
-
-            // Check If Limit
-    //         if($this->getLimit() != '0' || $this->getStart() != '0'){
-				// if($this->getStart() == '1' || $this->getStart() == ''){
-    //                 $this->setStart('0');
-				// }
-				// $where .= " LIMIT ".$this->getStart().", ".$this->getLimit();
-    //         }
-
             return $this->executeQuery($select, $from, $where);
 	}
 
@@ -74,14 +64,14 @@ class Waitting extends Datastructure{
 
 	//Array data for Insert and Update
         function getArrayDatas(){
-			$this->setArrayData('waitting_code',$this->getCode());
-			$this->setArrayData('waitting_examination',$this->getExamination());
-			$this->setArrayData('waitting_patient_id',$this->getPatientId());
-			$this->setArrayData('waitting_date',$this->getDate());
-			$this->setArrayData('waitting_open',$this->getWaittingOpen());
-			$this->setArrayData('waitting_room',$this->getRoomId());
-			$this->setArrayData('waitting_doctor',$this->getDoctor());
-			return $this->getArrayData();
+							$this->setArrayData('waitting_code',$this->getCode());
+							$this->setArrayData('waitting_examination',$this->getExamination());
+							$this->setArrayData('waitting_patient_id',$this->getPatientId());
+							$this->setArrayData('waitting_date',$this->getDate());
+							$this->setArrayData('waitting_open',$this->getWaittingOpen());
+							// $this->setArrayData('waitting_room',$this->getRoomId());
+							$this->setArrayData('waitting_doctor',$this->getDoctor());
+							return $this->getArrayData();
         }
 
 	// New Number Waitting
@@ -109,7 +99,6 @@ class Waitting extends Datastructure{
             $where .= " waitting_deleted = 0 AND waitting_id_out = 0 AND waitting_open = 1 ORDER BY waitting_code ASC Limit 6";
             return $this->executeQuery($select, $from, $where);
 	}
-
 
 	// Get All Waitting History
 	function getAllWaitting_history() {

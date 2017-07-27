@@ -253,20 +253,13 @@ class Patient extends Datastructure{
 		$this->updateDataWhere($this->getTblPatient(),$this->getArrayDatas(), ' patient_id = ' . $this->getId());
 	}
 
-	function addPatientReady(){
-        $this->setArrayData('patient_ready', '1');
-		$this->updateDataWhere($this->getTblPatient(),$this->getArrayData(), ' patient_id = ' . $this->getId());
-	}
-
 	function updatePatientReady(){
-        $this->setArrayData('patient_ready', '1');
-		$this->updateDataWhere($this->getTblPatient(),$this->getArrayData(), ' patient_id = ' . $this->getId());
+			$this->updateDataWhere($this->getTblPatient(),array('patient_ready'=>'1'), ' patient_id = ' . $this->getId());
 	}
-
         // Delete Patient go to trash
 	function delete(){
-                $this->setArrayData('patient_deleted', '1');
-		$this->updateData($this->getTblPatient(), $this->getArrayData(), 'patient_id', $this->getId());
+      $this->setArrayData('patient_deleted', '1');
+			$this->updateData($this->getTblPatient(), $this->getArrayData(), 'patient_id', $this->getId());
 	}
 
         // Get Patient Info by ID
@@ -277,39 +270,9 @@ class Patient extends Datastructure{
 	    $from .= " LEFT JOIN ". $this->getTblNeonatal() ." AS n ON vs.neonatal_id = n.neonatal_id";
 	    $from .= " LEFT JOIN ". $this->getTblDisctrict() ." AS di ON di.districts_id = pa.patient_district";
 	    $from .= " LEFT JOIN ". $this->getTblProvince() ." AS pr ON pr.provinces_id = pa.patient_province";
-	    $where = ' vs.visitors_id = '.$this->getId().' AND patient_deleted = 0';
+	    $where = ' vs.patient_id = '.$this->getId().' AND patient_deleted = 0';
+			// $where = ' pa.patient_id = '.$this->getId().' AND patient_deleted = 0';
 	    return $this->executeQuery($select, $from, $where);
-
-
-// patient_code
-// patient_kh_name
-// patient_en_name
-// patient_address
-// patient_phone
-// patient_emergency_phone
-// patient_dob
-// patient_id_card
-// patient_assurance_card
-// patient_assurance_company
-// patient_motor_card
-// patient_car_card
-// patient_bank_card1
-// patient_bank_card2
-// patient_student_card
-// patient_assurance_company
-// patient_gender
-// patient_status
-// is_heart
-// is_respiratory
-// is_diabetes
-// is_digestive
-// is_kedney
-// is_endocrine
-// is_neuro_sys
-// visitors_in_date
-// visitors_id
-
-
 	}
 	    // Get Patient Info by ID 2
 	function getEditPatientById(){
@@ -330,17 +293,17 @@ class Patient extends Datastructure{
 	    return $this->executeQuery($select, $from, $where);
 	}
 	function getWaittingPatientById(){
-		$select = '';
-        	$from = $this->getTblWaitting()." AS wp";
-	    	$where = ' wp.waitting_patient_id = '.$this->getId().' AND waitting_deleted = 0';
-	    	$where .= ' ORDER BY waitting_id ASC';
-	    	return $this->executeQuery($select, $from, $where);
+			$select = '';
+      $from = $this->getTblWaitting()." AS wp";
+    	$where = ' wp.waitting_patient_id = '.$this->getId().' AND waitting_deleted = 0';
+    	$where .= ' ORDER BY waitting_id ASC';
+    	return $this->executeQuery($select, $from, $where);
 	}
 
-	function updateRoomPatient(){
-		$this->setArrayData('patient_room',$this->getRoomId());
-		$this->updateDataWhere($this->getTblPatient(),$this->getArrayData(),' patient_id = '.$this->getId());
-	}
+	// function updateRoomPatient(){
+	// 	$this->setArrayData('patient_room',$this->getRoomId());
+	// 	$this->updateDataWhere($this->getTblPatient(),$this->getArrayData(),' patient_id = '.$this->getId());
+	// }
 
 	//Array data for Insert and Update
         function getArrayDatas(){
@@ -398,8 +361,8 @@ class Patient extends Datastructure{
 				    $this->setArrayData('patient_desc',$this->getDesc());
 				    $this->setArrayData('patient_district',$this->getDistrict());
 				    $this->setArrayData('patient_province',$this->getProvince());
-
-				    // $this->setArrayData('patient_ready',$this->getReady());
+						$this->setArrayData('patient_room',$this->getRoomId());
+						$this->setArrayData('patient_booking_date',$this->getBookingDate());
 
 				    return $this->getArrayData();
         }
