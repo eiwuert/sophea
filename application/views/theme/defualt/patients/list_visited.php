@@ -298,24 +298,33 @@
                                         <input type="text" value="IPD Booking" class="form-control" disabled="disabled">
                                     </div>
                                 </div>
-                                <div id="roomBooking" style="display: none">
-                                    <div class="form-group">
-                                        <div class="input-group">
-                                            <div class="input-group-addon">
-                                                <?php echo @$room.' ID';?>
-                                            </div>
-                                                <?php echo form_dropdown('room_id', @$drop_room,'','class="form-control" id="room_id"');?>
-                                        </div>
-                                    </div>
-																		<div class="form-group">
-								                          <div class="input-group">
-								                                <div class="input-group-addon">
-								                                      <?php echo @$date_in;?>
-								                                </div>
-								                                <input type="text" name="booking_date_in" id="booking_date_in" data-date-format='yy-mm-dd' class="form-control">
-								                          </div>
-								                    </div>
-                                </div>
+				                                <div id="roomBooking" style="display: none">
+				                                    <div class="form-group">
+				                                        <div class="input-group">
+				                                            <div class="input-group-addon">
+				                                                <?php echo @$room.' ID';?>
+				                                            </div>
+				                                                <?php echo form_dropdown('room_id', @$drop_room,'','class="form-control" id="room_id"');?>
+				                                        </div>
+				                                    </div>
+																						<div class="form-group">
+												                          <div class="input-group">
+												                                <div class="input-group-addon">
+												                                      <?php echo @$date_in;?>
+												                                </div>
+												                                <input type="text" name="booking_date_in" id="booking_date_in" data-date-format='yy-mm-dd' class="form-control">
+												                          </div>
+												                    </div>
+																						<div class="form-group">
+																								<div class="input-group">
+																									<div class="input-group-addon">
+																										<?php echo $purpose;?>
+																									</div>
+																									<?php echo form_dropdown('booking_porpuse', @$drop_wards,'','class="form-control" id="booking_porpuse"');?>
+																								</div>
+																						</div>
+
+				                                </div>
 
 			<!-- end watiiting from -->
 
@@ -1470,14 +1479,14 @@
 					<div class="row"><div class="col-sm-12">
 					<table id="example2" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info">
 										<thead>
-											<tr role="row">
-												<th><?php echo $date;?></th>
-												<th><?php echo $code;?></th>
-												<th><?php echo $name;?></th>
-												<th><?php echo $gender;?></th>
-												<th><?php echo $phone;?></th>
-												<th></th>
-											</tr>
+												<tr role="row">
+													<th><?php echo $date;?></th>
+													<th><?php echo $code;?></th>
+													<th><?php echo $name;?></th>
+													<th><?php echo $gender;?></th>
+													<th><?php echo $phone;?></th>
+													<th></th>
+												</tr>
 										</thead>
 										<tbody id="patientList"></tbody>
 									</table>
@@ -1803,6 +1812,7 @@ function editPatient(ids){
 
 				$('#room_id').val(value.patient_room);
 				$('#booking_date_in').val($.datepicker.formatDate('dd-mm-yy', new Date(value.patient_booking_date)));
+				$('#booking_porpuse').val(value.pateint_booking_pourpose);
 
         if(value.is_heart == '1'){
           $('#is_heart').prop('checked', true);
@@ -2331,6 +2341,7 @@ function saveEdit(){
         var b_ipd_booking = $('#b_ipd_booking:checked').val();
 				var room_id = $("#room_id").val();
 				var booking_date_in = $("#booking_date_in").val();
+				var booking_porpuse = $('#booking_porpuse').val();
 
     $.post("<?php echo $base_url;?>index.php/patients/save_patient",{
         patient_id: patientId,
@@ -2494,6 +2505,7 @@ function saveEdit(){
         b_ipd_booking: b_ipd_booking,
 				room_id: room_id,
 				booking_date_in: booking_date_in,
+				booking_porpuse: booking_porpuse,
 
         // waitting
         waitting_open : waitting_open,

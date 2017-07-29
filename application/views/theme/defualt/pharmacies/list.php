@@ -446,7 +446,7 @@
 				    },function(data,status){
 						$.each(data, function(key,value) {
 
-								if(value.neonatal_id !== null){
+								if(value.neonatal_id !=='0'){
 										var pay_code = value.neonatal_code;
 										var pay_kh_name = value.neonatal_en_name;
 										var pay_register_date = value.neonatal_date_in;

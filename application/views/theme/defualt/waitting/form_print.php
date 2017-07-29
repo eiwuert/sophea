@@ -85,6 +85,7 @@
 	    	</tr>
 	    </table>
 	</body>
+  <div style="text-align: left">ណាត់ជួបថ្ងៃទី........ខែ.......  ឆ្នាំ ............ម៉ោង  …………ផ្នែក………………….</div<br>
 	<div style="text-align: right">ថ្ងៃទី <?php echo date("j")?>​​ ខែ <?php echo date("F")?> ឆ្នាំ <?php echo date("Y")?></div>
 	<style type="text/css">
 	    .myCenter{

@@ -141,6 +141,7 @@ class Visitors extends Securities {
 	    $this->checkSession();
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
       $datas = $this->VisitorModel->getAllVisitorPay();
+			$this->logs('3','////66'.$this->db->last_query());
       $this->restData($datas);
 	}
 
@@ -169,7 +170,11 @@ class Visitors extends Securities {
       $datas = $this->PatientModel->getPatientHistoryById();
       $this->restData($datas);
 	}
-
+	function updateBooking(){
+			$this->checkSession();
+			$this->VisitorModel->setId($this->getUrlSegment3());
+			$this->VisitorModel->getUpdateBooking();
+	}
         // #################### Translate ####################### //
         // Translate to View
         function getTranslate($data = null){

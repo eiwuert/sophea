@@ -12,15 +12,16 @@ class Neonatal extends Datastructure{
             $select = '';
             $from = $this->getTblNeonatal()." as n";
             $from.= " LEFT JOIN ".$this->getTblPatient()." as p ON p.patient_id = n.neonatal_patient_id";
-            $where = ' n.neonatal_deleted = 0';
+            $where = ' n.neonatal_deleted = 0 AND n.neonatal_id NOT IN(SELECT COALESCE(neonatal_id, 0 ) FROM '.$this->getTblVisitor().' GROUP BY neonatal_id)';
             if($this->getSearch() <> '' || $this->getSearch() != ''){
                 $where .= " AND (n.neonatal_kh_name LIKE '%".$this->getSearch()."%' OR n.neonatal_en_name LIKE '%".$this->getSearch()."%' OR n.neonatal_code LIKE '%".$this->getSearch()."%')";
             }
+						$where .= ' GROUP BY n.neonatal_id';
             return $this->executeQuery($select, $from, $where);
 	}
 	// Get Count All Neonatal
 	function getCountNeonatal() {
-			return $this->getCountWhere($this->getTblNeonatal(), ' neonatal_deleted = 0');
+			return count($this->getAllNeonatal());
 	}
 	// Get Count All Neonatal for code
 	function getCountNeonatalCode() {
@@ -89,9 +90,9 @@ class Neonatal extends Datastructure{
   // Get Patient Info by ID
 	function getNeoById(){
 	    $select = '';
-      $from = $this->getTblNeonatal() ." AS n";
+	    $from = $this->getTblNeonatal() ." AS n";
 	    $from .= " JOIN ". $this->getTblPatient() ." AS p ON p.patient_id = n.neonatal_patient_id";
-	    $where = ' n.neonatal_id = '.$this->getId().' AND neonatal_deleted = 0';
+	    $where = ' n.neonatal_id = '.$this->getId().' AND n.neonatal_deleted = 0';
 	    return $this->executeQuery($select, $from, $where);
 	}
 	// function updateRoomPatient(){

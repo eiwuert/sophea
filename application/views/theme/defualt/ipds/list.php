@@ -198,7 +198,7 @@
 						page_limit: pageLimit
 						},function(data,status){
             $.each(data, function(key,value) {
-									if(value.neonatal_id !== null){
+									if(value.neonatal_id !== "0"){
 										 v_name = value.neonatal_en_name;
 										 v_code = value.neonatal_code;
 									}else{
@@ -217,11 +217,16 @@
                     }
                     htmlView += '<td>' + status + '</td>';
                     htmlView += '<td style="text-align:center;">';
-												// htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-edit action-btn primary" onclick="editPatient(89);"></i></a>&nbsp;&nbsp; ';
-                        htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
-                        htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
-                        htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.patient_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
-                        htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+												if(value.visitors_wait_booking == 1){
+														htmlView +='<span class="handOver" title="Open Booking" onclick="updateBookWaiting(' + value.visitors_id + ');"><i class="fa fa fa-exchange action-btn"></i></span>&nbsp;&nbsp; ';
+												}
+												if(value.visitors_wait_booking == 0){
+														// htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-edit action-btn primary" onclick="editPatient(89);"></i></a>&nbsp;&nbsp; ';
+														htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
+														htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
+														htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.patient_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
+												}
+														htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="visitorLeave(' + value.visitors_id + ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
                     htmlView += '</td>';
                 htmlView += '</tr>';
             });
@@ -748,20 +753,24 @@
 	    });
 	}
 
-        function getNote(ids){
-	    var i = 0;
-	    var htmlView = '<table id="tbl7" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="2" style="background: yellow;"> Note </td></tr>';
-	    $.post("<?php echo $base_url;?>index.php/diagnostics/get_note_list/"+ids,function (data,status){
-		$.each(data, function(key,value) {
-		    htmlView += '<tr>';
-				htmlView += '<td  style="text-align:center !important;">'+value.notes_date+'</td>';
-				htmlView += '<td  style="text-align:center !important;">'+value.notes_detail+'</td>';
-		    htmlView += '</tr>';
-		});
-
-                htmlView += "</table>";
-                $('#bhistory').append(htmlView);
-	    });
-	}
+      function getNote(ids){
+				    var i = 0;
+				    var htmlView = '<table id="tbl7" class="table table-bordered table-hover dataTable" role="grid" aria-describedby="example2_info"><tr><td colspan="2" style="background: yellow;"> Note </td></tr>';
+				    $.post("<?php echo $base_url;?>index.php/diagnostics/get_note_list/"+ids,function (data,status){
+								$.each(data, function(key,value) {
+								    htmlView += '<tr>';
+										htmlView += '<td  style="text-align:center !important;">'+value.notes_date+'</td>';
+										htmlView += '<td  style="text-align:center !important;">'+value.notes_detail+'</td>';
+								    htmlView += '</tr>';
+								});
+						    htmlView += "</table>";
+						    $('#bhistory').append(htmlView);
+				    });
+			}
+			function updateBookWaiting(vid){
+					$.post("<?php echo $base_url;?>index.php/visitors/updateBooking/"+vid,function (data,status){
+							pagination();
+					});
+			}
 
 </script>

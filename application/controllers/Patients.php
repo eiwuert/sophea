@@ -167,8 +167,6 @@ class Patients extends Securities {
         function save_patient(){
 						// Check Session
 						$this->checkSession();
-						// $this->logs('3','===ff==='.date('Y-m-d',strtotime($this->getPost('patient_date_in'))));
-						// exit();
 		        $this->PatientModel->setId($this->getPost('patient_id'));
 		        $this->PatientModel->setCheckNeo($this->getPost('checkNeo'));
 						$this->PatientModel->setPatientKhName($this->getPost('patient_kh_name'));
@@ -209,8 +207,12 @@ class Patients extends Securities {
 						$this->PatientModel->setTemperature($this->getPost('temperature'));
 						$this->PatientModel->setPatientStatus($this->getPost('status_id'));
 
-						$this->PatientModel->setRoomId($this->getPost('room_id'));
-						$this->PatientModel->setBookingDate(date('Y-m-d',strtotime($this->getPost('booking_date_in'))));
+						if($this->getPost('b_opd_booking') == 1 || $this->getPost('b_ipd_booking') == 1){
+								$this->PatientModel->setRoomId($this->getPost('room_id'));
+								$this->PatientModel->setBookingDate(date('Y-m-d',strtotime($this->getPost('booking_date_in'))));
+								$this->PatientModel->setBookingPorpose($this->getPost('booking_porpuse'));
+						}
+
 						// waitting
 			   		$this->WaittingModel->setId($this->getPost('waitting_id'));
 		     		$this->WaittingModel->setWaittingOpen($this->getPost('waitting_open'));
@@ -825,12 +827,14 @@ class Patients extends Securities {
 				// #######
 				if($this->getPost('b_opd_booking') == 1){
 					$this->logs('3',$this->PatientModel->getPatientIdByCode());
+					$this->VisitorModel->set_wait_booking('1');
 					$this->VisitorModel->setB_opd_booking();
 					$this->VisitorModel->add();
 					$this->patientready($getPid);
 				}
 				if($this->getPost('b_ipd_booking') == 1){
 					$this->logs('3',$this->PatientModel->getPatientIdByCode());
+					$this->VisitorModel->set_wait_booking('1');
 					$this->VisitorModel->setB_ipd_booking();
 					$this->VisitorModel->add();
 					$this->patientready($getPid);
@@ -1127,9 +1131,9 @@ class Patients extends Securities {
             $data['emergencyPhone'] = $this->Lang('em_phone');
             $data['c_total'] = $this->Lang('total');
             $data['idCard'] = $this->Lang('id_card');
-		$data['lang_nssf_code'] = $this->Lang('nssf_code');
-		$data['lang_insurance_code'] = $this->Lang('insurance_code');
-		$data['lang_id_poor_code'] = $this->Lang('id_poor_code');
+						$data['lang_nssf_code'] = $this->Lang('nssf_code');
+						$data['lang_insurance_code'] = $this->Lang('insurance_code');
+						$data['lang_id_poor_code'] = $this->Lang('id_poor_code');
             $data['assuranceCard'] = $this->Lang('assurance_card');
             $data['assuranceCompany'] = $this->Lang('assurance_company');
             $data['motorCard'] = $this->Lang('motor_card');

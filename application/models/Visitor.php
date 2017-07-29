@@ -40,8 +40,24 @@ class Visitor extends Datastructure{
         if($this->getVisitorStatusSearch() != '0,0,0'){
             $where .= " AND visitors_leave_status in (".$this->getVisitorStatusSearch().")";
         }
-        $where .= " GROUP BY pt.patient_id";
+				$where .= " AND vs.neonatal_id <= 0";
+        $where .= " GROUP BY pt.patient_id ORDER BY vs.visitors_id DESC";
         return $this->executeQuery($select, $from, $where);
+	}
+	// Get All Visitor neo
+	function getAllVisitedNeo() {
+				$select = '';
+				$from = $this->getTblVisitor()." AS vs";
+				$from .= " JOIN ". $this->getTblNeonatal()." AS neo ON vs.neonatal_id = neo.neonatal_id";
+				$from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
+				$where = ' vs.visitors_status NOT IN (4,5)';
+				if($this->getSearch() <> '' || $this->getSearch() != ''){
+						$where .= " AND (neonatal_kh_name LIKE '%".$this->getSearch()."%' OR neonatal_en_name LIKE '%".$this->getSearch()."%' OR neonatal_code LIKE '%".$this->getSearch()."%')";
+				}
+				$where .= " AND vs.neonatal_id > 0";
+				$where .= " GROUP BY neo.neonatal_id ORDER BY vs.visitors_id DESC";
+				return $this->executeQuery($select, $from, $where);
+
 	}
 
 	// Get Count Visitor Status
@@ -64,7 +80,7 @@ class Visitor extends Datastructure{
 						$where = " visitors_status IN (".implode(',',$idOpd).") || visitors_status IN (".implode(',',$idIpd).") || visitors_status = 3";
 	    }
 			$where.=" GROUP BY visitors_patient_code";
-	    return $this->getJoinCountWhere($selet="",$this->getTblVisitor(), $where);
+	    return $this->getCoundExecuteQuery($selet="",$this->getTblVisitor(), $where);
 	}
 
 	// Get Visitor ID By Patient
@@ -131,7 +147,7 @@ class Visitor extends Datastructure{
 
 	// Get All Visitor Ipd
 	function getAllVisitorIpd() {
-            $select = ' vs.visitors_id, vs.neonatal_id, vs.visitors_patient_code, vs.wards_id, vs.visitors_in_date, vs.visitors_stay_date, vs.visitors_leave_date, vs.visitors_leave_status, vs.visitors_status, vs.visitors_status_history, vs.visitors_desc, pt.patient_kh_name, pt.patient_en_name, pt.patient_gender, pt.patient_code, pt.patient_id, pt.patient_phone, pt.patient_dob, pt.register_date, pt.patient_date_in, neo.neonatal_code, neo.neonatal_kh_name, neo.neonatal_en_name, neo.neonatal_gender, neo.neonatal_weight, neo.neonatal_dob, neo.neonatal_time, neo.neonatal_date_in';
+            $select = ' vs.visitors_wait_booking, vs.visitors_id, vs.neonatal_id, vs.visitors_patient_code, vs.wards_id, vs.visitors_in_date, vs.visitors_stay_date, vs.visitors_leave_date, vs.visitors_leave_status, vs.visitors_status, vs.visitors_status_history, vs.visitors_desc, pt.patient_kh_name, pt.patient_en_name, pt.patient_gender, pt.patient_code, pt.patient_id, pt.patient_phone, pt.patient_dob, pt.register_date, pt.patient_date_in, neo.neonatal_code, neo.neonatal_kh_name, neo.neonatal_en_name, neo.neonatal_gender, neo.neonatal_weight, neo.neonatal_dob, neo.neonatal_time, neo.neonatal_date_in';
             $from = $this->getTblVisitor()." AS vs";
             $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
             $from .= " LEFT JOIN ". $this->getTblNeonatal()." AS neo ON neo.neonatal_id = vs.neonatal_id";
@@ -144,6 +160,9 @@ class Visitor extends Datastructure{
 									$where.= ' GROUP BY visitors_patient_code';
 						}else{
 									$where.= ' visitors_status = '.$this->getVisitorStatus();
+						}
+						if($this->getCheckId() == ""){
+								$where.= ' AND  vs.visitors_wait_booking = 0';
 						}
             // Check If Limit
             if($this->getLimit() != '0' || $this->getStart() != '0'){
@@ -220,7 +239,9 @@ class Visitor extends Datastructure{
 
 	// Get All Visitor Opd
 	function getAllVisitorOpd($neoOnly = '') {
-            $select = '';
+						$select = 'vs.visitors_wait_booking, vs.neonatal_id, vs.visitors_id, vs.visitors_patient_code, vs.patient_id, vs.wards_id, vs.visitors_in_date, vs.visitors_stay_date, vs.visitors_leave_date, vs.visitors_leave_status, vs.visitors_status, vs.visitors_status_history, vs.visitors_desc,';
+						$select .= 'pt.patient_code, pt.patient_serial, pt.patient_kh_name, pt.patient_en_name, pt.patient_gender, pt.patient_phone, pt.patient_dob, pt.patient_date_in, pt.patient_workstation_id, pt.patient_room, pt.patient_booking_date, pt.patient_ready, pt.patient_check_neo, ';
+            $select .= 'neo.neonatal_patient_id, neo.neonatal_patient_code, neo.neonatal_kh_name, neo.neonatal_en_name, neo.neonatal_gender, neo.neonatal_weight, neo.neonatal_view, neo.neonatal_total, neo.neonatal_health, neo.neonatal_amniotic_fluid, neo.neonatal_location_placenta, neo.neonatal_dob, neo.neonatal_time, neo.neonatal_date_in, neo.neonatal_deleted';
             $from = $this->getTblVisitor()." AS vs";
             $from .= " JOIN ". $this->getTblPatient()." AS pt ON vs.patient_id = pt.patient_id";
             $from .= " LEFT JOIN ". $this->getTblNeonatal()." AS neo ON neo.neonatal_id = vs.neonatal_id";
@@ -235,6 +256,9 @@ class Visitor extends Datastructure{
 						}
             if($neoOnly == '1'){
 									$where.= ' AND  vs.neonatal_id > 0';
+						}
+						if($this->getCheckId() == ""){
+									$where.= ' AND  vs.visitors_wait_booking = 0';
 						}
 						// hidden group by visitor because of this use in opd view with neo
 						// $where.=' GROUP BY visitors_patient_code';
@@ -282,7 +306,7 @@ class Visitor extends Datastructure{
 				$where = ' visitors_status = '.$this->getVisitorStatus();
 		}
 		// return $this->getCountWhere($this->getTblVisitor(), $where);
-		return $this->getJoinCountWhere($select="", $this->getTblVisitor(), $where);
+		return $this->getCoundExecuteQuery($select="", $this->getTblVisitor(), $where);
 	}
 
 	// Get Count All Visitor Opd
@@ -305,12 +329,13 @@ class Visitor extends Datastructure{
 
 	// Get check exist visitor
 	function getCheckExistVisitor($status_id, $patient_id) {
-		return $this->getCountWhere($this->getTblVisitor(), ' visitors_status = '.$status_id.' AND patient_id = '.$patient_id.' AND neonatal_id IS NULL ');
+		return $this->getCountWhere($this->getTblVisitor(), ' visitors_status = '.$status_id.' AND patient_id = '.$patient_id.' AND neonatal_id <= 0 ');
 	}
 
 	// Add or Insert Visitor
 	function add(){
 		if($this->getCheckExistVisitor($this->getVisitorStatus(), $this->getPatientId()) == 0){
+			$this->setArrayData('visitors_wait_booking', '1');
 			$this->insertData($this->getTblVisitor(),$this->getArrayDatas());
 		}
 	}
@@ -470,9 +495,9 @@ class Visitor extends Datastructure{
           		$where .= " AND (visitors_in_date BETWEEN '".date('Y-m-d',strtotime($this->getDate1()))."' AND '".date('Y-m-d',strtotime($this->getDate2()))."')";
           }
 					if($this->getId() == 0){
-							$where .= " AND  neonatal_id IS NULL";
+							$where .= " AND  neonatal_id <= 0";
 					}elseif($this->getId() == 1){
-							$where .= " AND  neonatal_id IS NOT NULL";
+							$where .= " AND  neonatal_id > 0";
 					}
 					$where.= " GROUP BY visitors_status_history ORDER BY visitors_status_history ASC";
 					return $this->executeQuery($select, $from, $where);
@@ -485,16 +510,15 @@ class Visitor extends Datastructure{
 							$where .= " AND (visitors_in_date BETWEEN '".date('Y-m-d',strtotime($this->getDate1()))."' AND '".date('Y-m-d',strtotime($this->getDate2()))."')";
 					}
 					if($this->getId() == 0){
-							$where .= " AND  neonatal_id IS NULL";
+							$where .= " AND  neonatal_id <= 0";
 					}elseif($this->getId() == 1){
-							$where .= " AND  neonatal_id IS NOT NULL";
+							$where .= " AND  neonatal_id > 0";
 					}
 					$where.= " GROUP BY visitors_status_history ORDER BY visitors_status_history ASC";
 					return $this->executeQuery($select, $from, $where);
 		}
-
-
-
-
+		function getUpdateBooking(){
+					$this->updateDataWhere($this->getTblVisitor(), array("visitors_wait_booking"=>0), ' visitors_id = "'.$this->getId().'"');
+		}
 }
 ?>

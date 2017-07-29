@@ -405,7 +405,8 @@
 	}
 	function deleteNeonatal(ids, codes){
 	     $.post("<?php echo $base_url;?>index.php/neonatals/delete_neonatal/"+ids,{neonatal_id: ids, neonatal_code: codes},function(data,status){});
-	     pagination();
+			 getNeoList();
+			 pagination();
 	}
   function viewOptEcho(){
       // alert('ECHO');

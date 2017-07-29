@@ -548,21 +548,19 @@ class Diagnostics extends Securities {
 
 	    $this->restData($datas);
 	}
-	// xxxx
   function get_opd_list(){
 	    // Check Session
 	    $this->checkSession();
-						// $idOpd use for select all OPD
-						$idOpd = array("1","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30",
-						            "69","70","71","72","73","74","75","76","77","78","79","80","81",
-						          "82","83","84",
-						        "104","105",
-						      "86","87","88","89","90","91","92","93","94",
-						    "96",
-						  "98","99","100","101",
-						"107");
-						$this->VisitorModel->setId($idOpd);
-
+			// $idOpd use for select all OPD
+			$idOpd = array("1","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30",
+			            "69","70","71","72","73","74","75","76","77","78","79","80","81",
+			          "82","83","84",
+			        "104","105",
+			      "86","87","88","89","90","91","92","93","94",
+			    "96",
+			  "98","99","100","101",
+			"107");
+			$this->VisitorModel->setId($idOpd);
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    /*$this->VisitorModel->setStart($this->getPost('page_start'));
 	    $this->VisitorModel->setLimit($this->getPost('page_limit'));*/
@@ -3486,6 +3484,7 @@ class Diagnostics extends Securities {
 	    // Check Session
 	    $this->checkSession();
 
+			$this->VisitorModel->setCheckId('1');
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    $this->VisitorModel->setB_opd_booking();
 	    $this->VisitorModel->setStart('0');
@@ -3526,7 +3525,7 @@ class Diagnostics extends Securities {
 	function get_b_ipd_booking_list(){
 	    // Check Session
 	    $this->checkSession();
-
+			$this->VisitorModel->setCheckId('1');
 	    $this->VisitorModel->setSearch($this->getPost('search_data'));
 	    $this->VisitorModel->setB_ipd_booking();
 	    $this->VisitorModel->setStart('0');

@@ -58,7 +58,6 @@ class Reports extends Securities {
         // Load View
         $this->LoadView('reports/income_list',$data);
     }
-    // xxxxxxxxxxxxxxxxxxxxxxxx
     function serviceCount(){
   	    //Check Session
         $this->checkSession();

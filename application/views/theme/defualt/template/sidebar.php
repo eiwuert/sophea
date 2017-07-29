@@ -24,7 +24,7 @@
 					echo '</li>';
 				//}
 				//if(@$per_clinicals == '1'){
-					echo '<li class="'.@$ac_diagnostics.@ac_neonatal.@$ac_ipds.@$ac_visitors.' treeview">';
+					echo '<li class="'.@$ac_diagnostics.@$ac_neonatal.@$ac_neonatal_visited.@$ac_ipds.@$ac_visitors.' treeview">';
 						echo '<a href="#">';
 							echo '<i class="fa fa-user-md"></i> <span> '.@$h_clinical.' </span> <i class="fa fa-angle-left pull-right"></i>';
 						echo '</a>';

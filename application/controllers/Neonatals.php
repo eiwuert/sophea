@@ -18,12 +18,12 @@ class Neonatals extends Securities {
             // Menu Active
             $data['ac_neonatal'] = 'active';
             // Get Item Per Page
-    	    $data['item_per_page'] = $this->getSysConfig();
-    	    // Get Count All Neonatal
-    	    $data['totals'] = $this->NeonatalModel->getCountNeonatal();
-            // Define Gender Cambo
-    	    $data['genderId'][0] = "Female";
-    	    $data['genderId'][1] = "Male";
+      	    $data['item_per_page'] = $this->getSysConfig();
+      	    // Get Count All Neonatal
+      	    $data['totals'] = $this->NeonatalModel->getCountNeonatal();
+              // Define Gender Cambo
+      	    $data['genderId'][0] = "Female";
+      	    $data['genderId'][1] = "Male";
             // Get Translate Word to View
             $data = $this->getTranslate($data);
 
@@ -35,12 +35,12 @@ class Neonatals extends Securities {
             $this->LoadView('template/footer');
         }
         function get_neonatal_list(){
-    	    // Check Session
-    	    $this->checkSession();
-    		$this->NeonatalModel->setSearch($this->getPost('search_data'));
-    		$datas = $this->NeonatalModel->getAllNeonatal();
+      	    // Check Session
+      	    $this->checkSession();
+        		$this->NeonatalModel->setSearch($this->getPost('search_data'));
+        		$datas = $this->NeonatalModel->getAllNeonatal();
             $this->restData($datas);
-    	}
+      	}
         function save_neonatal(){
             // redirect($this->getBaseUrl().'index.php/ipds');
             // $this->getBaseUrl('ipds');
@@ -93,8 +93,7 @@ class Neonatals extends Securities {
           $this->checkSession();
           $this->NeonatalModel->setCode($this->getPost('neonatal_code'));
           $this->NeonatalModel->setId($this->getUrlSegment3());
-          $p = $this->NeonatalModel->delete();
-          $this->logs('3','000--->'.$p);
+          $this->NeonatalModel->delete();
           // Write Log in to log file
           $this->logs('3', 'Delete '.$this->getUrlSegment1().' Neonatal From List');
           $this->logs('4', 'Delete '.$this->getUrlSegment1().' Neonatal From List');
@@ -103,9 +102,9 @@ class Neonatals extends Securities {
   		function get_neonatal_info_by_id_json(){
   		    // Check Session
   		    $this->checkSession();
-  	            $this->NeonatalModel->setId($this->getUrlSegment3());
-  	            $datas = $this->NeonatalModel->getNeoById();
-  	            $this->restData($datas);
+          $this->NeonatalModel->setId($this->getUrlSegment3());
+          $datas = $this->NeonatalModel->getNeoById();
+          $this->restData($datas);
   		}
 
       // Define Index of Unit Fucntion
@@ -116,44 +115,14 @@ class Neonatals extends Securities {
           // Get Item Per Page
           $data['item_per_page'] = $this->getSysConfig();
           // Get Count All Product
-          $data['totals'] = $this->PatientModel->getCountAllPatientView();
+          $data['totals'] = count($this->VisitorModel->getAllVisitedNeo());
           // Menu Active
-          // $data['ac_viewall'] = 'active';
-
-              // Define Gender Cambo
-          // $data['genderCambo'][0] = "Female";
-          // $data['genderCambo'][1] = "Male";
-
-                // Define Status Cambo
-          // $data['statusCambo'][0] = "Sigle";
-          // $data['statusCambo'][1] = "Married";
-
-          // $this->WorkstationModel->setStart(0);
-          // $this->WorkstationModel->setLimit(0);
-          // $query_workstation = $this->WorkstationModel->getAllWorkstation();
-          // $data['drop_workshop'] = $this->queryDropDownMenu($query_workstation,$label_id='0',$label_name='-- --',$id='workstation_id',$value='workstation_name',$value2='');
-
+          $data['ac_neonatal_visited'] = 'active';
           // Get Translate Word to View
           $data = $this->getTranslate($data);
-          // waitting Form
-          // $data['generate_num_waitting'] = $this->WaittingModel->genNumber();
-
-          // $this->RoomModel->setStart(0);
-          // $this->RoomModel->setLimit(0);
-          // $query_room = $this->RoomModel->getAllRoom();
-          // $data['drop_room'] = $this->queryDropDownMenu($query_room,$label_id='0',$label_name='-- --',$id='room_id',$value='room_name',$value2='');
-          //
-          // $this->WardModel->setStart(0);
-          // $this->WardModel->setLimit(0);
-          // $query_ward = $this->WardModel->getAllWard();
-          // $data['drop_wards'] = $this->queryDropDownMenu($query_ward,$label_id='0',$label_name='-- --',$id='wards_id',$value='wards_desc',$value2='');
-          //
-          // $this->WardModel->setStart(0);
-          // $this->WardModel->setLimit(0);
-          // $query_user = $this->UserModel->getAllUser();
-          // $data['drop_user'] = $this->queryDropDownMenu($query_user,$label_id='0',$label_name='-- --',$id='uid',$value='name',$value2='');
-
-
+          // Define Gender Cambo
+          $data['genderId'][0] = "Female";
+          $data['genderId'][1] = "Male";
 
           // Load View
           $this->LoadView('template/header',$data);
@@ -163,6 +132,13 @@ class Neonatals extends Securities {
           $this->LoadView('template/footer');
       }
 
+      function getNeoListVisited(){
+          // Check Session
+          $this->checkSession();
+          $this->VisitorModel->setSearch($this->getPost('search_data'));
+          $datas = $this->VisitorModel->getAllVisitedNeo();
+          $this->restData($datas);
+      }
 
       // #################### Translate ####################### //
       // Translate to View
@@ -173,7 +149,7 @@ class Neonatals extends Securities {
 
           $data['list'] = $this->Lang('list');
           $data['create'] = $this->Lang('create');
-
+          $data['c_total'] = $this->Lang('total');
           $data['edit'] = $this->Lang('update');
           $data['delete'] = $this->Lang('delete');
           $data['name'] = $this->Lang('name');

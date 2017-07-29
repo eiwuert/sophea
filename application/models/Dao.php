@@ -214,7 +214,7 @@ class Dao extends CI_Model{
 				return $count;
 	}
 	// Get Join Count All Data From a Table
-	function getJoinCountWhere($select="", $from = "",$where = ""){
+	function getCoundExecuteQuery($select="", $from = "",$where = ""){
 		$qr = "";
             if(($from <> '' || $from <> NULL) && ($where <> '' || $where <> NULL)){
                     $qr = " SELECT ";

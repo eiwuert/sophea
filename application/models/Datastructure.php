@@ -5,7 +5,6 @@ if (! defined ( 'BASEPATH' )) exit ( 'No direct script access allowed' );
 require_once ('Dao.php');
 
 class Datastructure extends Dao{
-
 	// ################## Variable ##################################//
 	// =============== Table Name ===================
 	private $tbl_pre = "emedirec_";
@@ -76,8 +75,9 @@ class Datastructure extends Dao{
 	private $weight = '';
 	private $dob = '';
 	private $time = '';
-        private $permissionSection = '';
-
+	private $permissionSection = '';
+	private $checkId = '';
+	
 	// ============= Hospital============
 	private $hospitalId = '';
 	private $hospitalCode = '';
@@ -98,6 +98,8 @@ class Datastructure extends Dao{
 	private $patientId = '';
 	private $roomId = '';
 	private $bookingDate = '';
+	private $bookingPorpose = '';
+	private $bookingWaitId = '';
 	private $patientCode = '';
 	private $patientKhName = '';
 	private $patientEnName = '';
@@ -706,6 +708,14 @@ class Datastructure extends Dao{
 		return $this->wardCode;
 	}
 
+	// check id
+	public function setCheckId($value){
+		$this->checkId = $value;
+	}
+	public function getCheckId(){
+		return $this->checkId;
+	}
+
 	//========== Icd 10 ===========
 
 	// icd10 Id
@@ -745,6 +755,20 @@ class Datastructure extends Dao{
 	}
 	public function getBookingDate(){
 		return $this->bookingDate;
+	}
+	// Booking Porpose
+	public function setBookingPorpose($value){
+		$this->bookingPorpose = $value;
+	}
+	public function getBookingPorpose(){
+		return $this->bookingPorpose;
+	}
+	// Booking Wait
+	public function set_wait_booking($value){
+		$this->bookingWaitId = $value;
+	}
+	public function get_wait_booking(){
+		return $this->bookingWaitId;
 	}
 
 	// Patient Code

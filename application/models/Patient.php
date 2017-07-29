@@ -75,7 +75,7 @@ class Patient extends Datastructure{
 			$from .= " LEFT JOIN ". $this->getTblVisitor()." AS vs ON vs.patient_id = pt.patient_id";
 			$where = " patient_deleted = 0 ";
 			$where .= " GROUP BY pt.patient_id";
-		 	return $this->getJoinCountWhere($select ,$from ,$where);
+		 	return $this->getCoundExecuteQuery($select ,$from ,$where);
 	}
 
         // Function Get Count Patient
@@ -363,6 +363,7 @@ class Patient extends Datastructure{
 				    $this->setArrayData('patient_province',$this->getProvince());
 						$this->setArrayData('patient_room',$this->getRoomId());
 						$this->setArrayData('patient_booking_date',$this->getBookingDate());
+						$this->setArrayData('patient_booking_porpose',$this->getBookingPorpose());
 
 				    return $this->getArrayData();
         }

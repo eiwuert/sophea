@@ -210,14 +210,14 @@
 							page_limit: pageLimit
 				},function(data,status){
 			        $.each(data, function(key,value) {
-					        	if(value.neonatal_id !== null){
+					        	if(value.neonatal_id != "0"){
 					        		v_name = value.neonatal_en_name;
 					        		v_code = value.neonatal_code;
 					        	}else{
 					        		v_name = value.patient_kh_name;
 					        		v_code = value.patient_code;
 					        	}
-					        	if(value.neonatal_id !== null){
+					        	if(value.neonatal_id !== "0"){
 					        		leaveNeoId = value.neonatal_id;
 					        	}else{
 					        		leaveNeoId = 0;
@@ -233,10 +233,15 @@
 					                }
 					                htmlView += '<td>' + status + '</td>';
 					                htmlView += '<td style="text-align:center;">';
-					                    htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
-					                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
-					                    htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.visitors_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
-					                    htmlView +='<span class="handOver" title="<?php echo @$leave;?>" id="getCodeLeave" onclick="visitorLeave(' +value.patient_id+ ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
+															if(value.visitors_wait_booking == 1){
+																	htmlView +='<span class="handOver" title="Open Booking" onclick="updateBookWaiting(' + value.visitors_id + ');"><i class="fa fa fa-exchange action-btn"></i></span>&nbsp;&nbsp; ';
+															}
+															if(value.visitors_wait_booking == 0){
+																	htmlView +='<a href="<?php echo @$base_url;?>index.php/patients/photo/P' + value.patient_id + '" title="Photo" target="_blank"><i class="fa fa-picture-o action-btn primary"></i></a>&nbsp;&nbsp; ';
+																	htmlView +='<span class="handOver" title="<?php echo @$leave;?>" onclick="addPrescription(' + value.visitors_id + ');"><i class="fa fa-stethoscope action-btn primary"></i></span>&nbsp;&nbsp; ';
+																	htmlView +='<span class="handOver" title="<?php echo @$view;?>" onclick="viewVisitor(' + value.visitors_id	 + ');"><i class="fa fa-user-md  action-btn"></i></span>&nbsp;&nbsp; ';
+															}
+															htmlView +='<span class="handOver" title="<?php echo @$leave;?>" id="getCodeLeave" onclick="visitorLeave(' +value.patient_id+ ',\'' + v_code + '\');"><i class="fa fa-external-link  action-btn danger"></i></span>';
 					                htmlView += '</td>';
 					          htmlView += '</tr>';
 			        });
@@ -472,7 +477,7 @@
     function viewVisitor(ids){
 		 		$.post("<?php echo $base_url;?>index.php/visitors/get_visitor_info_by_id_json/"+ids,function(data,status){
 						$.each(data, function(key,value) {
-								if(value.neonatal_id !== ''){
+								if(value.neonatal_id !== "0"){
 									$('#dispTitleCode').text('Neonatals');
 									$('#p_code').html(value.neonatal_code);
 									$('#kh_name').html(value.neonatal_kh_name);
@@ -774,6 +779,11 @@
             htmlView += "</table>";
             $('#bhistory').append(htmlView);
 	    });
+	}
+	function updateBookWaiting(vid){
+			$.post("<?php echo $base_url;?>index.php/visitors/updateBooking/"+vid,function (data,status){
+					pagination();
+			});
 	}
 
 </script>
